@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 import click
 
 from sz.core import bus, manifest, paths, registry, repo_config, runtime
+from sz.cloud import telemetry as cloud_telemetry
 from sz.interfaces import bus as bus_interface
 from sz.interfaces import memory
 from sz.interfaces import schedule
@@ -70,6 +71,9 @@ def cmd(reason: str) -> None:
         if not bus_interface.subscribe(root, module_id, event_patterns):
             continue
         _run_module(root, module_id, module_dir, data)
+    thread = cloud_telemetry.flush_after_tick(root)
+    if thread is not None:
+        thread.join(timeout=float(os.environ.get("SZ_TELEMETRY_JOIN_SECONDS", "2")))
     click.echo(f"Tick completed ({reason})")
 
 

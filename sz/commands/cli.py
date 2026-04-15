@@ -11,10 +11,13 @@ from sz.commands import (
     doctor,
     genesis,
     host,
+    insights,
     init,
     install,
     lifecycle,
     llm,
+    login,
+    logout,
     ls,
     memory,
     reconcile,
@@ -25,6 +28,7 @@ from sz.commands import (
     storage,
     tick,
     uninstall,
+    upgrade,
 )
 
 
@@ -46,6 +50,10 @@ cli.add_command(reconcile.cmd, name="reconcile")
 cli.add_command(absorb.cmd, name="absorb")
 cli.add_command(genesis.cmd, name="genesis")
 cli.add_command(catalog.cmd, name="catalog")
+cli.add_command(login.cmd, name="login")
+cli.add_command(logout.cmd, name="logout")
+cli.add_command(upgrade.cmd, name="upgrade")
+cli.add_command(insights.cmd, name="insights")
 
 cli.add_command(host.group, name="host")
 cli.add_command(memory.group, name="memory")
