@@ -4,6 +4,7 @@ import json
 import os
 from pathlib import Path
 import shlex
+import signal
 import stat
 import sys
 import time
@@ -310,6 +311,46 @@ def test_stop_falls_back_when_process_group_signal_is_denied(tmp_path: Path, mon
     def deny_process_group_signal(pid: int, sig: int) -> None:
         raise PermissionError(1, "Operation not permitted")
 
+    monkeypatch.setattr(stop_command.os, "killpg", deny_process_group_signal)
+    result = runner.invoke(cli, ["stop"])
+    assert result.exit_code == 0, result.output
+    assert not pid_path.exists()
+    assert not (repo_root / ".sz" / "heartbeat.stop").exists()
+    assert not stop_command._is_running(pid)
+
+
+def test_stop_uses_sentinel_when_all_signals_are_denied(tmp_path: Path, monkeypatch) -> None:
+    repo_root = tmp_path / "sentinel-fallback-repo"
+    repo_root.mkdir()
+    shim_dir = _write_cli_shim(repo_root)
+
+    runner = CliRunner()
+    monkeypatch.chdir(repo_root)
+    monkeypatch.setenv("PATH", f"{shim_dir}:{os.environ.get('PATH', '')}")
+    monkeypatch.setenv("SZ_INTERVAL", "1")
+    monkeypatch.setenv("SZ_DEDUP_WINDOW_SECONDS", "0")
+    monkeypatch.setenv("SZ_CRONTAB_FILE", str(repo_root / "cron.txt"))
+
+    result = runner.invoke(cli, ["init", "--host", "generic", "--host-mode", "install", "--no-genesis", "--yes"])
+    assert result.exit_code == 0, result.output
+
+    result = runner.invoke(cli, ["start"])
+    assert result.exit_code == 0, result.output
+    pid_path = repo_root / ".sz" / "heartbeat.pid"
+    pid = int(pid_path.read_text().strip())
+    _wait_for_heartbeat_tick(repo_root / ".sz" / "bus.jsonl")
+
+    original_kill = stop_command.os.kill
+
+    def deny_sigterm(target_pid: int, sig: int) -> None:
+        if sig == signal.SIGTERM:
+            raise PermissionError(1, "Operation not permitted")
+        original_kill(target_pid, sig)
+
+    def deny_process_group_signal(pid: int, sig: int) -> None:
+        raise PermissionError(1, "Operation not permitted")
+
+    monkeypatch.setattr(stop_command.os, "kill", deny_sigterm)
     monkeypatch.setattr(stop_command.os, "killpg", deny_process_group_signal)
     result = runner.invoke(cli, ["stop"])
     assert result.exit_code == 0, result.output
