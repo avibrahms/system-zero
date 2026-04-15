@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import hashlib
+import fnmatch
 import threading
 import uuid
 from pathlib import Path
@@ -24,13 +25,13 @@ def flush_after_tick(root: Path) -> threading.Thread | None:
     if not (paths.user_config_dir() / "token").exists():
         return None
 
-    events = bus_interface.subscribe(root, _TELEMETRY_MODULE_ID, "*")
+    events, cursor_after = _peek_events(root, "*")
     if not events:
         return None
 
     thread = threading.Thread(
         target=_flush,
-        args=(root, config, events),
+        args=(root, config, events, cursor_after),
         name="s0-cloud-telemetry",
         daemon=True,
     )
@@ -52,9 +53,26 @@ def _repo_fingerprint(root: Path) -> str:
     return hashlib.sha256(marker.encode()).hexdigest()
 
 
-def _flush(root: Path, config: dict[str, Any], events: list[dict[str, Any]]) -> None:
+def _peek_events(root: Path, pattern: str) -> tuple[list[dict[str, Any]], int]:
+    all_events = bus_interface.read_events(paths.bus_path(root))
+    cursor = max(0, bus_interface.read_cursor(root, _TELEMETRY_MODULE_ID))
+    pending = all_events[cursor:]
+    matched = [
+        event
+        for event in pending
+        if fnmatch.fnmatch(event["type"], pattern)
+    ]
+    return matched, len(all_events)
+
+
+def _flush(
+    root: Path,
+    config: dict[str, Any],
+    events: list[dict[str, Any]],
+    cursor_after: int,
+) -> None:
     try:
-        client.telemetry(
+        response = client.telemetry(
             _install_id(root),
             events,
             repo_fingerprint=_repo_fingerprint(root),
@@ -63,7 +81,11 @@ def _flush(root: Path, config: dict[str, Any], events: list[dict[str, Any]]) -> 
             sz_version=config.get("sz_version", "0.1.0"),
             telemetry_opt_in=config.get("cloud", {}).get("telemetry") is True,
         )
+        if response.get("accepted") is not True:
+            return
+        current_cursor = bus_interface.read_cursor(root, _TELEMETRY_MODULE_ID)
+        bus_interface.write_cursor(root, _TELEMETRY_MODULE_ID, max(current_cursor, cursor_after))
     except Exception:
         # Telemetry is opt-in and non-essential. A network or provider failure must not
-        # break the local tick loop.
+        # break the local tick loop. The cursor is left untouched so events retry later.
         return
