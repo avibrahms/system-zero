@@ -48,6 +48,14 @@ def validate(data: dict[str, Any]) -> dict[str, Any]:
     return data
 
 
+def validate_manifest(data: dict[str, Any]) -> list[str]:
+    try:
+        validate(data)
+    except Exception as exc:
+        return [str(exc)]
+    return []
+
+
 def load(path: Path) -> dict[str, Any]:
     raw = yaml.load(path.read_text(), Loader=_ManifestLoader) or {}
     if not isinstance(raw, dict):

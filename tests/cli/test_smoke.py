@@ -203,8 +203,12 @@ def _run_cli_smoke(tmp_path: Path, monkeypatch, host: str, host_mode: str) -> No
     assert result.exit_code == 0, result.output
     assert (repo_root / "doctor-ran.txt").read_text().strip() == "doctor-ok"
 
+    result = runner.invoke(cli, ["absorb", "--help"])
+    assert result.exit_code == 0, result.output
+    assert "Absorb a feature from an open-source repo as an S0 module." in result.output
+    assert "--feature" in result.output
+
     stub_expectations = {
-        "absorb": "Absorb is implemented in phase 06.",
         "genesis": "Repo Genesis is implemented in phase 07.",
         "catalog": "Catalog is implemented in phase 09.",
     }
