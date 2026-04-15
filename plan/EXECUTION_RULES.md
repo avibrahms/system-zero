@@ -94,9 +94,9 @@ If two phases would reasonably need the same helper function, the helper is impl
 
 No phase plan, scaffold, or test in this folder may hardcode a specific LLM provider, IDE, or operating system beyond what is explicitly required by the host adapter being implemented. Default LLM provider is selected from the user's environment.
 
-## R24. Commit boundaries
+## R24. Git checkpoint boundaries
 
-Each phase ends with a single git commit on a branch named `phase-NN-name`. Commit message: `phase NN: <name> complete`. Do not commit mid-phase. Do not squash phases.
+Each phase ends at a verifiable git checkpoint, but spec-loop execution stays on the current branch for the entire run. Do not create, switch, rename, or delete branches while executing a phase. If follow-up reconciliation is required after an initial phase commit, keep the additional commit(s) on the current branch and update the affected phase plan so verification checks the current-branch checkpoint history explicitly. Do not commit mid-phase unless the phase plan calls for it. Do not squash phases.
 
 ## R25. Constrained LLM Call (CLC) discipline — spec-driven
 

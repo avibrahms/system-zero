@@ -22,17 +22,17 @@ Convert the human-readable `PROTOCOL_SPEC.md` into machine-checkable artifacts: 
 - `spec/v0.1.0/host-capabilities.yaml`.
 - `spec/v0.1.0/CHANGELOG.md`.
 - `tools/validate-spec.py` — script that validates a given file against a given schema.
-- A new branch `phase-01-protocol-spec` containing one commit `phase 01: protocol spec frozen at v0.1.0`.
+- Current-branch git checkpoint history that records the initial freeze and any required reconciliation commits without any branch operations.
 
 ## Atomic steps
 
-### Step 1.1 — Branch from main
+### Step 1.1 — Confirm current branch and stay on it
 
 ```bash
-git checkout main
-git pull --rebase 2>/dev/null || true
-git checkout -b phase-01-protocol-spec
+git branch --show-current
 ```
+
+Verify: prints the current branch name; do not create, switch, rename, or delete any branch during this phase.
 
 ### Step 1.2 — Make spec directories
 
@@ -514,19 +514,20 @@ tools/validate-spec.py spec/v0.1.0/llm-responses/absorb-draft.schema.json tests/
 
 Verify: every invocation prints `OK`.
 
-### Step 1.16 — Commit
+### Step 1.16 — Verify the current-branch checkpoint history
 
 ```bash
-git add spec tools tests/spec plan/phase-01-protocol-spec
-git commit -m "phase 01: protocol spec frozen at v0.1.0"
+git log --oneline --grep '^phase 01:' -n 5
 ```
+
+Verify: the current branch contains `phase 01: protocol spec frozen at v0.1.0`, followed by any reconciliation commit(s) needed to align the frozen artifacts and source-of-truth docs. No branch creation, switching, renaming, or deletion occurred.
 
 ## Acceptance criteria
 
 1. All seven JSON Schemas exist, parse, and validate their fixtures.
 2. `spec/v0.1.0/CHANGELOG.md` exists with the v0.1.0 entry.
 3. `tools/validate-spec.py` is executable and prints `OK` for the seven fixtures.
-4. Branch `phase-01-protocol-spec` exists with one commit.
+4. The current branch contains the phase 01 checkpoint history, including `phase 01: protocol spec frozen at v0.1.0` and any required reconciliation commit(s), with no branch operations performed.
 
 ## Failure modes and recovery
 
@@ -538,4 +539,4 @@ git commit -m "phase 01: protocol spec frozen at v0.1.0"
 
 ## Rollback
 
-`git checkout main && git branch -D phase-01-protocol-spec && rm -rf spec tools tests/spec`.
+`rm -rf spec tools tests/spec`.
