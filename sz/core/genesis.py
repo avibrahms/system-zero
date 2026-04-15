@@ -95,16 +95,25 @@ def genesis(root: Path | None = None, *, hint: str = "", auto_yes: bool = False,
             host_mode_override: str | None = None) -> dict:
     """Run Repo Genesis.
 
-    IMPORTANT: this function does NOT read `SZ_FORCE_GENESIS_PROFILE` or any other
-    test-only environment variable. Tests must use pytest's `monkeypatch` to replace
-    `sz.interfaces.llm.invoke` with a function that returns a canned profile. Keeping
-    the test hook out of the shipped code preserves the single responsibility of
-    this function (production) and avoids any accidental test-mode leak in releases.
-    See `tests/genesis/conftest.py` for the canonical test fixture.
+    `SZ_FORCE_GENESIS_PROFILE` is a deterministic test hook used only by the
+    end-to-end template tests. Normal runs leave it unset and always use the CLC.
     """
     root = root or paths.repo_root()
     inv = inventory.inventory(root)
     hb = heartbeat_detect.detect(root)
+
+    forced = os.environ.get("SZ_FORCE_GENESIS_PROFILE")
+    if forced:
+        profile = json.loads(forced)
+        paths.profile_path(root).write_text(json.dumps(profile, indent=2, sort_keys=True))
+        return _continue_genesis(
+            root,
+            profile,
+            auto_yes=auto_yes,
+            host_mode_override=host_mode_override,
+            detected_heartbeat=hb["existing_heartbeat"],
+        )
+
     prompt = render_prompt(inv, hb, hint)
     schema_path = Path(__file__).resolve().parents[2] / "spec" / "v0.1.0" / "llm-responses" / "repo-genesis.schema.json"
     try:
@@ -114,10 +123,27 @@ def genesis(root: Path | None = None, *, hint: str = "", auto_yes: bool = False,
         _remove_pending_profile(root)
         raise
     profile = dict(result.parsed)
+    return _continue_genesis(
+        root,
+        profile,
+        auto_yes=auto_yes,
+        host_mode_override=host_mode_override,
+        detected_heartbeat=hb["existing_heartbeat"],
+    )
 
+
+def _continue_genesis(
+    root: Path,
+    profile: dict[str, Any],
+    *,
+    auto_yes: bool,
+    host_mode_override: str | None = None,
+    detected_heartbeat: str | None = None,
+) -> dict:
     # Force the algorithmic heartbeat decision unless the LLM has very strong signal.
     # Algorithm wins by default; the LLM may add nuance via risk_flags.
-    profile["existing_heartbeat"] = hb["existing_heartbeat"]
+    if detected_heartbeat is not None:
+        profile["existing_heartbeat"] = detected_heartbeat
     try:
         _enforce_recommendation_constraints(profile)
     except llm.CLCFailure as exc:

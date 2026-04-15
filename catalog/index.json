@@ -59,6 +59,41 @@
       "readme": "Endocrine listens for aggregate health snapshots and adjusts module setpoints in response. It provides a first autonomous regulation loop so System Zero can dampen noisy behavior and react to unhealthy states.\n"
     },
     {
+      "id": "goal-runner",
+      "version": "0.1.0",
+      "category": "action",
+      "description": "Reads .sz/repo-profile.json and executes a per-language run command if today's expected output is missing.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "goal.execution"
+      ],
+      "requires": [],
+      "setpoints": {
+        "run_command": {
+          "default": "",
+          "enum": [
+            ""
+          ],
+          "description": "Override; if empty, derived from repo-profile."
+        },
+        "expected_output_glob": {
+          "default": "",
+          "enum": [
+            ""
+          ],
+          "description": "Override; if empty, derived from repo-profile."
+        }
+      },
+      "source": {
+        "type": "local",
+        "path": "/Users/avi/Documents/Projects/system0-natural/modules/goal-runner"
+      },
+      "readme": "Goal Runner is the bridge between Repo Genesis and repository action. It reads the S0 repo profile, derives a simple per-language run command, and invokes it on tick only when today's expected output is missing.\n"
+    },
+    {
       "id": "heartbeat",
       "version": "0.1.0",
       "category": "physiology",

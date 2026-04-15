@@ -1,0 +1,14 @@
+{
+  "module_id": "concurrency-limiter",
+  "description": "Concurrency limiter (port of p-limit).",
+  "category": "absorbed",
+  "entry": {"type": "node", "command": "entry.js"},
+  "triggers": [{"on": "tick"}],
+  "provides": [{"name": "concurrency.limiter", "address": "events:limiter.metric", "description": "Limit concurrent function invocations."}],
+  "requires": [{"providers": ["bus"]}],
+  "setpoints": {"max_concurrent": {"default": 4, "range": [1, 32], "description": "Maximum concurrent tasks."}},
+  "files_to_copy": [],
+  "entry_script": "#!/usr/bin/env node\nconst { execSync } = require('child_process');\nconst max = parseInt(process.env.SZ_SETPOINT_max_concurrent || '4', 10);\nexecSync(`sz bus emit limiter.metric '{\"peak\":1,\"max\":${max}}'`, {stdio: 'ignore'});\n",
+  "reconcile_script": "#!/usr/bin/env bash\nset -euo pipefail\necho '{}' > \"$SZ_MODULE_DIR/runtime.json\"\n",
+  "notes": "Test-only canned module for static template absorption."
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "name": "static: profile mentions weather",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "name": "static: heartbeat recommended",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "name": "static: goal-runner recommended",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "name": "static: >=3 CE modules installed",
+    "status": "pass",
+    "detail": "count=4"
+  },
+  {
+    "name": "static: >=1 OS module absorbed",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "name": "static: goal-runner installed",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "name": "static: ticks landed",
+    "status": "pass",
+    "detail": "7"
+  },
+  {
+    "name": "static: goal acted upon",
+    "status": "pass",
+    "detail": "2"
+  },
+  {
+    "name": "static: goal artifact exists",
+    "status": "pass",
+    "detail": "posts/2026-04-15.txt"
+  },
+  {
+    "name": "static: subconscious green",
+    "status": "pass",
+    "detail": "{\"color\": \"GREEN\", \"anomaly_count\": 0, \"new_anomalies\": 0}"
+  },
+  {
+    "name": "static: prediction events landed",
+    "status": "pass",
+    "detail": "6"
+  },
+  {
+    "name": "static: reconcile idempotent",
+    "status": "pass",
+    "detail": "f97fdccd66d7362105fa5240af2ed40294f4309e706b55b19785d9b862c689b5"
+  }
+]
