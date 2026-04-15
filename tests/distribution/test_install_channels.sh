@@ -8,7 +8,7 @@ record() { results=$(echo "$results" | jq --arg n "$1" --arg s "$2" --arg d "$3"
 
 # 1) PyPI-equivalent: install from local wheel via pipx
 TMP=$(mktemp -d)
-WHEEL=$(ls "$PWD/dist"/system_zero-0.1.0-py3-none-any.whl)
+WHEEL=$(ls "$PWD/dist"/*-0.1.0-py3-none-any.whl | head -n1)
 PIPX_HOME="$TMP/pipx" PIPX_BIN_DIR="$TMP/bin" pipx install "$WHEEL" --force
 "$TMP/bin/sz" --version | grep -q "0.1.0" && record "channel: pip wheel" pass "$WHEEL" || record "channel: pip wheel" fail ""
 
