@@ -220,6 +220,13 @@ def _run_cli_smoke(tmp_path: Path, monkeypatch, host: str, host_mode: str) -> No
     assert result.exit_code == 0, result.output
     assert json.loads(result.output)[0]["type"] == "tick"
 
+    result = runner.invoke(cli, ["bus", "emit", "custom.ready", '{"ok":true}'])
+    assert result.exit_code == 0, result.output
+    emitted = json.loads(result.output)
+    assert emitted["module"] == "s0"
+    assert emitted["type"] == "custom.ready"
+    assert emitted["payload"] == {"ok": True}
+
     monkeypatch.setenv("SZ_LLM_PROVIDER", "mock")
     result = runner.invoke(cli, ["llm", "provider"])
     assert result.exit_code == 0, result.output

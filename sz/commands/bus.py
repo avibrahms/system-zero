@@ -21,7 +21,7 @@ def group() -> None:
 @group.command(name="emit")
 @click.argument("event_type")
 @click.argument("json_payload")
-@click.option("--module", "module_id", default="sz", show_default=True)
+@click.option("--module", "module_id", default="s0", show_default=True)
 @click.option("--correlation-id", default=None)
 def _emit(event_type: str, json_payload: str, module_id: str, correlation_id: str | None) -> None:
     payload = json.loads(json_payload)
