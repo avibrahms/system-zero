@@ -3,6 +3,9 @@ from __future__ import annotations
 
 import copy
 import json
+import os
+import shlex
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from tempfile import NamedTemporaryFile
@@ -49,3 +52,10 @@ def atomic_write_text(path: Path, content: str) -> None:
 def atomic_write_json(path: Path, payload: Any) -> None:
     """Write JSON atomically with stable formatting."""
     atomic_write_text(path, json.dumps(payload, indent=2, sort_keys=False) + "\n")
+
+
+def sz_command(*args: str) -> list[str]:
+    """Return a subprocess command for the active sz CLI."""
+    configured = os.environ.get("SZ_COMMAND") or os.environ.get("SZ_CLI")
+    base = shlex.split(configured) if configured else [sys.executable, "-m", "sz.commands.cli"]
+    return [*base, *args]

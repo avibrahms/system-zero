@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any
 import hashlib, shutil, subprocess
 import yaml
-from sz.core import paths, manifest as manifest_core
+from sz.core import paths, manifest as manifest_core, util
 from sz.interfaces import llm
 
 CACHE = paths.user_config_dir() / "cache" / "absorb"
@@ -172,7 +172,7 @@ def absorb(source: str, feature: str, *, ref: str | None = None,
         return {"staging": str(staging), "draft": draft}
 
     subprocess.run(
-        ["sz", "install", draft["module_id"], "--source", str(staging)],
+        util.sz_command("install", draft["module_id"], "--source", str(staging)),
         check=True,
         capture_output=True,
         text=True,

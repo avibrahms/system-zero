@@ -19,9 +19,9 @@ def test_absorb_cli_doctor_failure_prints_notes_and_prompts_for_rollback(monkeyp
 
     def fake_run(args, **kwargs):
         calls.append(args)
-        if args[:2] == ["sz", "doctor"]:
+        if "doctor" in args:
             return subprocess_module.CompletedProcess(args, 1, stdout="doctor out\n", stderr="doctor err\n")
-        if args[:2] == ["sz", "uninstall"]:
+        if "uninstall" in args:
             return subprocess_module.CompletedProcess(args, 0, stdout="", stderr="")
         raise AssertionError(f"unexpected subprocess call: {args}")
 
@@ -35,4 +35,4 @@ def test_absorb_cli_doctor_failure_prints_notes_and_prompts_for_rollback(monkeyp
     assert "doctor out" in result.output
     assert "doctor err" in result.output
     assert "Roll back absorbed module?" in result.output
-    assert ["sz", "uninstall", "bad-module", "--confirm"] in calls
+    assert any(call[-3:] == ["uninstall", "bad-module", "--confirm"] for call in calls)

@@ -129,9 +129,11 @@ def test_absorb_non_dry_installs_and_reconciles(tmp_path: Path, monkeypatch) -> 
     original_run = subprocess_module.run
 
     def fake_run(args, check=False, **kwargs):
-        if args[:3] == ["sz", "install", "rate-limiter"]:
-            install_command.cmd.main(args=args[2:], standalone_mode=False)
-            return subprocess_module.CompletedProcess(args=args, returncode=0, stdout="", stderr="")
+        if "install" in args:
+            install_index = args.index("install")
+            if args[install_index : install_index + 2] == ["install", "rate-limiter"]:
+                install_command.cmd.main(args=args[install_index + 1 :], standalone_mode=False)
+                return subprocess_module.CompletedProcess(args=args, returncode=0, stdout="", stderr="")
         return original_run(args, check=check, **kwargs)
 
     monkeypatch.setattr(absorb_engine.subprocess, "run", fake_run)
