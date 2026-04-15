@@ -8,7 +8,14 @@ from pathlib import Path
 def repo_root(start: Path | None = None) -> Path:
     p = (start or Path.cwd()).resolve()
     for candidate in [p, *p.parents]:
-        if (candidate / ".sz").is_dir():
+        runtime = candidate / ".sz"
+        if not runtime.is_dir():
+            continue
+        if (
+            (candidate / ".sz.yaml").is_file()
+            or (runtime / "bus.jsonl").is_file()
+            or (runtime / "registry.json").is_file()
+        ):
             return candidate
     raise FileNotFoundError("No .sz/ found in this directory or any parent.")
 

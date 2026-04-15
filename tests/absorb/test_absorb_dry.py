@@ -142,13 +142,19 @@ def test_absorb_non_dry_installs_and_reconciles(tmp_path: Path, monkeypatch) -> 
     installed_dir = paths.module_dir(repo, "rate-limiter")
     assert (installed_dir / "module.yaml").exists()
     assert (installed_dir / "runtime.json").exists()
+
+    runner = CliRunner()
+    reconciled = runner.invoke(cli, ["reconcile", "--reason", "absorb-idempotent"])
+    assert reconciled.exit_code == 0, reconciled.output
     first_runtime = (installed_dir / "runtime.json").read_text()
+
+    reconciled = runner.invoke(cli, ["reconcile", "--reason", "absorb-idempotent"])
+    assert reconciled.exit_code == 0, reconciled.output
     second_runtime = (installed_dir / "runtime.json").read_text()
     assert first_runtime == second_runtime
     current = registry.read(repo)
     assert "rate-limiter" in current["modules"]
 
-    runner = CliRunner()
     listed = runner.invoke(cli, ["list"])
     assert listed.exit_code == 0
     assert "rate-limiter" in listed.output

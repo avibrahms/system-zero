@@ -1,7 +1,8 @@
 """Absorption orchestration with CLC discipline."""
 from __future__ import annotations
 from pathlib import Path
-import hashlib, json, shutil, subprocess, tempfile
+from typing import Any
+import hashlib, shutil, subprocess
 import yaml
 from sz.core import paths, manifest as manifest_core
 from sz.interfaces import llm
@@ -36,6 +37,7 @@ def acquire(source: str, ref: str | None) -> Path:
 def inventory(src: Path, max_total_kb: int = 50) -> dict:
     layout = []
     files = []
+    file_paths = []
     seen = 0
     for p in sorted(src.rglob("*")):
         if ".git" in p.parts or ".staging" in p.parts:
@@ -45,13 +47,14 @@ def inventory(src: Path, max_total_kb: int = 50) -> dict:
             continue
         rel = str(p.relative_to(src))
         layout.append(rel)
+        file_paths.append(rel)
         if p.suffix in {".md", ".py", ".js", ".ts", ".sh", ".yaml", ".yml", ".toml", ".json"} and p.stat().st_size <= 5_000:
             content = p.read_text(errors="replace")
             files.append(f"\n--- {rel} ---\n{content}\n")
             seen += len(content)
             if seen > max_total_kb * 1024:
                 break
-    return {"layout": "\n".join(layout[:400]), "files": "".join(files)}
+    return {"layout": "\n".join(layout[:400]), "files": "".join(files), "paths": file_paths}
 
 
 def render_prompt(template_path: Path, source: str, ref: str | None, feature: str, inv: dict) -> str:
@@ -63,7 +66,25 @@ def render_prompt(template_path: Path, source: str, ref: str | None, feature: st
             .replace("{{FILES}}", inv["files"]))
 
 
-def materialize(src: Path, draft: dict, target: Path) -> None:
+def _inventory_file_paths(inv: dict[str, Any]) -> set[str]:
+    if isinstance(inv.get("paths"), list):
+        candidates = inv["paths"]
+    else:
+        candidates = [
+            line.strip()
+            for line in str(inv.get("layout", "")).splitlines()
+            if line.strip() and not line.strip().endswith("/")
+        ]
+    paths_from_inventory = set()
+    for item in candidates:
+        path = Path(str(item))
+        if path.is_absolute() or "." in path.parts or ".." in path.parts:
+            continue
+        paths_from_inventory.add(path.as_posix())
+    return paths_from_inventory
+
+
+def materialize(src: Path, draft: dict, target: Path, *, inventory_paths: set[str] | None = None) -> None:
     target.mkdir(parents=True, exist_ok=True)
     manifest = {
         "id": draft["module_id"], "version": "0.1.0",
@@ -82,9 +103,11 @@ def materialize(src: Path, draft: dict, target: Path) -> None:
     for spec in draft.get("files_to_copy", []):
         from_p = (src / spec["from"]).resolve()
         try:
-            from_p.relative_to(src_resolved)
+            inventory_rel = from_p.relative_to(src_resolved).as_posix()
         except ValueError:
             raise ValueError(f"Refusing to copy outside source: {spec['from']}")
+        if inventory_paths is not None and inventory_rel not in inventory_paths:
+            raise ValueError(f"Refusing to copy path not present in inventory: {spec['from']}")
         to_p = (target / spec["to"]).resolve()
         try:
             to_p.relative_to(target_resolved)
@@ -135,7 +158,7 @@ def absorb(source: str, feature: str, *, ref: str | None = None,
     staging = src / ".staging" / draft["module_id"]
     if staging.exists():
         shutil.rmtree(staging)
-    materialize(src, draft, staging)
+    materialize(src, draft, staging, inventory_paths=_inventory_file_paths(inv))
 
     if dry_run:
         return {"staging": str(staging), "draft": draft}
