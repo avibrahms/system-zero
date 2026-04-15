@@ -374,7 +374,10 @@ def _install_payload(payload: dict[str, Any], user: dict[str, str]) -> dict[str,
     repo_fingerprint = payload.get("repo_fingerprint")
     if not repo_fingerprint:
         repo_fingerprint = hashlib.sha256(user["sub"].encode()).hexdigest()
-    return {
+    user_row = supa.table("users").select("team_id").eq(
+        "clerk_user_id", user["sub"]
+    ).maybe_single().execute().data or {}
+    install_payload = {
         "id": payload["install_id"],
         "clerk_user_id": user["sub"],
         "repo_fingerprint": repo_fingerprint,
@@ -382,6 +385,9 @@ def _install_payload(payload: dict[str, Any], user: dict[str, str]) -> dict[str,
         "host_mode": payload.get("host_mode", "install"),
         "sz_version": payload.get("sz_version", "0.1.0"),
     }
+    if user_row.get("team_id"):
+        install_payload["team_id"] = user_row["team_id"]
+    return install_payload
 
 
 @app.post("/v1/telemetry")
@@ -433,6 +439,8 @@ def team_insights(authorization: str | None = Header(None)) -> dict[str, Any]:
     if not u or not u.get("team_id"):
         return {"installs": [], "events_7d": 0}
     inst = supa.table("installs").select("*").eq("team_id", u["team_id"]).execute().data
+    if not inst:
+        return {"installs": [], "events_7d": 0}
     count = supa.table("module_events").select("id", count="exact").in_(
         "install_id", [i["id"] for i in inst]
     ).execute().count or 0

@@ -43,6 +43,41 @@ def test_pro_tier_telemetry_records_events(cloud_app) -> None:
     assert fake.rows["module_events"][0]["ts"] == "db-default-now"
 
 
+def test_team_tier_telemetry_feeds_team_insights(cloud_app) -> None:
+    _main, fake, client, headers = cloud_app
+    team_id = "11111111-1111-1111-1111-111111111111"
+    install_id = "00000000-0000-0000-0000-000000000001"
+    fake.rows["users"].append({
+        "clerk_user_id": "user_1",
+        "email": "avi@example.com",
+        "tier": "team",
+        "team_id": team_id,
+    })
+
+    result = client.post(
+        "/v1/telemetry",
+        json={
+            "install_id": install_id,
+            "repo_fingerprint": "team-hash",
+            "host": "generic",
+            "host_mode": "install",
+            "sz_version": "0.1.0",
+            "telemetry_opt_in": True,
+            "events": [{"type": "module.installed", "module": "heartbeat", "payload": {"ok": True}}],
+        },
+        headers=headers,
+    )
+    assert result.status_code == 200
+    assert result.json() == {"accepted": True, "count": 1}
+    assert fake.rows["installs"][0]["team_id"] == team_id
+
+    insights = client.get("/v1/insights/team", headers=headers)
+    assert insights.status_code == 200
+    assert insights.json()["events_7d"] == 1
+    assert insights.json()["installs"][0]["id"] == install_id
+    assert insights.json()["installs"][0]["team_id"] == team_id
+
+
 def test_pro_tier_requires_explicit_opt_in(cloud_app) -> None:
     _main, fake, client, headers = cloud_app
     fake.rows["users"].append({"clerk_user_id": "user_1", "email": "avi@example.com", "tier": "pro"})
