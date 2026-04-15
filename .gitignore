@@ -1,0 +1,16 @@
+.sz/
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+.idea/
+.vscode/
+.tooling-report.json
+.env
+.env.local
+.env.cloud
+node_modules/
+dist/
+build/
+BLOCKERS.md
+.s0-release.json
