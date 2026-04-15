@@ -9,7 +9,14 @@ class SystemZero < Formula
   def install
     (bin/"sz").write <<~EOS
       #!/usr/bin/env bash
-      exec "#{Formula["pipx"].opt_bin}/pipx" run --spec git+https://github.com/avibrahms/system-zero@v0.1.0 sz "$@"
+      set -euo pipefail
+      export PIPX_HOME="${SYSTEM_ZERO_PIPX_HOME:-$HOME/.cache/system-zero/pipx}"
+      export PIPX_BIN_DIR="${SYSTEM_ZERO_PIPX_BIN_DIR:-$PIPX_HOME/bin}"
+      if [ ! -x "$PIPX_BIN_DIR/sz" ]; then
+        mkdir -p "$PIPX_BIN_DIR"
+        "#{Formula["pipx"].opt_bin}/pipx" install --force "git+https://github.com/avibrahms/system-zero@v0.1.0"
+      fi
+      exec "$PIPX_BIN_DIR/sz" "$@"
     EOS
   end
 
