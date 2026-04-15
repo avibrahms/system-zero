@@ -211,7 +211,7 @@ This is the magic-board property: every existing module gets a chance to react t
        ▼            ▼             ▼            ▼              ▼
    pipx install  npm wrapper  curl|sh      brew tap      Web 1-click
    user runs:    invokes pipx  detects     formula       copies the
-   pipx install  + s0 binary    pipx,       installs      "pipx install"
+   pipx install  + sz binary    pipx,       installs      "pipx install"
    system-zero                  installs    via pipx      command
                                 pipx if
                                 missing

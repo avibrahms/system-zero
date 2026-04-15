@@ -154,7 +154,7 @@ Verify: `dist/system_zero-0.1.0-py3-none-any.whl` and `dist/system_zero-0.1.0.ta
 }
 ```
 
-`npm-wrapper/bin/s0`:
+`npm-wrapper/bin/sz`:
 ```bash
 #!/usr/bin/env node
 const { spawnSync } = require('child_process');
@@ -185,11 +185,11 @@ function run(cmd, args) {
     console.error('No Python found. Install Python 3.10+ then re-run `npm i -g system-zero`.');
     process.exit(1);
   }
-  console.log('system-zero CLI (s0) installed. Run `sz --help` to begin.');
+  console.log('system-zero CLI (sz) installed. Run `sz --help` to begin.');
 })();
 ```
 
-`chmod +x npm-wrapper/bin/s0 npm-wrapper/scripts/install-python-package.js`.
+`chmod +x npm-wrapper/bin/sz npm-wrapper/scripts/install-python-package.js`.
 
 ### Step 9.8 — `install.sh` (curl bootstrap)
 
@@ -263,18 +263,18 @@ record() { results=$(echo "$results" | jq --arg n "$1" --arg s "$2" --arg d "$3"
 TMP=$(mktemp -d)
 WHEEL=$(ls "$PWD/dist"/system_zero-0.1.0-py3-none-any.whl)
 PIPX_HOME="$TMP/pipx" PIPX_BIN_DIR="$TMP/bin" pipx install "$WHEEL" --force
-"$TMP/bin/s0" --version | grep -q "0.1.0" && record "channel: pip wheel" pass "$WHEEL" || record "channel: pip wheel" fail ""
+"$TMP/bin/sz" --version | grep -q "0.1.0" && record "channel: pip wheel" pass "$WHEEL" || record "channel: pip wheel" fail ""
 
 # 2) curl bootstrap
 PIPX_HOME="$TMP/pipx2" PIPX_BIN_DIR="$TMP/bin2" bash install.sh
-"$TMP/bin2/s0" --version | grep -q "0.1.0" && record "channel: install.sh" pass "" || record "channel: install.sh" fail ""
+"$TMP/bin2/sz" --version | grep -q "0.1.0" && record "channel: install.sh" pass "" || record "channel: install.sh" fail ""
 
 # 3) npm wrapper
 ( cd npm-wrapper && npm pack --silent )
 TGZ=$(ls "$PWD/npm-wrapper"/system-zero-0.1.0.tgz)
 NPM_PREFIX="$TMP/npm" mkdir -p "$NPM_PREFIX"
 PIPX_HOME="$TMP/pipx3" PIPX_BIN_DIR="$TMP/bin3" PATH="$TMP/bin3:$PATH" npm i -g --prefix "$NPM_PREFIX" "$TGZ"
-"$NPM_PREFIX/bin/s0" --version | grep -q "0.1.0" && record "channel: npm" pass "$TGZ" || record "channel: npm" fail ""
+"$NPM_PREFIX/bin/sz" --version | grep -q "0.1.0" && record "channel: npm" pass "$TGZ" || record "channel: npm" fail ""
 
 echo "$results" | jq . > "$REPORT"
 echo "Channels report at $REPORT"
@@ -319,7 +319,7 @@ python3 -m pytest tests/distribution -q
 ### Step 9.12 — Commit
 
 ```bash
-git add catalog s0 npm-wrapper install.sh brew tests/distribution plan/phase-09-catalog-and-distribution
+git add catalog sz npm-wrapper install.sh brew tests/distribution plan/phase-09-catalog-and-distribution
 git commit -m "phase 09: catalog and four distribution channels complete"
 ```
 

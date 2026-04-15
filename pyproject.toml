@@ -13,7 +13,6 @@ dependencies = [
 
 [project.scripts]
 sz = "sz.commands.cli:main"
-s0 = "sz.commands.cli:main"
 
 [project.urls]
 Homepage = "https://systemzero.dev"

@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "description": "One-click autonomy and self-improvement for any repo.",
   "bin": {
-    "sz": "bin/sz",
-    "s0": "bin/s0"
+    "sz": "bin/sz"
   },
   "scripts": {
     "postinstall": "node scripts/install-python-package.js"
