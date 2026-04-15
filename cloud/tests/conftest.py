@@ -87,6 +87,10 @@ class FakeTable:
         if self.action == "insert":
             assert self.payload is not None
             row = dict(self.payload)
+            if self.name == "module_events":
+                if "ts" in row and row["ts"] is None:
+                    raise AssertionError("module_events.ts cannot be explicit NULL")
+                row.setdefault("ts", "db-default-now")
             row.setdefault("id", f"{self.name}_{len(table) + 1}")
             table.append(row)
             return Result(row)

@@ -40,6 +40,7 @@ def test_pro_tier_telemetry_records_events(cloud_app) -> None:
     assert result.json() == {"accepted": True, "count": 1}
     assert fake.rows["installs"][0]["repo_fingerprint"] == "hash"
     assert fake.rows["module_events"][0]["event_type"] == "module.installed"
+    assert fake.rows["module_events"][0]["ts"] == "db-default-now"
 
 
 def test_pro_tier_requires_explicit_opt_in(cloud_app) -> None:

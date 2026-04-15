@@ -397,13 +397,15 @@ def telemetry(payload: dict[str, Any], authorization: str | None = Header(None))
     events = payload.get("events", [])
     supa.table("installs").upsert(_install_payload(payload, user), on_conflict="id").execute()
     for ev in events:
-        supa.table("module_events").insert({
+        event_row = {
             "install_id": install_id,
             "event_type": ev["type"],
             "module_id": ev.get("module"),
             "payload": ev.get("payload", {}),
-            "ts": ev.get("ts"),
-        }).execute()
+        }
+        if ev.get("ts") is not None:
+            event_row["ts"] = ev["ts"]
+        supa.table("module_events").insert(event_row).execute()
     for ev in events:
         _posthog_capture(
             distinct_id=user["sub"],

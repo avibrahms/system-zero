@@ -220,27 +220,33 @@ This is the magic-board property: every existing module gets a chance to react t
 ## Cloud platform (Pro / Team only)
 
 ```
-                          systemzero.dev (DNS via Hostinger)
+                      systemzero.dev / system0.dev
+                         DNS managed by Hostinger
+                                  │
+                                  ▼
+                              Fly.io edge
                                   │
                        ┌──────────┴──────────┐
                        │   Fly.io app:        │
                        │   sz-cloud           │
                        │                      │
                        │   FastAPI            │
-                       │   ├ /v1/catalog/*   │
-                       │   ├ /v1/absorb     │ (Pro+)
-                       │   ├ /v1/billing/*  │
-                       │   └ /v1/telemetry  │ (opt-in)
-                       │                      │
-                       │   SQLite on volume   │
-                       │                      │
-                       │   Stripe webhook     │
-                       │   handler            │
-                       └──────────────────────┘
+                       │   ├ /v1/catalog/*   │ public mirror
+                       │   ├ /v1/insights/*  │ public/team aggregates
+                       │   ├ /v1/absorb      │ Clerk JWT + Pro/Team
+                       │   ├ /v1/billing/*   │ Stripe checkout/webhooks
+                       │   ├ /v1/telemetry   │ Clerk JWT + paid opt-in
+                       │   └ /i              │ installer
+                       └──────────┬──────────┘
                                   │
-                                  ▼
-                          stripe.com checkout
+          ┌──────────────┬────────┼────────┬──────────────┬──────────────┐
+          ▼              ▼        ▼        ▼              ▼              ▼
+     Clerk JWTs     Supabase   Stripe   Resend       PostHog       LLM providers
+                    Postgres  billing   email        opt-in        OpenAI/Groq/
+                    + RLS                                      user Anthropic
 ```
+
+Supabase Postgres is the only cloud persistence layer for Phase 10. The Fly app has no SQLite volume; persistent app data lives in Supabase tables (`users`, `teams`, `installs`, `module_events`, `absorb_records`) with Row-Level Security, while derived public insights come from Supabase materialized views. Resend is best-effort with a durable outbox fallback, PostHog is silent-drop and only used after paid opt-in, and Stripe remains the billing source of truth.
 
 ## Failure isolation
 
