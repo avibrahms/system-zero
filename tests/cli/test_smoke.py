@@ -1,7 +1,12 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
+import shlex
+import stat
+import sys
+import time
 
 import yaml
 from click.testing import CliRunner
@@ -74,15 +79,63 @@ def _write_module(source: Path) -> None:
     )
 
 
+def _write_cli_shim(repo_root: Path) -> Path:
+    shim_dir = repo_root / "test-bin"
+    shim_dir.mkdir()
+    shim_path = shim_dir / "sz"
+    project_root = Path(__file__).resolve().parents[2]
+    shim_path.write_text(
+        "#!/usr/bin/env bash\n"
+        "set -euo pipefail\n"
+        f"export PYTHONPATH={shlex.quote(str(project_root))}:\"${{PYTHONPATH:-}}\"\n"
+        f"exec {shlex.quote(sys.executable)} -m sz.commands.cli \"$@\"\n"
+    )
+    shim_path.chmod(shim_path.stat().st_mode | stat.S_IEXEC | stat.S_IXGRP | stat.S_IXOTH)
+    return shim_dir
+
+
+def _read_events(bus_path: Path) -> list[dict[str, object]]:
+    return [
+        json.loads(line)
+        for line in bus_path.read_text().splitlines()
+        if line.strip()
+    ]
+
+
+def _wait_for_heartbeat_tick(bus_path: Path, timeout: float = 5.0) -> None:
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        events = _read_events(bus_path)
+        if any(
+            event["type"] == "tick" and event["payload"].get("reason") == "heartbeat"
+            for event in events
+        ):
+            return
+        time.sleep(0.1)
+    raise AssertionError("Timed out waiting for a heartbeat tick.")
+
+
+def _wait_for_file(path: Path, timeout: float = 5.0) -> None:
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        if path.exists():
+            return
+        time.sleep(0.1)
+    raise AssertionError(f"Timed out waiting for {path.name}.")
+
+
 def _run_cli_smoke(tmp_path: Path, monkeypatch, host: str, host_mode: str) -> None:
     repo_root = tmp_path / f"{host_mode}-repo"
     repo_root.mkdir()
     module_source = tmp_path / "hello-module"
     module_source.mkdir()
     _write_module(module_source)
+    shim_dir = _write_cli_shim(repo_root)
 
     runner = CliRunner()
     monkeypatch.chdir(repo_root)
+    monkeypatch.setenv("PATH", f"{shim_dir}:{os.environ.get('PATH', '')}")
+    monkeypatch.setenv("SZ_INTERVAL", "1")
 
     result = runner.invoke(cli, ["init", "--host", host, "--host-mode", host_mode, "--yes"])
     assert result.exit_code == 0, result.output
@@ -108,9 +161,37 @@ def _run_cli_smoke(tmp_path: Path, monkeypatch, host: str, host_mode: str) -> No
     assert result.exit_code == 0, result.output
     assert "hello-module\t0.1.0\thealthy" in result.output
 
+    result = runner.invoke(cli, ["start"])
+    assert result.exit_code == 0, result.output
+    pid_path = sz_dir / "heartbeat.pid"
+    assert pid_path.exists()
+    _wait_for_heartbeat_tick(sz_dir / "bus.jsonl")
+    _wait_for_file(repo_root / "tick-ran.txt")
+
+    result = runner.invoke(cli, ["stop"])
+    assert result.exit_code == 0, result.output
+    assert not pid_path.exists()
+
+    time.sleep(1.2)
+    heartbeat_tick_count = sum(
+        1
+        for event in _read_events(sz_dir / "bus.jsonl")
+        if event["type"] == "tick" and event["payload"].get("reason") == "heartbeat"
+    )
+    time.sleep(1.2)
+    assert (
+        sum(
+            1
+            for event in _read_events(sz_dir / "bus.jsonl")
+            if event["type"] == "tick" and event["payload"].get("reason") == "heartbeat"
+        )
+        == heartbeat_tick_count
+    )
+    tick_runs_before_manual = len((repo_root / "tick-ran.txt").read_text().splitlines())
+
     result = runner.invoke(cli, ["tick", "--reason", "smoke"])
     assert result.exit_code == 0, result.output
-    assert (repo_root / "tick-ran.txt").read_text().strip() == "tick-ran"
+    assert len((repo_root / "tick-ran.txt").read_text().splitlines()) == tick_runs_before_manual + 1
     assert (repo_root / "llm-bin.txt").read_text().strip()
 
     result = runner.invoke(cli, ["doctor"])
@@ -139,18 +220,18 @@ def _run_cli_smoke(tmp_path: Path, monkeypatch, host: str, host_mode: str) -> No
     assert (repo_root / "uninstall-ran.txt").read_text().strip() == "uninstalled"
     assert not (sz_dir / "hello-module").exists()
 
-    events = [
-        json.loads(line)
-        for line in (sz_dir / "bus.jsonl").read_text().splitlines()
-        if line.strip()
-    ]
+    events = _read_events(sz_dir / "bus.jsonl")
     event_types = [event["type"] for event in events]
-    assert event_types == [
-        "sz.initialized",
-        "module.installed",
-        "tick",
-        "module.uninstalled",
-    ]
+    assert event_types[:2] == ["sz.initialized", "module.installed"]
+    assert event_types[-1] == "module.uninstalled"
+    assert any(
+        event["type"] == "tick" and event["payload"].get("reason") == "heartbeat"
+        for event in events
+    )
+    assert any(
+        event["type"] == "tick" and event["payload"].get("reason") == "smoke"
+        for event in events
+    )
     assert events[0]["payload"]["host"] == host
     assert events[0]["payload"]["host_mode"] == host_mode
 

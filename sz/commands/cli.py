@@ -54,3 +54,7 @@ cli.add_command(discovery.group, name="discovery")
 
 def main() -> None:
     cli(standalone_mode=True)
+
+
+if __name__ == "__main__":
+    main()

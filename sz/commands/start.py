@@ -14,7 +14,15 @@ def _is_running(pid: int) -> bool:
         os.kill(pid, 0)
     except OSError:
         return False
-    return True
+
+    result = subprocess.run(
+        ["ps", "-o", "stat=", "-p", str(pid)],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    state = result.stdout.strip()
+    return result.returncode == 0 and bool(state) and not state.startswith("Z")
 
 
 @click.command(help="Start the owned heartbeat loop.")
