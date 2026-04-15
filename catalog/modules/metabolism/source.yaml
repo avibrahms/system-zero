@@ -1,2 +1,4 @@
-type: local
-path: /Users/avi/Documents/Projects/system0-natural/modules/metabolism
+type: git
+url: https://github.com/avibrahms/system-zero.git
+ref: v0.1.0
+path: modules/metabolism
