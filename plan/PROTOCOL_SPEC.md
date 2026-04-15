@@ -227,7 +227,7 @@ The single file the user (or the website) edits to configure their installed mod
 ```yaml
 sz_version: 0.1.0
 host: claude_code | cursor | opencode | aider | hermes | openclaw | metaclaw | connection_engine | generic
-host_mode: install | adopt
+host_mode: install | adopt | merge
 modules:
   <module-id>:
     version: <pinned semver>
@@ -324,13 +324,13 @@ Algorithm:
    - Output: existing_heartbeat: <none|known-name|unknown>.
 3. Make exactly one Constrained LLM Call:
    - Template: sz/templates/repo_genesis_prompt.md
-   - Schema: spec/v0.1.0/llm-responses/repo-profile.schema.json
+   - Schema: spec/v0.1.0/llm-responses/repo-genesis.schema.json
    - Inputs: inventory + ecosystem markers + existing_heartbeat + the user's optional --hint
 4. Validate response. Retry up to 2 times on schema failure with feedback. Abort if all fail.
 5. Write .sz/repo-profile.json.
 6. Print recommendations and ask `[Y/n]` (skip with --yes).
 7. On confirm:
-   a. Set host_mode = install if existing_heartbeat == none, else adopt.
+   a. Resolve host_mode: install if existing_heartbeat == none; otherwise offer install, adopt, and merge, defaulting to adopt for a known heartbeat and install for an unknown heartbeat.
    b. Install host adapter accordingly.
    c. Install each recommended module via the standard install path.
    d. Run reconcile.

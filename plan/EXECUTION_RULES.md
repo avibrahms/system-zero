@@ -60,7 +60,7 @@ Python files inside S0 use absolute imports (`from sz.core import ...`). No rela
 
 ## R15. Errors are events
 
-When something fails inside a tick, the failure is appended to the bus as a `module.error` event. Stack traces go to the module's private crash log, not the bus payload.
+When something fails inside a tick, the failure is appended to the bus as a `module.errored` event. Stack traces go to the module's private crash log, not the bus payload.
 
 ## R16. The bus is append-only
 

@@ -9,7 +9,8 @@ import sys
 from pathlib import Path
 
 import yaml
-from jsonschema import Draft202012Validator
+from jsonschema import exceptions, validators
+from referencing import Registry, Resource
 
 
 def load(path: Path):
@@ -19,10 +20,36 @@ def load(path: Path):
     return json.loads(text)
 
 
+def find_spec_root(path: Path) -> Path:
+    for candidate in (path, *path.parents):
+        if candidate.name == "spec":
+            return candidate
+    return path.parent
+
+
+def build_registry(spec_root: Path) -> Registry:
+    resources = {}
+    for schema_path in sorted(spec_root.rglob("*.json")):
+        contents = json.loads(schema_path.read_text())
+        schema_id = contents.get("$id")
+        if not schema_id:
+            continue
+        resources[schema_id] = Resource.from_contents(contents)
+    return Registry().with_resources(resources.items())
+
+
 def main(schema_path: str, data_path: str) -> int:
-    schema = json.loads(Path(schema_path).read_text())
+    schema_file = Path(schema_path)
+    schema = json.loads(schema_file.read_text())
     data = load(Path(data_path))
-    validator = Draft202012Validator(schema)
+    registry = build_registry(find_spec_root(schema_file.resolve()))
+    validator_cls = validators.validator_for(schema)
+    try:
+        validator_cls.check_schema(schema)
+    except exceptions.SchemaError as error:
+        print(f"SCHEMA ERROR: {error.message}")
+        return 1
+    validator = validator_cls(schema, registry=registry)
     errors = list(validator.iter_errors(data))
     if errors:
         for e in errors:

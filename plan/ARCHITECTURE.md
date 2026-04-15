@@ -62,7 +62,7 @@ The Owned heartbeat is a shell loop installed by S0; it fires `sz tick` every N 
    └────────────────────────────────────────────────────────┘
 ```
 
-There is exactly one heartbeat at any time. Adopt-mode adapter is a 50-line shim that calls `sz tick` from inside the host's existing pulse.
+Install and Adopt modes keep one active heartbeat at a time. Merge mode intentionally allows both the owned and host heartbeat; `sz tick` deduplicates repeated pulses within the configured dedup window. The Adopt-mode adapter is a 50-line shim that calls `sz tick` from inside the host's existing pulse.
 
 ## Three planes (both personas)
 
@@ -86,11 +86,11 @@ Per-tick subprocess invocations of module entry points. Each module runs in its 
 | Communication | append-only JSONL bus | works on any OS / language; survives reboots; greppable |
 | Coordination | reconcile cycle on landscape change | the answer to "old features don't know new features arrived" |
 | Configuration | one YAML file in the user's repo | one source of truth, version-controllable |
-| Runtime | shell loop or adopted scheduler | no language coupling; isolation comes for free; no double-pulse |
+| Runtime | shell loop, adopted scheduler, or merged pulses | no language coupling; isolation comes for free; Install/Adopt keep a single active pulse, while Merge relies on tick deduplication |
 | Vendor neutrality | LLM access through one CLI command | swap providers without touching modules |
 | Host neutrality | small adapter per host translates to common events | modules never see the host |
 | LLM safety | every LLM call is a CLC (templated + schema'd + retried) | no surprise outputs, fully testable |
-| Persona symmetry | Same protocol, two adapter modes (Install / Adopt) | one product for both audiences |
+| Persona symmetry | Same protocol, three host modes (Install / Adopt / Merge) | one product for both audiences |
 
 ## How a module reaches its dependencies
 
@@ -162,7 +162,7 @@ This is the magic-board property: every existing module gets a chance to react t
               │
               ▼
    On Y:
-     - Pick host_mode (install if no heartbeat, else adopt)
+     - Pick host_mode (install if no heartbeat; otherwise offer install/adopt/merge, default adopt for known heartbeat and install for unknown heartbeat)
      - Install host adapter
      - Install recommended modules
      - Run reconcile
