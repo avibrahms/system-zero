@@ -16,3 +16,4 @@
 - Added `groq` to the v0.1 shipped LLM provider list for phase 03 universal interfaces.
 - Allowed capability version ranges in manifest capability names so `requires` / `provides` entries can use `name@range` contracts.
 - Added `unknown` as a repo-config host for phase 05 generic heartbeat detection.
+- Tightened Repo Genesis profile validation to require 3-5 recommendations, `heartbeat` first for static repos, and no `heartbeat` recommendation for dynamic repos.

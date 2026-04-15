@@ -5,6 +5,47 @@
   "type": "object",
   "required": ["purpose", "language", "frameworks", "existing_heartbeat", "goals", "recommended_modules", "risk_flags"],
   "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": { "existing_heartbeat": { "const": "none" } },
+        "required": ["existing_heartbeat"]
+      },
+      "then": {
+        "properties": {
+          "recommended_modules": {
+            "prefixItems": [
+              {
+                "type": "object",
+                "required": ["id"],
+                "properties": {
+                  "id": { "const": "heartbeat" }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "existing_heartbeat": { "not": { "const": "none" } } },
+        "required": ["existing_heartbeat"]
+      },
+      "then": {
+        "properties": {
+          "recommended_modules": {
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "not": { "const": "heartbeat" } }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
   "properties": {
     "purpose": { "type": "string", "minLength": 1, "maxLength": 200 },
     "language": { "enum": ["python", "javascript", "typescript", "go", "rust", "ruby", "java", "kotlin", "swift", "php", "shell", "mixed", "other"] },
@@ -12,12 +53,12 @@
     "existing_heartbeat": { "enum": ["none", "claude_code", "cursor", "opencode", "aider", "hermes", "openclaw", "metaclaw", "connection_engine", "custom", "unknown"] },
     "goals": { "type": "array", "minItems": 1, "maxItems": 5, "items": { "type": "string", "maxLength": 200 } },
     "recommended_modules": {
-      "type": "array", "minItems": 1, "maxItems": 10,
+      "type": "array", "minItems": 3, "maxItems": 5,
       "items": {
         "type": "object", "required": ["id", "reason"], "additionalProperties": false,
         "properties": {
           "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,40}$" },
-          "reason": { "type": "string", "maxLength": 100 }
+          "reason": { "type": "string", "minLength": 1, "maxLength": 100 }
         }
       }
     },
