@@ -63,10 +63,22 @@ def cmd(host: str, host_mode: str, force: bool, auto_yes: bool, no_genesis: bool
         "#!/usr/bin/env bash\n"
         "set -euo pipefail\n"
         "INTERVAL=\"${SZ_INTERVAL:-300}\"\n"
+        "STOP_FILE=\".sz/heartbeat.stop\"\n"
+        "if ! [[ \"$INTERVAL\" =~ ^[0-9]+$ ]] || [ \"$INTERVAL\" -lt 1 ]; then\n"
+        "  INTERVAL=300\n"
+        "fi\n"
+        "rm -f \"$STOP_FILE\"\n"
         "while true; do\n"
+        "  [ -f \"$STOP_FILE\" ] && break\n"
         "  sz tick --reason heartbeat || true\n"
-        "  sleep \"$INTERVAL\"\n"
+        "  remaining=\"$INTERVAL\"\n"
+        "  while [ \"$remaining\" -gt 0 ]; do\n"
+        "    [ -f \"$STOP_FILE\" ] && break 2\n"
+        "    sleep 1\n"
+        "    remaining=$((remaining - 1))\n"
+        "  done\n"
         "done\n"
+        "rm -f \"$STOP_FILE\"\n"
     )
     hb.chmod(hb.stat().st_mode | stat.S_IEXEC | stat.S_IXGRP | stat.S_IXOTH)
 

@@ -13,8 +13,10 @@ from sz.core import paths
 def _is_running(pid: int) -> bool:
     try:
         os.kill(pid, 0)
-    except OSError:
+    except ProcessLookupError:
         return False
+    except PermissionError:
+        pass
 
     result = subprocess.run(
         ["ps", "-o", "stat=", "-p", str(pid)],
@@ -30,6 +32,7 @@ def _is_running(pid: int) -> bool:
 def cmd() -> None:
     root = paths.repo_root()
     pid_path = paths.heartbeat_pid_path(root)
+    stop_path = paths.heartbeat_stop_path(root)
     if not pid_path.exists():
         click.echo("No heartbeat is running.")
         return
@@ -37,17 +40,25 @@ def cmd() -> None:
     pid = int(pid_path.read_text().strip())
     if not _is_running(pid):
         pid_path.unlink(missing_ok=True)
+        stop_path.unlink(missing_ok=True)
         click.echo("No heartbeat is running.")
         return
 
+    stop_path.write_text("stop\n", encoding="utf-8")
     try:
         os.killpg(pid, signal.SIGTERM)
     except ProcessLookupError:
         pid_path.unlink(missing_ok=True)
+        stop_path.unlink(missing_ok=True)
         click.echo("No heartbeat is running.")
         return
+    except PermissionError:
+        try:
+            os.kill(pid, signal.SIGTERM)
+        except (ProcessLookupError, PermissionError):
+            pass
 
-    for _ in range(20):
+    for _ in range(50):
         if not _is_running(pid):
             break
         time.sleep(0.1)
@@ -56,4 +67,5 @@ def cmd() -> None:
         raise click.ClickException(f"Heartbeat process {pid} did not stop cleanly.")
 
     pid_path.unlink(missing_ok=True)
+    stop_path.unlink(missing_ok=True)
     click.echo(f"Heartbeat stopped (pid {pid}).")

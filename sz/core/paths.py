@@ -76,5 +76,9 @@ def heartbeat_pid_path(root: Path) -> Path:
     return s0_dir(root) / "heartbeat.pid"
 
 
+def heartbeat_stop_path(root: Path) -> Path:
+    return s0_dir(root) / "heartbeat.stop"
+
+
 def heartbeat_log_path(root: Path) -> Path:
     return s0_dir(root) / "heartbeat.log"

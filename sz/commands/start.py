@@ -12,8 +12,10 @@ from sz.core import paths
 def _is_running(pid: int) -> bool:
     try:
         os.kill(pid, 0)
-    except OSError:
+    except ProcessLookupError:
         return False
+    except PermissionError:
+        pass
 
     result = subprocess.run(
         ["ps", "-o", "stat=", "-p", str(pid)],
@@ -36,6 +38,7 @@ def cmd(interval: int | None) -> None:
             click.echo(f"Heartbeat already running (pid {pid}).")
             return
         pid_path.unlink()
+    paths.heartbeat_stop_path(root).unlink(missing_ok=True)
 
     log_file = paths.heartbeat_log_path(root).open("a", encoding="utf-8")
     process = subprocess.Popen(
