@@ -18,3 +18,4 @@
 - Added `unknown` as a repo-config host for phase 05 generic heartbeat detection.
 - Tightened Repo Genesis profile validation to require 3-5 recommendations, `heartbeat` first for static repos, and no `heartbeat` recommendation for dynamic repos.
 - Added the `dreaming-hypothesis` LLM-response schema for the phase 08 dreaming module CLC.
+- Updated public launch repository ownership from the planning placeholder namespace to `avibrahms` for the protocol, catalog, and Homebrew tap URLs.
