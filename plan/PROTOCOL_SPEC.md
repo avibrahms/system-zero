@@ -95,7 +95,7 @@ sz llm invoke --prompt-file <path> [--model <profile>] [--max-tokens N] [--schem
 
 When `--schema <path>` is passed, the runtime applies the Constrained LLM Call discipline: validates the response, retries up to 2 more times on schema mismatch, and logs to `llm.calls`. Without `--schema`, the response is returned raw and CLC is bypassed (only allowed for prototyping; not for in-protocol calls).
 
-Providers shipped with v0.1: `anthropic`, `openai`, `mock` (offline test fallback). Provider plug-in interface allows third parties to add more.
+Providers shipped with v0.1: `anthropic`, `groq`, `openai`, `mock` (offline test fallback). Provider plug-in interface allows third parties to add more.
 
 ### 2.4 `storage`
 
@@ -239,7 +239,7 @@ modules:
     quiet_hours:
       - "22:00-07:00"
 providers:
-  llm: anthropic | openai | mock | <plugin>
+  llm: anthropic | groq | openai | mock | <plugin>
   vector: <provider-id> | none
 cloud:
   tier: free | pro | team

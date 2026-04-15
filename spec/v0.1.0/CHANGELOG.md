@@ -13,3 +13,4 @@
 - Clarified the normative failure event name as `module.errored` across the source-of-truth docs and frozen artifacts.
 - Reconciled the source-of-truth docs with the frozen v0.1.0 artifacts for `host_mode: merge` and the Repo Genesis CLC schema path.
 - Reconciled phase verification with the spec-loop current-branch workflow so phase checkpoints are verified without any branch operations.
+- Added `groq` to the v0.1 shipped LLM provider list for phase 03 universal interfaces.
