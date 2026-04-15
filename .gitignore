@@ -14,5 +14,6 @@ dist/
 build/
 *.egg-info/
 .pytest_cache/
+.test-reports/
 BLOCKERS.md
 .s0-release.json

@@ -1,0 +1,18 @@
+id: endocrine
+version: 0.1.0
+category: physiology
+description: Modulates other modules' setpoints based on aggregate health snapshots.
+entry:
+  type: python
+  command: regulate.py
+triggers:
+  - "on": event
+    match: "health.snapshot"
+requires:
+  - name: health.snapshot
+    optional: false
+    on_missing: warn
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh
+personas: [static, dynamic]

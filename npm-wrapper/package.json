@@ -1,0 +1,19 @@
+{
+  "name": "system-zero",
+  "version": "0.1.0",
+  "description": "One-click autonomy and self-improvement for any repo.",
+  "bin": {
+    "sz": "bin/sz",
+    "s0": "bin/s0"
+  },
+  "scripts": {
+    "postinstall": "node scripts/install-python-package.js"
+  },
+  "homepage": "https://systemzero.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/systemzero-dev/system-zero.git",
+    "directory": "npm-wrapper"
+  },
+  "license": "Apache-2.0"
+}

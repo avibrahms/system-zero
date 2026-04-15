@@ -1,0 +1,1 @@
+Endocrine listens for aggregate health snapshots and adjusts module setpoints in response. It provides a first autonomous regulation loop so System Zero can dampen noisy behavior and react to unhealthy states.

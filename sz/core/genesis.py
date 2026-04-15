@@ -8,6 +8,7 @@ from typing import Any
 
 import yaml
 
+from sz.commands import catalog as catalog_command
 from sz.commands import host as host_command
 from sz.commands import start as start_command
 from sz.commands import tick as tick_command
@@ -253,9 +254,11 @@ def _install_recommended_module(root: Path, module_id: str) -> bool:
 
 
 def _module_source(root: Path, module_id: str) -> Path:
-    repo_catalog_source = Path(__file__).resolve().parents[2] / "catalog" / "modules" / module_id
-    if (repo_catalog_source / "module.yaml").exists():
-        return repo_catalog_source
+    repo_catalog_index = Path(__file__).resolve().parents[2] / "catalog" / "index.json"
+    if repo_catalog_index.exists():
+        cache = paths.s0_dir(root) / "cache" / "catalog" / module_id
+        catalog_command.fetch_module(module_id, cache, repo_catalog_index.as_uri())
+        return cache
     if module_id not in GENESIS_MODULES:
         raise module_install.ModuleInstallError(f"Module {module_id!r} is not available in the local catalog.")
     return _ensure_genesis_module_source(root, module_id)

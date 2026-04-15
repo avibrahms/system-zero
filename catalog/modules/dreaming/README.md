@@ -1,0 +1,1 @@
+Dreaming reviews recent bus history during quiet periods and drafts structured hypotheses through the protocol's constrained LLM path. It is the repo's low-frequency ideation loop, gated by novelty and schema validation.

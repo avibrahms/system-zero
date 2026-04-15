@@ -210,13 +210,9 @@ def _run_cli_smoke(tmp_path: Path, monkeypatch, host: str, host_mode: str) -> No
     assert "Absorb a feature from an open-source repo as an S0 module." in result.output
     assert "--feature" in result.output
 
-    stub_expectations = {
-        "catalog": "Catalog is implemented in phase 09.",
-    }
-    for command, expected in stub_expectations.items():
-        result = runner.invoke(cli, [command])
-        assert result.exit_code == 0, result.output
-        assert expected in result.output
+    result = runner.invoke(cli, ["catalog", "--help"])
+    assert result.exit_code == 0, result.output
+    assert "Interact with the module catalog." in result.output
 
     result = runner.invoke(cli, ["memory", "set", "answer", "42"])
     assert result.exit_code == 0, result.output

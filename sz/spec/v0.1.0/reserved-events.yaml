@@ -1,0 +1,18 @@
+reserved:
+  - module.installed
+  - module.uninstalled
+  - module.upgraded
+  - module.reconciled
+  - module.errored
+  - reconcile.started
+  - reconcile.finished
+  - capability.unsatisfied
+  - capability.ambiguous
+  - tick
+  - repo.genesis.completed
+  - host.adopted
+  - host.session.started
+  - host.session.ended
+  - host.commit.made
+  - host.edit.committed
+  - llm.call.failed
