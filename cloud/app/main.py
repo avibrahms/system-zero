@@ -50,6 +50,7 @@ POSTHOG_HOST = (
     or os.environ.get("NEXT_PUBLIC_POSTHOG_HOST")
     or "https://app.posthog.com"
 ).rstrip("/")
+ACTIVE_SUBSCRIPTION_STATUSES = {"active", "trialing"}
 
 
 def _asset_path(*parts: str) -> Path:
@@ -108,16 +109,11 @@ def tier_of(clerk_user_id: str) -> str:
         return (r.data or {}).get("tier", "free")
 
     if _shared_schema_available():
-        try:
-            rows = supa.table("subscriptions").select("product_slug,status").eq(
-                "user_id", clerk_user_id
-            ).execute().data or []
-        except Exception:
-            return "free"
+        rows = _shared_subscription_rows(clerk_user_id, "product_slug,status,user_id")
         active = {
             row.get("product_slug")
             for row in rows
-            if row.get("status") in ("active", "trialing")
+            if row.get("status") in ACTIVE_SUBSCRIPTION_STATUSES
         }
         if _product_slug_for_tier("team") in active:
             return "team"
@@ -189,6 +185,57 @@ def _product_slug_for_tier(tier: str) -> str:
     return f"{SYSTEM_ZERO_PRODUCT_SLUG}-{tier}"
 
 
+def _shared_user_ids_for_clerk(clerk_user_id: str) -> list[str]:
+    ids = [clerk_user_id]
+    if not _shared_schema_available():
+        return ids
+    try:
+        rows = supa.table("users").select("id").eq("clerk_id", clerk_user_id).limit(1).execute().data or []
+    except Exception:
+        return ids
+    for row in rows:
+        user_id = row.get("id")
+        if user_id and user_id not in ids:
+            ids.append(user_id)
+    return ids
+
+
+def _shared_primary_user_id(clerk_user_id: str) -> str:
+    ids = _shared_user_ids_for_clerk(clerk_user_id)
+    return ids[1] if len(ids) > 1 else ids[0]
+
+
+def _shared_subscription_rows(clerk_user_id: str, columns: str) -> list[dict[str, Any]]:
+    if not _shared_schema_available():
+        return []
+    ids = _shared_user_ids_for_clerk(clerk_user_id)
+    try:
+        if len(ids) == 1:
+            return supa.table("subscriptions").select(columns).eq("user_id", ids[0]).execute().data or []
+        return supa.table("subscriptions").select(columns).in_("user_id", ids).execute().data or []
+    except Exception:
+        return []
+
+
+def _stripe_customer_id_for_user(user: dict[str, str]) -> str | None:
+    if _phase_schema_available():
+        try:
+            row = supa.table("users").select("stripe_customer_id").eq(
+                "clerk_user_id", user["sub"]
+            ).maybe_single().execute().data or {}
+        except Exception:
+            row = {}
+        if row.get("stripe_customer_id"):
+            return row["stripe_customer_id"]
+
+    for row in _shared_subscription_rows(user["sub"], "stripe_customer_id,status,product_slug,user_id"):
+        if row.get("status") not in ACTIVE_SUBSCRIPTION_STATUSES:
+            continue
+        if row.get("stripe_customer_id"):
+            return row["stripe_customer_id"]
+    return None
+
+
 def _ensure_user(user: dict[str, str]) -> None:
     if _phase_schema_available():
         supa.table("users").upsert({"clerk_user_id": user["sub"], "email": user["email"]}).execute()
@@ -216,7 +263,7 @@ def _record_usage_log(
     if not _shared_schema_available():
         return
     supa.table("usage_logs").insert({
-        "user_id": clerk_user_id,
+        "user_id": _shared_primary_user_id(clerk_user_id),
         "product_slug": SYSTEM_ZERO_PRODUCT_SLUG,
         "action": action,
         "tokens_used": tokens_used,
@@ -246,9 +293,10 @@ def _record_subscription(
     if not _shared_schema_available():
         return
 
+    subscription_user_id = _shared_primary_user_id(clerk_user_id)
     subscription_id = stripe_subscription_id or f"checkout-{clerk_user_id}-{tier}"
     payload = {
-        "user_id": clerk_user_id,
+        "user_id": subscription_user_id,
         "product_slug": _product_slug_for_tier(tier),
         "stripe_customer_id": stripe_customer_id,
         "stripe_subscription_id": subscription_id,
@@ -444,13 +492,11 @@ def billing_portal(payload: dict[str, Any], authorization: str | None = Header(N
     if not BILLING_READY:
         raise HTTPException(503, "billing_not_configured")
     user = require_user(authorization)
-    row = supa.table("users").select("stripe_customer_id").eq(
-        "clerk_user_id", user["sub"]
-    ).maybe_single().execute().data or {}
-    if not row.get("stripe_customer_id"):
+    customer_id = _stripe_customer_id_for_user(user)
+    if not customer_id:
         raise HTTPException(404, "stripe_customer_not_found")
     sess = stripe.billing_portal.Session.create(
-        customer=row["stripe_customer_id"],
+        customer=customer_id,
         return_url=payload.get("return_url", "https://systemzero.dev/account"),
     )
     return {"url": sess.url}

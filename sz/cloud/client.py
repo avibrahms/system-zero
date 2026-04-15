@@ -9,24 +9,59 @@ from typing import Any
 
 import yaml
 
-from sz.core import paths, repo_config
+from sz.core import paths, repo_config, util
+
+
+DEFAULT_ENDPOINT = "https://api.systemzero.dev"
+
+
+def _clean_endpoint(value: str | None) -> str | None:
+    if not value:
+        return None
+    return value.rstrip("/")
+
+
+def _release_endpoint() -> str | None:
+    roots = [util.repo_base(), util.repo_base().parent]
+    for root in roots:
+        release_path = root / ".s0-release.json"
+        if not release_path.exists():
+            continue
+        try:
+            state = json.loads(release_path.read_text())
+        except Exception:
+            continue
+        endpoint = _clean_endpoint((state.get("endpoints") or {}).get("api"))
+        if endpoint:
+            return endpoint
+    return None
 
 
 def _endpoint() -> str:
     cfg_p = paths.user_config_dir() / "config.yaml"
     if cfg_p.exists():
         cfg = yaml.safe_load(cfg_p.read_text()) or {}
-        if cfg.get("cloud_endpoint"):
-            return cfg["cloud_endpoint"].rstrip("/")
+        endpoint = _clean_endpoint(cfg.get("cloud_endpoint"))
+        if endpoint:
+            return endpoint
+    env_endpoint = _clean_endpoint(os.environ.get("SZ_CLOUD"))
+    if env_endpoint:
+        return env_endpoint
     try:
         root = paths.repo_root()
     except FileNotFoundError:
         root = None
     if root is not None:
-        cloud = repo_config.read(root).get("cloud", {})
-        if cloud.get("endpoint"):
-            return cloud["endpoint"].rstrip("/")
-    return os.environ.get("SZ_CLOUD", "https://api.systemzero.dev").rstrip("/")
+        config_path = paths.repo_config_path(root)
+        if config_path.exists():
+            cloud = repo_config.read(root).get("cloud", {})
+            endpoint = _clean_endpoint(cloud.get("endpoint"))
+            if endpoint and endpoint != DEFAULT_ENDPOINT:
+                return endpoint
+    release_endpoint = _release_endpoint()
+    if release_endpoint:
+        return release_endpoint
+    return DEFAULT_ENDPOINT
 
 
 def _token() -> str | None:

@@ -98,3 +98,60 @@ def test_existing_supabase_schema_subscription_fallback(cloud_app, monkeypatch) 
     me = client.get("/v1/me", headers=headers)
     assert me.status_code == 200
     assert me.json()["tier"] == "team"
+
+
+def test_billing_portal_uses_phase_schema_customer(cloud_app, monkeypatch) -> None:
+    main, fake, client, headers = cloud_app
+    captured: dict = {}
+    fake.rows["users"].append({
+        "clerk_user_id": "user_1",
+        "email": "avi@example.com",
+        "tier": "pro",
+        "stripe_customer_id": "cus_phase",
+    })
+
+    def create_portal(**kwargs):
+        captured["kwargs"] = kwargs
+        return SimpleNamespace(url="https://stripe.test/portal")
+
+    monkeypatch.setattr(main.stripe.billing_portal.Session, "create", create_portal)
+
+    portal = client.post(
+        "/v1/billing/portal",
+        json={"return_url": "https://systemzero.dev/account"},
+        headers=headers,
+    )
+
+    assert portal.status_code == 200
+    assert portal.json()["url"] == "https://stripe.test/portal"
+    assert captured["kwargs"]["customer"] == "cus_phase"
+
+
+def test_billing_portal_uses_existing_supabase_subscription_customer(cloud_app, monkeypatch) -> None:
+    main, fake, client, headers = cloud_app
+    captured: dict = {}
+    monkeypatch.setattr(main, "_phase_schema_available", lambda: False)
+    monkeypatch.setattr(main, "_shared_schema_available", lambda: True)
+    fake.rows["users"].append({"id": "u1", "clerk_id": "user_1", "email": "avi@example.com"})
+    fake.rows["subscriptions"].append({
+        "user_id": "u1",
+        "product_slug": "system-zero-pro",
+        "status": "active",
+        "stripe_customer_id": "cus_shared",
+    })
+
+    def create_portal(**kwargs):
+        captured["kwargs"] = kwargs
+        return SimpleNamespace(url="https://stripe.test/shared-portal")
+
+    monkeypatch.setattr(main.stripe.billing_portal.Session, "create", create_portal)
+
+    portal = client.post(
+        "/v1/billing/portal",
+        json={"return_url": "https://systemzero.dev/account"},
+        headers=headers,
+    )
+
+    assert portal.status_code == 200
+    assert portal.json()["url"] == "https://stripe.test/shared-portal"
+    assert captured["kwargs"]["customer"] == "cus_shared"
