@@ -1,0 +1,27 @@
+{
+  "behaviors": [
+    "observe installed modules through the registry",
+    "publish a deterministic reconstruction snapshot",
+    "record reconstruction state in memory for downstream modules"
+  ],
+  "capability": "ce.mcp.server.launcher",
+  "event_type": "ce.mcp.server.launcher.snapshot",
+  "interfaces": [
+    "bus",
+    "memory",
+    "discovery"
+  ],
+  "module_id": "mcp-server-launcher-ce",
+  "public_purpose": "from __future__ import annotations",
+  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "source_kind": "script",
+  "source_label": "core/system/scripts/mcp_server_launcher.py",
+  "source_metrics": {
+    "extensions": {
+      ".py": 1
+    },
+    "file_count": 1,
+    "function_count": 4,
+    "line_count": 57
+  }
+}

@@ -1,0 +1,4 @@
+type: git
+url: https://github.com/avibrahms/system-zero.git
+ref: main
+path: modules/skill-library-ce

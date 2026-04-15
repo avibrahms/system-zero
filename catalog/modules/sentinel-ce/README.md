@@ -1,5 +1,19 @@
-sentinel-ce is an anonymized System Zero reconstruction module.
+# sentinel-ce
 
-Mock absorbed module for sentinel.
+Sentinel reconstructed as a protocol-native self-improvement organ.
 
-Install with `sz install sentinel-ce` and run `sz doctor` from an initialized System Zero repo.
+## Behavior
+
+On every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.sentinel.snapshot`, and appends a record to the `ce.reconstruction` memory stream.
+
+## Source discipline
+
+The original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
+
+## Install
+
+```bash
+sz install sentinel-ce
+sz doctor sentinel-ce
+sz tick --reason sentinel-ce-smoke
+```

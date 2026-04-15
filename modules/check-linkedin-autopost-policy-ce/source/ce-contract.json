@@ -1,0 +1,27 @@
+{
+  "behaviors": [
+    "observe installed modules through the registry",
+    "publish a deterministic reconstruction snapshot",
+    "record reconstruction state in memory for downstream modules"
+  ],
+  "capability": "ce.check.linkedin.autopost.policy",
+  "event_type": "ce.check.linkedin.autopost.policy.snapshot",
+  "interfaces": [
+    "bus",
+    "memory",
+    "discovery"
+  ],
+  "module_id": "check-linkedin-autopost-policy-ce",
+  "public_purpose": "Detect drift in LinkedIn auto-post eligibility and cadence copy.",
+  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "source_kind": "script",
+  "source_label": "core/system/scripts/check_linkedin_autopost_policy.py",
+  "source_metrics": {
+    "extensions": {
+      ".py": 1
+    },
+    "file_count": 1,
+    "function_count": 2,
+    "line_count": 85
+  }
+}

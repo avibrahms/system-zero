@@ -1,0 +1,27 @@
+{
+  "behaviors": [
+    "observe installed modules through the registry",
+    "publish a deterministic reconstruction snapshot",
+    "record reconstruction state in memory for downstream modules"
+  ],
+  "capability": "ce.rollback.email.verification",
+  "event_type": "ce.rollback.email.verification.snapshot",
+  "interfaces": [
+    "bus",
+    "memory",
+    "discovery"
+  ],
+  "module_id": "rollback-email-verification-ce",
+  "public_purpose": "rollback-email-verification.py \u2014 remove email draft verification artifacts.",
+  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "source_kind": "script",
+  "source_label": "core/system/scripts/rollback-email-verification.py",
+  "source_metrics": {
+    "extensions": {
+      ".py": 1
+    },
+    "file_count": 1,
+    "function_count": 1,
+    "line_count": 85
+  }
+}

@@ -8,7 +8,19 @@ phase 16 consumption.
 import argparse, json, pathlib, re, sys
 
 SKIP_DIRS = {".git", "__pycache__", "node_modules", ".venv"}
-SKIP_NAMES = {"viralepic", "profiles"}
+SKIP_NAMES = {
+    "argentina",
+    "business",
+    "google-ads",
+    "identity",
+    "linkedin-content-pipeline",
+    "linkedin-messaging",
+    "mass-market",
+    "moonshot-ventures",
+    "profiles",
+    "solo-venture",
+    "viralepic",
+}
 
 def survey(src: pathlib.Path) -> list[dict]:
     items = []

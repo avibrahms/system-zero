@@ -1,0 +1,31 @@
+{
+  "behaviors": [
+    "observe installed modules through the registry",
+    "publish a deterministic reconstruction snapshot",
+    "record reconstruction state in memory for downstream modules"
+  ],
+  "capability": "ce.eidetic",
+  "event_type": "ce.eidetic.snapshot",
+  "interfaces": [
+    "bus",
+    "memory",
+    "discovery"
+  ],
+  "module_id": "eidetic-ce",
+  "public_purpose": "todoist_project: \"Eidetic\"",
+  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "source_kind": "module-dir",
+  "source_label": "modules/eidetic",
+  "source_metrics": {
+    "extensions": {
+      ".bak": 1,
+      ".docx": 1,
+      ".html": 1,
+      ".md": 33,
+      ".yaml": 3
+    },
+    "file_count": 39,
+    "function_count": 0,
+    "line_count": 6416
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "behaviors": [
+    "observe installed modules through the registry",
+    "publish a deterministic reconstruction snapshot",
+    "record reconstruction state in memory for downstream modules"
+  ],
+  "capability": "ce.system.zero",
+  "event_type": "ce.system.zero.snapshot",
+  "interfaces": [
+    "bus",
+    "memory",
+    "discovery"
+  ],
+  "module_id": "system-zero-ce",
+  "public_purpose": "An autonomous AI operating system. One system. Full solution.",
+  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "source_kind": "module-dir",
+  "source_label": "modules/system-zero",
+  "source_metrics": {
+    "extensions": {
+      ".html": 1,
+      ".js": 1,
+      ".md": 6,
+      ".py": 1,
+      ".sh": 1,
+      ".yaml": 1
+    },
+    "file_count": 11,
+    "function_count": 8,
+    "line_count": 1277
+  }
+}

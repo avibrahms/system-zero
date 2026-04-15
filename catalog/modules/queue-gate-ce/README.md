@@ -1,5 +1,19 @@
-queue-gate-ce is an anonymized System Zero reconstruction module.
+# queue-gate-ce
 
-Mock absorbed module for queue-gate.
+Queue Gate reconstructed as a protocol-native self-improvement organ.
 
-Install with `sz install queue-gate-ce` and run `sz doctor` from an initialized System Zero repo.
+## Behavior
+
+On every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.queue.gate.snapshot`, and appends a record to the `ce.reconstruction` memory stream.
+
+## Source discipline
+
+The original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
+
+## Install
+
+```bash
+sz install queue-gate-ce
+sz doctor queue-gate-ce
+sz tick --reason queue-gate-ce-smoke
+```

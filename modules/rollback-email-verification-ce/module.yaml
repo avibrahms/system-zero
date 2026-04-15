@@ -1,7 +1,8 @@
 id: rollback-email-verification-ce
 version: 0.1.0
-category: absorbed
-description: Mock absorbed module for rollback-email-verification.
+category: connection-engine
+description: Rollback Email Verification reconstructed as a protocol-native self-improvement
+  organ.
 entry:
   type: python
   command: entry.py
@@ -9,11 +10,21 @@ entry:
 triggers:
 - 'on': tick
 provides:
-- name: absorbed.rollback.email.verification
-  address: events:absorbed.rollback-email-verification.ran
-  description: Emits events for rollback-email-verification.
-requires: []
+- name: ce.rollback.email.verification
+  address: events:ce.rollback.email.verification.snapshot
+  description: Publishes Rollback Email Verification reconstruction snapshots.
+requires:
+- providers:
+  - bus
+  - memory
+  - discovery
 setpoints: {}
 hooks:
   reconcile: reconcile.sh
   doctor: doctor.sh
+limits:
+  max_runtime_seconds: 60
+  max_memory_mb: 128
+personas:
+- static
+- dynamic

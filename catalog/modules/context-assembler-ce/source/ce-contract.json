@@ -1,0 +1,27 @@
+{
+  "behaviors": [
+    "observe installed modules through the registry",
+    "publish a deterministic reconstruction snapshot",
+    "record reconstruction state in memory for downstream modules"
+  ],
+  "capability": "ce.context.assembler",
+  "event_type": "ce.context.assembler.snapshot",
+  "interfaces": [
+    "bus",
+    "memory",
+    "discovery"
+  ],
+  "module_id": "context-assembler-ce",
+  "public_purpose": "Import-safe alias for the hyphenated context-assembler script.",
+  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "source_kind": "script",
+  "source_label": "core/system/scripts/context_assembler.py",
+  "source_metrics": {
+    "extensions": {
+      ".py": 1
+    },
+    "file_count": 1,
+    "function_count": 0,
+    "line_count": 20
+  }
+}

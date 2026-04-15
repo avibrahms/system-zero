@@ -1,7 +1,8 @@
 id: check-linkedin-autopost-policy-ce
 version: 0.1.0
-category: absorbed
-description: Mock absorbed module for check-linkedin-autopost-policy.
+category: connection-engine
+description: Check Linkedin Autopost Policy reconstructed as a protocol-native self-improvement
+  organ.
 entry:
   type: python
   command: entry.py
@@ -9,11 +10,21 @@ entry:
 triggers:
 - 'on': tick
 provides:
-- name: absorbed.check.linkedin.autopost.policy
-  address: events:absorbed.check-linkedin-autopost-policy.ran
-  description: Emits events for check-linkedin-autopost-policy.
-requires: []
+- name: ce.check.linkedin.autopost.policy
+  address: events:ce.check.linkedin.autopost.policy.snapshot
+  description: Publishes Check Linkedin Autopost Policy reconstruction snapshots.
+requires:
+- providers:
+  - bus
+  - memory
+  - discovery
 setpoints: {}
 hooks:
   reconcile: reconcile.sh
   doctor: doctor.sh
+limits:
+  max_runtime_seconds: 60
+  max_memory_mb: 128
+personas:
+- static
+- dynamic

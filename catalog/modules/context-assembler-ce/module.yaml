@@ -1,7 +1,8 @@
 id: context-assembler-ce
 version: 0.1.0
-category: absorbed
-description: Mock absorbed module for context-assembler.
+category: connection-engine
+description: Context Assembler reconstructed as a protocol-native self-improvement
+  organ.
 entry:
   type: python
   command: entry.py
@@ -9,11 +10,21 @@ entry:
 triggers:
 - 'on': tick
 provides:
-- name: absorbed.context.assembler
-  address: events:absorbed.context-assembler.ran
-  description: Emits events for context-assembler.
-requires: []
+- name: ce.context.assembler
+  address: events:ce.context.assembler.snapshot
+  description: Publishes Context Assembler reconstruction snapshots.
+requires:
+- providers:
+  - bus
+  - memory
+  - discovery
 setpoints: {}
 hooks:
   reconcile: reconcile.sh
   doctor: doctor.sh
+limits:
+  max_runtime_seconds: 60
+  max_memory_mb: 128
+personas:
+- static
+- dynamic

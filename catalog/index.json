@@ -4,156 +4,112 @@
     {
       "id": "action-card-cleanup-ce",
       "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for action-card-cleanup.",
+      "category": "connection-engine",
+      "description": "Action Card Cleanup reconstructed as a protocol-native self-improvement organ.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "absorbed.action.card.cleanup"
+        "ce.action.card.cleanup"
       ],
       "requires": [],
       "setpoints": {},
       "source": {
         "type": "git",
         "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
+        "ref": "main",
         "path": "modules/action-card-cleanup-ce"
       },
-      "readme": "action-card-cleanup-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for action-card-cleanup.\n\nInstall with `sz install action-card-cleanup-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+      "readme": "# action-card-cleanup-ce\n\nAction Card Cleanup reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.action.card.cleanup.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install action-card-cleanup-ce\nsz doctor action-card-cleanup-ce\nsz tick --reason action-card-cleanup-ce-smoke\n```\n"
     },
     {
       "id": "agent-dashboard-ce",
       "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for agent-dashboard.",
+      "category": "connection-engine",
+      "description": "Agent Dashboard reconstructed as a protocol-native self-improvement organ.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "absorbed.agent.dashboard"
+        "ce.agent.dashboard"
       ],
       "requires": [],
       "setpoints": {},
       "source": {
         "type": "git",
         "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
+        "ref": "main",
         "path": "modules/agent-dashboard-ce"
       },
-      "readme": "agent-dashboard-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for agent-dashboard.\n\nInstall with `sz install agent-dashboard-ce` and run `sz doctor` from an initialized System Zero repo.\n"
-    },
-    {
-      "id": "argentina-ce",
-      "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for argentina.",
-      "personas": [
-        "static",
-        "dynamic"
-      ],
-      "provides": [
-        "absorbed.argentina"
-      ],
-      "requires": [],
-      "setpoints": {},
-      "source": {
-        "type": "git",
-        "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
-        "path": "modules/argentina-ce"
-      },
-      "readme": "argentina-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for argentina.\n\nInstall with `sz install argentina-ce` and run `sz doctor` from an initialized System Zero repo.\n"
-    },
-    {
-      "id": "business-ce",
-      "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for business.",
-      "personas": [
-        "static",
-        "dynamic"
-      ],
-      "provides": [
-        "absorbed.business"
-      ],
-      "requires": [],
-      "setpoints": {},
-      "source": {
-        "type": "git",
-        "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
-        "path": "modules/business-ce"
-      },
-      "readme": "business-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for business.\n\nInstall with `sz install business-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+      "readme": "# agent-dashboard-ce\n\nAgent Dashboard reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.agent.dashboard.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install agent-dashboard-ce\nsz doctor agent-dashboard-ce\nsz tick --reason agent-dashboard-ce-smoke\n```\n"
     },
     {
       "id": "check-linkedin-autopost-policy-ce",
       "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for check-linkedin-autopost-policy.",
+      "category": "connection-engine",
+      "description": "Check Linkedin Autopost Policy reconstructed as a protocol-native self-improvement organ.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "absorbed.check.linkedin.autopost.policy"
+        "ce.check.linkedin.autopost.policy"
       ],
       "requires": [],
       "setpoints": {},
       "source": {
         "type": "git",
         "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
+        "ref": "main",
         "path": "modules/check-linkedin-autopost-policy-ce"
       },
-      "readme": "check-linkedin-autopost-policy-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for check-linkedin-autopost-policy.\n\nInstall with `sz install check-linkedin-autopost-policy-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+      "readme": "# check-linkedin-autopost-policy-ce\n\nCheck Linkedin Autopost Policy reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.check.linkedin.autopost.policy.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install check-linkedin-autopost-policy-ce\nsz doctor check-linkedin-autopost-policy-ce\nsz tick --reason check-linkedin-autopost-policy-ce-smoke\n```\n"
     },
     {
       "id": "chronicle-ce",
       "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for chronicle.",
+      "category": "connection-engine",
+      "description": "Chronicle reconstructed as a protocol-native self-improvement organ.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "absorbed.chronicle"
+        "ce.chronicle"
       ],
       "requires": [],
       "setpoints": {},
       "source": {
         "type": "git",
         "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
+        "ref": "main",
         "path": "modules/chronicle-ce"
       },
-      "readme": "chronicle-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for chronicle.\n\nInstall with `sz install chronicle-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+      "readme": "# chronicle-ce\n\nChronicle reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.chronicle.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install chronicle-ce\nsz doctor chronicle-ce\nsz tick --reason chronicle-ce-smoke\n```\n"
     },
     {
       "id": "context-assembler-ce",
       "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for context-assembler.",
+      "category": "connection-engine",
+      "description": "Context Assembler reconstructed as a protocol-native self-improvement organ.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "absorbed.context.assembler"
+        "ce.context.assembler"
       ],
       "requires": [],
       "setpoints": {},
       "source": {
         "type": "git",
         "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
+        "ref": "main",
         "path": "modules/context-assembler-ce"
       },
-      "readme": "context-assembler-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for context-assembler.\n\nInstall with `sz install context-assembler-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+      "readme": "# context-assembler-ce\n\nContext Assembler reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.context.assembler.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install context-assembler-ce\nsz doctor context-assembler-ce\nsz tick --reason context-assembler-ce-smoke\n```\n"
     },
     {
       "id": "dreaming",
@@ -197,24 +153,24 @@
     {
       "id": "eidetic-ce",
       "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for eidetic.",
+      "category": "connection-engine",
+      "description": "Eidetic reconstructed as a protocol-native self-improvement organ.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "absorbed.eidetic"
+        "ce.eidetic"
       ],
       "requires": [],
       "setpoints": {},
       "source": {
         "type": "git",
         "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
+        "ref": "main",
         "path": "modules/eidetic-ce"
       },
-      "readme": "eidetic-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for eidetic.\n\nInstall with `sz install eidetic-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+      "readme": "# eidetic-ce\n\nEidetic reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.eidetic.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install eidetic-ce\nsz doctor eidetic-ce\nsz tick --reason eidetic-ce-smoke\n```\n"
     },
     {
       "id": "endocrine",
@@ -276,28 +232,6 @@
       "readme": "Goal Runner is the bridge between Repo Genesis and repository action. It reads the S0 repo profile, derives a simple per-language run command, and invokes it on tick only when today's expected output is missing.\n"
     },
     {
-      "id": "google-ads-ce",
-      "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for google-ads.",
-      "personas": [
-        "static",
-        "dynamic"
-      ],
-      "provides": [
-        "absorbed.google.ads"
-      ],
-      "requires": [],
-      "setpoints": {},
-      "source": {
-        "type": "git",
-        "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
-        "path": "modules/google-ads-ce"
-      },
-      "readme": "google-ads-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for google-ads.\n\nInstall with `sz install google-ads-ce` and run `sz doctor` from an initialized System Zero repo.\n"
-    },
-    {
       "id": "heartbeat",
       "version": "0.1.0",
       "category": "physiology",
@@ -326,28 +260,6 @@
         "path": "modules/heartbeat"
       },
       "readme": "Heartbeat is the minimum living signal for a static System Zero repository. It emits a pulse event on each tick and records a lightweight memory trace so other modules can tell that the repo is active.\n"
-    },
-    {
-      "id": "identity-ce",
-      "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for identity.",
-      "personas": [
-        "static",
-        "dynamic"
-      ],
-      "provides": [
-        "absorbed.identity"
-      ],
-      "requires": [],
-      "setpoints": {},
-      "source": {
-        "type": "git",
-        "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
-        "path": "modules/identity-ce"
-      },
-      "readme": "identity-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for identity.\n\nInstall with `sz install identity-ce` and run `sz doctor` from an initialized System Zero repo.\n"
     },
     {
       "id": "immune",
@@ -382,92 +294,26 @@
       "readme": "Immune watches the repository's event stream for simple anomaly signals and emits normalized anomaly events. It gives downstream modules a shared first layer of passive health detection without coupling them to the host.\n"
     },
     {
-      "id": "linkedin-content-pipeline-ce",
-      "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for linkedin-content-pipeline.",
-      "personas": [
-        "static",
-        "dynamic"
-      ],
-      "provides": [
-        "absorbed.linkedin.content.pipeline"
-      ],
-      "requires": [],
-      "setpoints": {},
-      "source": {
-        "type": "git",
-        "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
-        "path": "modules/linkedin-content-pipeline-ce"
-      },
-      "readme": "linkedin-content-pipeline-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for linkedin-content-pipeline.\n\nInstall with `sz install linkedin-content-pipeline-ce` and run `sz doctor` from an initialized System Zero repo.\n"
-    },
-    {
-      "id": "linkedin-messaging-ce",
-      "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for linkedin-messaging.",
-      "personas": [
-        "static",
-        "dynamic"
-      ],
-      "provides": [
-        "absorbed.linkedin.messaging"
-      ],
-      "requires": [],
-      "setpoints": {},
-      "source": {
-        "type": "git",
-        "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
-        "path": "modules/linkedin-messaging-ce"
-      },
-      "readme": "linkedin-messaging-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for linkedin-messaging.\n\nInstall with `sz install linkedin-messaging-ce` and run `sz doctor` from an initialized System Zero repo.\n"
-    },
-    {
-      "id": "mass-market-ce",
-      "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for mass-market.",
-      "personas": [
-        "static",
-        "dynamic"
-      ],
-      "provides": [
-        "absorbed.mass.market"
-      ],
-      "requires": [],
-      "setpoints": {},
-      "source": {
-        "type": "git",
-        "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
-        "path": "modules/mass-market-ce"
-      },
-      "readme": "mass-market-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for mass-market.\n\nInstall with `sz install mass-market-ce` and run `sz doctor` from an initialized System Zero repo.\n"
-    },
-    {
       "id": "mcp-server-launcher-ce",
       "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for mcp-server-launcher.",
+      "category": "connection-engine",
+      "description": "Mcp Server Launcher reconstructed as a protocol-native self-improvement organ.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "absorbed.mcp.server.launcher"
+        "ce.mcp.server.launcher"
       ],
       "requires": [],
       "setpoints": {},
       "source": {
         "type": "git",
         "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
+        "ref": "main",
         "path": "modules/mcp-server-launcher-ce"
       },
-      "readme": "mcp-server-launcher-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for mcp-server-launcher.\n\nInstall with `sz install mcp-server-launcher-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+      "readme": "# mcp-server-launcher-ce\n\nMcp Server Launcher reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.mcp.server.launcher.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install mcp-server-launcher-ce\nsz doctor mcp-server-launcher-ce\nsz tick --reason mcp-server-launcher-ce-smoke\n```\n"
     },
     {
       "id": "metabolism",
@@ -505,50 +351,6 @@
         "path": "modules/metabolism"
       },
       "readme": "Metabolism keeps the append-only bus usable over time by rotating and archiving old event logs. It preserves the protocol's JSONL discipline while preventing long-running repositories from accumulating unbounded operational weight.\n"
-    },
-    {
-      "id": "moonshot-init-tracking-files-ce",
-      "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for moonshot-init-tracking-files.",
-      "personas": [
-        "static",
-        "dynamic"
-      ],
-      "provides": [
-        "absorbed.moonshot.init.tracking.files"
-      ],
-      "requires": [],
-      "setpoints": {},
-      "source": {
-        "type": "git",
-        "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
-        "path": "modules/moonshot-init-tracking-files-ce"
-      },
-      "readme": "moonshot-init-tracking-files-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for moonshot-init-tracking-files.\n\nInstall with `sz install moonshot-init-tracking-files-ce` and run `sz doctor` from an initialized System Zero repo.\n"
-    },
-    {
-      "id": "moonshot-ventures-ce",
-      "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for moonshot-ventures.",
-      "personas": [
-        "static",
-        "dynamic"
-      ],
-      "provides": [
-        "absorbed.moonshot.ventures"
-      ],
-      "requires": [],
-      "setpoints": {},
-      "source": {
-        "type": "git",
-        "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
-        "path": "modules/moonshot-ventures-ce"
-      },
-      "readme": "moonshot-ventures-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for moonshot-ventures.\n\nInstall with `sz install moonshot-ventures-ce` and run `sz doctor` from an initialized System Zero repo.\n"
     },
     {
       "id": "prediction",
@@ -592,200 +394,200 @@
     {
       "id": "queue-gate-ce",
       "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for queue-gate.",
+      "category": "connection-engine",
+      "description": "Queue Gate reconstructed as a protocol-native self-improvement organ.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "absorbed.queue.gate"
+        "ce.queue.gate"
       ],
       "requires": [],
       "setpoints": {},
       "source": {
         "type": "git",
         "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
+        "ref": "main",
         "path": "modules/queue-gate-ce"
       },
-      "readme": "queue-gate-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for queue-gate.\n\nInstall with `sz install queue-gate-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+      "readme": "# queue-gate-ce\n\nQueue Gate reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.queue.gate.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install queue-gate-ce\nsz doctor queue-gate-ce\nsz tick --reason queue-gate-ce-smoke\n```\n"
     },
     {
       "id": "registry-validator-ce",
       "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for registry-validator.",
+      "category": "connection-engine",
+      "description": "Registry Validator reconstructed as a protocol-native self-improvement organ.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "absorbed.registry.validator"
+        "ce.registry.validator"
       ],
       "requires": [],
       "setpoints": {},
       "source": {
         "type": "git",
         "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
+        "ref": "main",
         "path": "modules/registry-validator-ce"
       },
-      "readme": "registry-validator-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for registry-validator.\n\nInstall with `sz install registry-validator-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+      "readme": "# registry-validator-ce\n\nRegistry Validator reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.registry.validator.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install registry-validator-ce\nsz doctor registry-validator-ce\nsz tick --reason registry-validator-ce-smoke\n```\n"
     },
     {
       "id": "rollback-email-verification-ce",
       "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for rollback-email-verification.",
+      "category": "connection-engine",
+      "description": "Rollback Email Verification reconstructed as a protocol-native self-improvement organ.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "absorbed.rollback.email.verification"
+        "ce.rollback.email.verification"
       ],
       "requires": [],
       "setpoints": {},
       "source": {
         "type": "git",
         "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
+        "ref": "main",
         "path": "modules/rollback-email-verification-ce"
       },
-      "readme": "rollback-email-verification-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for rollback-email-verification.\n\nInstall with `sz install rollback-email-verification-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+      "readme": "# rollback-email-verification-ce\n\nRollback Email Verification reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.rollback.email.verification.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install rollback-email-verification-ce\nsz doctor rollback-email-verification-ce\nsz tick --reason rollback-email-verification-ce-smoke\n```\n"
     },
     {
       "id": "sentinel-ce",
       "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for sentinel.",
+      "category": "connection-engine",
+      "description": "Sentinel reconstructed as a protocol-native self-improvement organ.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "absorbed.sentinel"
+        "ce.sentinel"
       ],
       "requires": [],
       "setpoints": {},
       "source": {
         "type": "git",
         "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
+        "ref": "main",
         "path": "modules/sentinel-ce"
       },
-      "readme": "sentinel-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for sentinel.\n\nInstall with `sz install sentinel-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+      "readme": "# sentinel-ce\n\nSentinel reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.sentinel.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install sentinel-ce\nsz doctor sentinel-ce\nsz tick --reason sentinel-ce-smoke\n```\n"
     },
     {
       "id": "session-bootstrap-ce",
       "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for session-bootstrap.",
+      "category": "connection-engine",
+      "description": "Session Bootstrap reconstructed as a protocol-native self-improvement organ.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "absorbed.session.bootstrap"
+        "ce.session.bootstrap"
       ],
       "requires": [],
       "setpoints": {},
       "source": {
         "type": "git",
         "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
+        "ref": "main",
         "path": "modules/session-bootstrap-ce"
       },
-      "readme": "session-bootstrap-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for session-bootstrap.\n\nInstall with `sz install session-bootstrap-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+      "readme": "# session-bootstrap-ce\n\nSession Bootstrap reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.session.bootstrap.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install session-bootstrap-ce\nsz doctor session-bootstrap-ce\nsz tick --reason session-bootstrap-ce-smoke\n```\n"
     },
     {
-      "id": "solo-venture-ce",
+      "id": "skill-library-ce",
       "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for solo-venture.",
+      "category": "connection-engine-skills",
+      "description": "Sanitized recursive-question skill library reconstructed as a protocol module.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "absorbed.solo.venture"
+        "ce.skill.library"
       ],
       "requires": [],
       "setpoints": {},
       "source": {
         "type": "git",
         "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
-        "path": "modules/solo-venture-ce"
+        "ref": "main",
+        "path": "modules/skill-library-ce"
       },
-      "readme": "solo-venture-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for solo-venture.\n\nInstall with `sz install solo-venture-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+      "readme": "# skill-library-ce\n\nSanitized recursive-question skill library reconstructed as a protocol module.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.skill.library.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install skill-library-ce\nsz doctor skill-library-ce\nsz tick --reason skill-library-ce-smoke\n```\n"
     },
     {
       "id": "spec-dependency-graph-ce",
       "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for spec-dependency-graph.",
+      "category": "connection-engine",
+      "description": "Spec Dependency Graph reconstructed as a protocol-native self-improvement organ.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "absorbed.spec.dependency.graph"
+        "ce.spec.dependency.graph"
       ],
       "requires": [],
       "setpoints": {},
       "source": {
         "type": "git",
         "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
+        "ref": "main",
         "path": "modules/spec-dependency-graph-ce"
       },
-      "readme": "spec-dependency-graph-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for spec-dependency-graph.\n\nInstall with `sz install spec-dependency-graph-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+      "readme": "# spec-dependency-graph-ce\n\nSpec Dependency Graph reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.spec.dependency.graph.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install spec-dependency-graph-ce\nsz doctor spec-dependency-graph-ce\nsz tick --reason spec-dependency-graph-ce-smoke\n```\n"
     },
     {
       "id": "spec-lint-ce",
       "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for spec-lint.",
+      "category": "connection-engine",
+      "description": "Spec Lint reconstructed as a protocol-native self-improvement organ.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "absorbed.spec.lint"
+        "ce.spec.lint"
       ],
       "requires": [],
       "setpoints": {},
       "source": {
         "type": "git",
         "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
+        "ref": "main",
         "path": "modules/spec-lint-ce"
       },
-      "readme": "spec-lint-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for spec-lint.\n\nInstall with `sz install spec-lint-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+      "readme": "# spec-lint-ce\n\nSpec Lint reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.spec.lint.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install spec-lint-ce\nsz doctor spec-lint-ce\nsz tick --reason spec-lint-ce-smoke\n```\n"
     },
     {
       "id": "start-preamble-ce",
       "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for start-preamble.",
+      "category": "connection-engine",
+      "description": "Start Preamble reconstructed as a protocol-native self-improvement organ.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "absorbed.start.preamble"
+        "ce.start.preamble"
       ],
       "requires": [],
       "setpoints": {},
       "source": {
         "type": "git",
         "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
+        "ref": "main",
         "path": "modules/start-preamble-ce"
       },
-      "readme": "start-preamble-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for start-preamble.\n\nInstall with `sz install start-preamble-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+      "readme": "# start-preamble-ce\n\nStart Preamble reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.start.preamble.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install start-preamble-ce\nsz doctor start-preamble-ce\nsz tick --reason start-preamble-ce-smoke\n```\n"
     },
     {
       "id": "subconscious",
@@ -831,24 +633,24 @@
     {
       "id": "system-zero-ce",
       "version": "0.1.0",
-      "category": "absorbed",
-      "description": "Mock absorbed module for system-zero.",
+      "category": "connection-engine",
+      "description": "System Zero reconstructed as a protocol-native self-improvement organ.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "absorbed.system.zero"
+        "ce.system.zero"
       ],
       "requires": [],
       "setpoints": {},
       "source": {
         "type": "git",
         "url": "https://github.com/avibrahms/system-zero.git",
-        "ref": "v0.1.0",
+        "ref": "main",
         "path": "modules/system-zero-ce"
       },
-      "readme": "system-zero-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for system-zero.\n\nInstall with `sz install system-zero-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+      "readme": "# system-zero-ce\n\nSystem Zero reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.system.zero.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install system-zero-ce\nsz doctor system-zero-ce\nsz tick --reason system-zero-ce-smoke\n```\n"
     }
   ]
 }

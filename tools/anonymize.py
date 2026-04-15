@@ -5,8 +5,10 @@ import re, sys, pathlib
 SKIP_PARTS = {".git", "__pycache__", "node_modules", ".venv", "venv"}
 
 PATTERNS = [
-    (re.compile(r"\b[Aa]vi\b"), "operator first name"),
-    (re.compile(r"\bavi[-_](products|voice)\b", re.I), "operator identifier"),
+    (re.compile(r"\bavi\b", re.I), "operator first name"),
+    (re.compile(r"\bavi[-_](products|voice|profile)\b", re.I), "operator identifier"),
+    (re.compile(r"\bAVI(?:[-_][A-Z0-9]+)+\b"), "operator uppercase identifier"),
+    (re.compile(r"\bAVI_PRODUCTS__[A-Z0-9_]+\b"), "operator product registry"),
     (re.compile(r"\b[aA]vi[- _]?[bB]elhassen\b"), "operator name"),
     (re.compile(r"/Users/avi/"), "operator home path"),
     (re.compile(r"/home/avi/"), "operator home path"),

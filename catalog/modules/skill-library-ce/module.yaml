@@ -1,0 +1,30 @@
+id: skill-library-ce
+version: 0.1.0
+category: connection-engine-skills
+description: Sanitized recursive-question skill library reconstructed as a protocol
+  module.
+entry:
+  type: python
+  command: entry.py
+  args: []
+triggers:
+- 'on': tick
+provides:
+- name: ce.skill.library
+  address: events:ce.skill.library.snapshot
+  description: Publishes Skill Library reconstruction snapshots.
+requires:
+- providers:
+  - bus
+  - memory
+  - discovery
+setpoints: {}
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh
+limits:
+  max_runtime_seconds: 60
+  max_memory_mb: 128
+personas:
+- static
+- dynamic

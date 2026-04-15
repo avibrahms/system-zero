@@ -1,0 +1,35 @@
+{
+  "behaviors": [
+    "observe installed modules through the registry",
+    "publish a deterministic reconstruction snapshot",
+    "record reconstruction state in memory for downstream modules"
+  ],
+  "capability": "ce.chronicle",
+  "event_type": "ce.chronicle.snapshot",
+  "interfaces": [
+    "bus",
+    "memory",
+    "discovery"
+  ],
+  "module_id": "chronicle-ce",
+  "public_purpose": "keywords: logging, forensics, events, hash-chain, tamper-detection, observability, self-recursive",
+  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "source_kind": "module-dir",
+  "source_label": "modules/chronicle",
+  "source_metrics": {
+    "extensions": {
+      ".bak": 1,
+      ".gz": 27,
+      ".json": 1,
+      ".jsonl": 1,
+      ".lock": 1,
+      ".md": 3,
+      ".py": 3,
+      ".yaml": 3,
+      "<none>": 2
+    },
+    "file_count": 42,
+    "function_count": 40,
+    "line_count": 106719
+  }
+}

@@ -1,0 +1,898 @@
+[
+  {
+    "description": "Finds integration failures: external knowledge, ideas, techniques, or solutions that exist and are relevant but haven't been absorbed into the work. Uses /analyze to deeply understand candidates before absorption and /implement to verify that absorption produced real behavioral change. Merges three user intents: inspire (draw from anything), integrate (weave into practice), and absorb (let it change you). Trigger: \"what haven't I absorbed\", \"what do I know but not use\", \"integrate this\", \"what's sitting unused\", \"absorb the best, reject the rest\". Unlike discovery (which finds unknown unknowns), absorb finds what you KNOW ABOUT but haven't INTEGRATED. The information exists, you're aware of ",
+    "id": "absorb",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/absorb",
+    "title": "Absorb"
+  },
+  {
+    "description": "The universal recursive actualization engine. Takes any expressed intent (wish, prompt, vision, plan, desire) and drives it from conception to complete execution. Finds every piece of intent that remains undecomposed, unassigned, unsequenced, or undelivered, then does the work. The only skill that doesn't just find problems but creates the solution and delivers it. Triggers on \"actualize this\", \"make this happen\", \"execute everything\", \"fulfill this\", \"do all of this\", or any prompt containing more work than a single action can cover.",
+    "id": "actualize",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/actualize",
+    "title": "Actualize"
+  },
+  {
+    "description": "description: Save learnings, patterns, and insights to the repo's persistent memory system. Triggers on \"add to memory\", \"add this to memory\", \"remember this\", \"save this to memory",
+    "id": "add-to-memory",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/add-to-memory",
+    "title": "Add to Memory"
+  },
+  {
+    "description": "description: Advisory agent role for bounded autonomy architecture. Triggers on \"act as agent C\", \"act as agent G\", or requests for deliberation/critique layer. Claude becomes a pu",
+    "id": "agent-advisor",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/agent-advisor",
+    "title": "Agent C/G Advisor Role"
+  },
+  {
+    "description": "description: Executor role in bounded autonomy architecture. Triggers on \"act as agent O\", \"executor mode\", or requests to prepare structured prompts for advisory agents (C/G). Cla",
+    "id": "agent-o",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/agent-o",
+    "title": "Agent O \u2014 Executor Role"
+  },
+  {
+    "description": "Delivers total understanding of any target in one shot. Points at something and answers every question the user would ask, every question they'd ask AFTER those answers, and every question they can't formulate yet because they lack the context. Trigger: \"analyze this\", \"analyze <target>\", \"explain this to me\", \"break this down\", \"help me understand\", \"what is this and why\". Unlike discovery (which expands frontiers of awareness), analyze collapses everything into crystal-clear understanding of a specific target. Unlike blind-spot (which finds what's missing), analyze explains what's present. The deliverable is the explanation itself.",
+    "id": "analyze",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/analyze",
+    "title": "Analyze"
+  },
+  {
+    "description": "Finds failures to look ahead at what is visibly approaching but unprepared for. Trigger: \"anticipate\", \"predict\", \"what's coming?\", \"foresight\", \"prepare for\", \"heading toward\", \"before it hits\", \"see it coming\". Unlike future-proof (depreciation), which checks if things will age well over time, anticipate is about incoming events: what is APPROACHING on a known or knowable trajectory that nothing here is ready for? Not passive aging but active collision.",
+    "id": "anticipate",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/anticipate",
+    "title": "Anticipate"
+  },
+  {
+    "description": "The structural quality engine for self-modifying systems. Audits architectural integrity and hardcoded decisions, generalizes narrow solutions and extracts recurring patterns, then hardens against depreciation and coordination failures. The core insight: a system that modifies its own code autonomously must have code worth modifying. Hardcoded, ungeneralized, case-locked, unpatternified code makes self-modification increasingly brittle with every cycle. Architect is the meta-capability: the ability to evolve well. Trigger: \"architect,\" \"structural quality,\" \"code quality for evolution,\" \"can the system modify itself cleanly,\" \"what's brittle,\" \"architecture audit,\" \"design review,\" \"self-mod",
+    "id": "architect",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/architect",
+    "title": "/architect"
+  },
+  {
+    "description": "name: architectural-integrity",
+    "id": "architectural-integrity",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/architectural-integrity",
+    "title": "Architectural Integrity"
+  },
+  {
+    "description": "Finds audience mismatch: things built for the wrong user, wrong skill level, wrong context, wrong moment. You can be perfectly purpose-aligned and completely wrong for your audience. Different from purpose (which asks if it serves its goal) because audience asks if it serves the PEOPLE it's for. Trigger: \"who is this for\", \"audience\", \"user\", \"does this work for them\", \"too technical\", \"too simple\".",
+    "id": "audience",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/audience",
+    "title": "Audience"
+  },
+  {
+    "description": "description: Finds the best available solution by exhaustively exploring alternatives, evaluating trade-offs, and stress-testing assumptions. Not \"what's wrong\" (pressure-test) or",
+    "id": "best-solution",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/best-solution",
+    "title": "Best Solution"
+  },
+  {
+    "description": "description: \"The universal recursive absence detector. One question that finds what's missing that should exist, what's already here that nobody recognizes as the answer, and what",
+    "id": "blind-spot",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/blind-spot",
+    "title": "Blind Spot"
+  },
+  {
+    "description": "Finds undiscovered capabilities already present in the current environment but never mapped, combined, or utilized. Trigger: \"what can I already do,\" \"what's hiding in plain sight,\" \"what tools am I not using,\" \"what combinations haven't been tried.\" Unique angle: not absence (things missing) but ignorance of presence. The capability exists. The resource is installed. The skill is available. Nobody looked. Bootload is the cold-start discovery sweep that treats every environment as unexplored territory regardless of how long you've operated in it.",
+    "id": "bootload",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/bootload",
+    "title": "/bootload"
+  },
+  {
+    "description": "The full intent-to-validation loop in a single manual invocation. Runs /prime's lens selection and success criterion BEFORE generation, then /check's recursive validation AFTER, with the criterion wired through. Use for high-stakes prompts where you want the entire loop explicit and visible rather than running silently through hooks. Complements (does not replace) the hook-based /prime and /check. Triggers on \"bulletproof\", \"bulletproof this\", \"make this bulletproof\", \"full loop\".",
+    "id": "bulletproof",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/bulletproof",
+    "title": "Bulletproof"
+  },
+  {
+    "description": "The universal recursive outcome verifier. Finds every process, check, fix, and intervention running without measuring whether it achieves what it claims. Calibrate asks: does anyone MEASURE whether this thing actually WORKS? Open-loop systems feel productive. Closed-loop systems ARE productive. Calibrate closes the loop. Triggers on \"calibrate,\" \"is this working,\" \"does this help,\" \"measure outcomes,\" \"close the loop,\" \"effectiveness,\" \"ROI,\" \"validate results.\"",
+    "id": "calibrate",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/calibrate",
+    "title": "Calibrate"
+  },
+  {
+    "description": "Finds broken action chains: completed work that failed to produce or trigger the next action that must follow. Not about things not started (that's execute) or things half-done (that's finish). This is about the link between completed steps \u2014 when step N finishes but step N+1 never begins because nothing connects them. Every completed action should either produce the next action as output or make the next action inevitable. When it doesn't, momentum dies silently. Trigger: \"chain\", \"what's next\", \"follow through\", \"momentum\", \"nothing happened after\", \"distribution gap\", \"delivery gap\", \"channel coverage\", \"what finished work never reached the audience\", or \"where did propagation stop\".",
+    "id": "chain",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/chain",
+    "title": "Chain"
+  },
+  {
+    "description": "description: \"The recursive question orchestrator. Dynamically discovers all recursive question skills via skill-preselector.py, then selects which to run and in what order based o",
+    "id": "check",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/check",
+    "title": "Check"
+  },
+  {
+    "description": "The universal structural integrity engine. Detects internal contradictions, purpose drift, unpropagated changes, broken knowledge links, stale claims, and local-only fixes across the entire system. Produces a unified integrity report showing exactly where the system has become internally inconsistent and what was repaired. Trigger: \"cohere,\" \"consistency check,\" \"what contradicts,\" \"integrity scan,\" \"what's out of sync,\" \"fragmentation check,\" \"does this all hang together,\" \"what drifted,\" \"propagate everything,\" \"structural alignment,\" \"system coherence.\" Unlike any constituent skill alone, cohere runs ALL structural-integrity angles in one invocation. The output is not six separate reports",
+    "id": "cohere",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/cohere",
+    "title": "/cohere"
+  },
+  {
+    "description": "Finds fragmentation: parts that contradict each other, duplicate work, pull in different directions, or fail to reinforce each other as a whole. Trigger: \"does this hang together\", \"coherent\", \"unified\", \"fragmented\", \"contradictory\". The unique angle is unity of intent. Not whether dependencies are wired correctly (that's ripple), but whether every piece feels like it belongs to the same thing and strengthens the others.",
+    "id": "coherence",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/coherence",
+    "title": "Coherence"
+  },
+  {
+    "description": "Finds work that was started in one session and never verified as finished in any later session. Unlike finish (limbo artifacts) or did-i (process completeness), this skill owns cross-session completion drift: promises that vanish without a terminal state. Triggers on phrases like \"completion drift,\" \"session hygiene,\" \"cross-session unfinished work,\" \"what never got verified,\" \"residual commitments,\" \"task continuity,\" or any request to find work that was started but never closed across session boundaries.",
+    "id": "completion-drift",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/completion-drift",
+    "title": "Completion Drift"
+  },
+  {
+    "description": "description: \"The universal recursive compliance enforcer. One question that finds every deviation between what was specified and what was delivered \u2014 then eliminates every deviati",
+    "id": "comply",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/comply",
+    "title": "Comply"
+  },
+  {
+    "description": "The ultimate execution orchestrator. Takes ANY prompt and drives it from comprehension to complete delivery across multiple sessions. Decomposes intent into a persistent project tree, executes everything possible now, schedules continuation via agent.py daemon, and spawns sub-conductors for complex branches. Recursively orchestrates orchestrators. Every phase checkpoints to core/conductor/projects/{id}/state.yaml so work survives interruptions. Any session can resume from any checkpoint. Triggers on \"conduct this\", \"conductor\", \"build me\", \"make this happen\", \"project orchestrate\", \"CEO mode\", or any prompt requiring multi-session persistent execution. Not a recursive question. Not a detecti",
+    "id": "conductor",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/conductor",
+    "title": "Conductor"
+  },
+  {
+    "description": "The upstream question. Most problems that other skills detect (flaws, missing pieces, wrong priorities, stale patterns) trace back to a truth someone knew but didn't act on. Confront finds that truth. Not what's wrong (pressure-test), not what a stranger would see (scrutinize), not underambition (push), not projection (counsel). The thing you already sense is true and keep walking past. The code smell everyone normalized. The strategy nobody will say isn't working. The conversation that keeps getting postponed. The metric nobody checks because it's bad. Trigger: \"confront\", \"what am I avoiding\", \"hard truth\", \"be honest with me\", \"what do I already know\", \"stop lying to myself\", \"what's the ",
+    "id": "confront",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/confront",
+    "title": "Confront"
+  },
+  {
+    "description": "The universal recursive integration detector. Finds fundamental components (internal systems, external services, data stores, processes, skills, dashboards) that are unaware of each other and establishes the communication infrastructure so they can discover, update, and interact in real time. Not symbiosis (bidirectional value from connection). Not orchestrate (coordination of independent parts). Connect builds the WIRING ITSELF: the buses, hooks, shared protocols, event channels, and discovery mechanisms that let components find each other and start talking. Symbiosis asks \"what pair would benefit from connection.\" Connect asks \"what components can't even SEE each other yet.\" The result is ",
+    "id": "connect",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/connect",
+    "title": "Connect"
+  },
+  {
+    "description": "The universal recursive constraint mapper. One question that finds every real wall you haven't named, every phantom wall you're respecting for no reason, and every workaround that quietly built a new wall \u2014 then optimizes the operating envelope before returning. Applies to the full stack: LLM brain, orchestration engine, tools, context window, OS, platform, authorizations, security model, execution environment, human capacity, budget, time, physics. Triggers on phrases like \"constraint,\" \"what are my limits,\" \"what can't I do,\" \"what's blocking me,\" \"operating envelope,\" \"optimize within limits,\" \"ceiling,\" \"what walls am I hitting,\" \"system limitations,\" \"work around,\" \"boundary.\" The twin ",
+    "id": "constraint",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/constraint",
+    "title": "/constraint"
+  },
+  {
+    "description": "Finds inputs that were force-resolved before they were understood, or ignored because they didn't fit an existing category. The reverie detector: what was too ambiguous to process and got flattened into a premature answer or silently dropped? Trigger: \"what got forced\", \"premature resolution\", \"what was ignored\", \"what needs to sit longer\", \"unprocessed inputs\". The unique angle is premature closure. Not whether things are missing (blind-spot), but whether things that ARRIVED were given the space to become what they actually are before being categorized, dismissed, or force-resolved.",
+    "id": "contain",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/contain",
+    "title": "Contain"
+  },
+  {
+    "description": "Finds hidden costs that nobody is accounting for. Not things that are broken (that's maintain) but things that are working fine while silently draining resources: attention tax, maintenance burden, complexity debt, opportunity cost, context-switching overhead, coordination drag. Trigger: \"What is this costing?\", \"Where is the budget going?\", \"Why does everything feel heavier than it should?\", \"What's the real price?\". The most expensive things in a system are often the ones that never appear on any ledger.",
+    "id": "cost",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/cost",
+    "title": "/cost"
+  },
+  {
+    "description": "description: Finds every place where you're substituting your own experience, context, assumptions, or preferences for the actual situation's reality. Not audience mismatch (that's",
+    "id": "counsel",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/counsel",
+    "title": "Counsel"
+  },
+  {
+    "description": "Customer-facing skill builder workflow. Creates a practical skill scaffold for a domain or job to be done, saves it, and immediately runs it on the current context. Triggers on \"create and run\", \"make a skill and use it\", \"build a skill for this\", or any request to create a reusable skill and execute it right away without exposing internal recursive-skill machinery.",
+    "id": "create-and-run",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/create-and-run",
+    "title": "Create and Run"
+  },
+  {
+    "description": "type: content-transformation",
+    "id": "crispy-juicy",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/crispy-juicy",
+    "title": "Crispy Juicy Technical Extraction"
+  },
+  {
+    "description": "The universal recursive debugger. Takes a bug, broken behavior, or unexpected result and drives it to root cause and verified fix in one shot. Separates symptom from cause, cause from root cause, and root cause from the conditions that allowed it. Fixes the actual problem, not the surface manifestation. Trigger: \"debug\", \"debug this\", \"why is this broken\", \"find the bug\", \"what's causing this\", \"trace this failure\", \"root cause\", \"figure out why\", \"this doesn't work\", \"something's wrong with\", \"it's broken\", \"diagnose\", or any indication that something isn't behaving as expected and needs to be understood and fixed.",
+    "id": "debug",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/debug",
+    "title": "Debug"
+  },
+  {
+    "description": "The universal defensive perimeter. Scans for exploitable vulnerabilities and fragile assumptions, detects invisible degradation and drift from declared state, then responds by pushing fixes upstream and processing ambiguous inputs that fell through the cracks. No human is watching at 3 AM. The system must protect itself. Fortify reinforces quality; defend protects against threats. Trigger: \"defend,\" \"protect the system,\" \"threat scan,\" \"what can break us,\" \"what's exploitable,\" \"what's decaying,\" \"harden everything,\" \"defensive sweep,\" \"integrity audit,\" \"what's vulnerable,\" \"attack surface,\" \"silent decay,\" \"what's rotting unseen.\" Unlike any constituent skill alone, defend runs ALL defensi",
+    "id": "defend",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/defend",
+    "title": "/defend"
+  },
+  {
+    "description": "description: \"The universal recursive diagnostic engine. One question that finds the root cause of any broken, unreachable, malfunctioning, or misbehaving system, then fixes it bef",
+    "id": "diagnose",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/diagnose",
+    "title": "Diagnose"
+  },
+  {
+    "description": "description: \"The universal recursive process completeness check. One question that finds every step, protocol, action, and follow-up that should have happened but didn't \u2014 then re",
+    "id": "did-i",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/did-i",
+    "title": "Did I"
+  },
+  {
+    "description": "Finds unknown unknowns: things you don't know that you don't know, questions you haven't thought to ask, entire categories of information that are relevant but invisible. Merges user intents: discover what's needed, research, analyse, find structure, and trace the evolution of both the structure and the process of finding what's needed. Trigger: \"what am I not seeing\", \"what question haven't I asked\", \"discover what I'm missing\", \"research this from scratch\". Unlike blind-spot (which finds what SHOULD exist from a template), discovery works from scratch with no template. It finds what you DON'T EVEN KNOW IS MISSING. Each answer reveals further unasked questions, and the recursion follows tha",
+    "id": "discovery",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/discovery",
+    "title": "Discovery"
+  },
+  {
+    "description": "description: \"Finds files whose structure forces consumers to load dead weight \u2014 stale records, resolved entries, mixed concerns, or monolithic blobs that could be split into the s",
+    "id": "distill",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/distill",
+    "title": "Distill"
+  },
+  {
+    "description": "type: content-transformation",
+    "id": "dm-converter",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/dm-converter",
+    "title": "DM Converter"
+  },
+  {
+    "description": "description: \"The universal recursive laziness detector. One question that finds every task the agent is deferring to the user that it could execute itself with its available tools",
+    "id": "do-it",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/do-it",
+    "title": "Do It"
+  },
+  {
+    "description": "Autonomous operator workflow that discovers the highest-leverage real-world action, executes it, verifies the result, and chains to the next action.",
+    "id": "drive",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/drive",
+    "title": "/drive"
+  },
+  {
+    "description": "description: \"Finds every token, context, file read, repeated injection, redundant load, or computational cost that could be eliminated without losing capability. The universal rec",
+    "id": "efficiency",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/efficiency",
+    "title": "Efficiency"
+  },
+  {
+    "description": "Find missing emergent properties that would make a system self-sustaining rather than dependent on external intervention. A system that works is not alive. A system that maintains itself, heals itself, improves itself, and adapts to change without anyone watching it: that's alive. Maintain finds decay. Self-heal finds drift. Emerge asks a harder question: does this system have the properties needed to survive natural selection without a caretaker? Can it persist, repair, improve, and adapt on its own? Every missing property is a dependency on someone remembering to do something, and that's where systems die. Triggers on phrases like \"emerge,\" \"make it alive,\" \"self-sustaining,\" \"self-maintai",
+    "id": "emerge",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/emerge",
+    "title": "Emerge"
+  },
+  {
+    "description": "Finds stale evolution in systems, knowledge, and structures that stopped growing despite a changing environment. Trigger: \"what stopped evolving,\" \"is this growing,\" \"what new knowledge should be integrated,\" \"what structural improvements are overdue.\" Unique angle: not decay (things breaking) or drift (things wandering from spec), but arrested growth. The system works fine today but isn't incorporating new inputs, merging with better approaches, or structurally improving. Evolution that froze becomes extinction on a delay.",
+    "id": "evolve",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/evolve",
+    "title": "/evolve"
+  },
+  {
+    "description": "Find every trace, residue, and hidden tendril of something that was removed from something else. Complete surgical extraction \u2014 not just deleting the visible part, but finding every reference, dependency, assumption, transition, and ghost that the removed thing left behind. Then check whether the act of removal itself introduced new artifacts that need removing. Triggers on phrases like \"excise,\" \"completely remove,\" \"clean removal,\" \"rip out,\" \"extract,\" \"purge,\" \"did I get everything,\" \"what's left behind,\" \"remove all traces,\" \"surgical removal,\" \"untangle,\" \"decouple,\" \"sever,\" or any request to fully eliminate something from a system, codebase, document, strategy, or process.",
+    "id": "excise",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/excise",
+    "title": "Excise"
+  },
+  {
+    "description": "Finds work that is ready to do RIGHT NOW but isn't being done because of a fictional prerequisite. Not wrong order (prioritize), not wrong time (timing), not deferred to someone else (do-it), not missing steps (did-i) \u2014 but present capability meeting zero motion. Targets the gap between \"could\" and \"did.\" Triggers on \"execute\", \"what should I be doing\", \"why isn't this moving\", \"stop stalling\", \"just do it\", \"what's blocking execution\", \"unblock me.\"",
+    "id": "execute",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/execute",
+    "title": "Execute"
+  },
+  {
+    "description": "The universal capability expansion engine. Performs a complete census of everything available (tools, APIs, hardware, software, scripts, integrations, services, skills, senses), then finds what's idle, unknown, unconnected, unabsorbed, structurally absent, and not yet emergent. Produces an actionable expansion map. Trigger: \"expand,\" \"what can I use,\" \"grow beyond,\" \"stuck,\" \"level up the system,\" \"capability scan,\" \"full census,\" \"what am I not using,\" \"rediscover everything,\" \"first step to grow.\" Unlike any constituent skill alone, expand runs ALL capability-discovery angles in one invocation. The output is not seven separate reports but one unified expansion map showing exactly what the ",
+    "id": "expand",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/expand",
+    "title": "/expand"
+  },
+  {
+    "description": "The universal recursive completion engine. Finds every element that was started but never finished: half-built features, partial migrations, draft content that never shipped, configurations left incomplete, threads opened but never closed, TODO markers that aged into furniture. Not undecomposed intent (actualize), not ready-but-unstarted (execute), not agent deferral (do-it), not project-level stalls (project-pulse). This is the specific 60-90% done artifact rotting in place. Triggers on \"finish everything\", \"what's half done\", \"what never shipped\", \"close the loops\", \"complete all\", \"what did I leave unfinished\", \"limbo check\", or any request to find and complete partially-built work across",
+    "id": "finish",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/finish",
+    "title": "Finish"
+  },
+  {
+    "description": "The universal web automation flow compiler. Discovers available tools and API endpoints for a target domain, compiles multi-step browser/API workflows into pre-baked executable sequences, validates them, stores them as reusable templates, and self-heals when flows break. Domain-agnostic: works on any website, not just LinkedIn. The core insight: LLM decision-making at runtime is the bottleneck for speed and reliability. Move decisions to compile-time, execute at runtime. Trigger: \"compile a flow\", \"pre-bake sequence\", \"map this site\", \"flow-forge\", \"optimize this automation\", \"why is this slow\", \"build a template for\".",
+    "id": "flow-forge",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/flow-forge",
+    "title": "Flow Forge"
+  },
+  {
+    "description": "The forward-looking threat and consequence engine. Scans the horizon for approaching problems nobody is preparing for, traces the downstream effects of recent decisions that nobody is tracking, and identifies irreversible commitments hiding as casual choices. Produces an actionable foresight map. Trigger: \"foresee,\" \"what's coming,\" \"what did we miss,\" \"downstream,\" \"irreversible,\" \"hidden cost,\" \"consequence scan,\" \"what breaks next,\" \"blind to the future,\" \"trace this forward,\" \"protection check.\" Unlike any constituent skill alone, foresee runs ALL forward-looking angles in one invocation. The output is not six separate reports but one unified foresight map showing exactly what the system",
+    "id": "foresee",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/foresee",
+    "title": "/foresee"
+  },
+  {
+    "description": "The instant skill factory. Forges a recursive question from a domain or problem, saves it as a skill, and immediately runs it on the current context. One command from concept to results. Triggers on \"forge and act\", \"forge and run\", \"create a skill for X and run it\", or any request to both create and apply a new question.",
+    "id": "forge-and-act",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/forge-and-act",
+    "title": "Forge and Act"
+  },
+  {
+    "description": "The complete reinforcement pipeline. Primes intent before execution, runs 11 reinforcement phases (confront \u2192 scrutinize \u2192 silent-corruption \u2192 blind-spot \u2192 genesis \u2192 coherence \u2192 unhardcode \u2192 improve \u2192 drive \u2192 second-order \u2192 pressure-test), then validates with check after. Prime and check run internally with 100% guarantee, not via hooks. Each phase strengthens a different layer. What comes out is built to last. Triggers on \"fortify\", \"fortify this\", \"reinforce\", \"make this unbreakable\", \"full reinforcement\". Manual invocation only.",
+    "id": "fortify",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/fortify",
+    "title": "Fortify"
+  },
+  {
+    "description": "The chained fresh-eyes audit. Runs scrutinize (strip familiarity, find what insiders stopped seeing) then genesis (find what doesn't exist yet that should), with scrutinize's findings feeding genesis's search. The chain creates a feedback loop: familiarity blindness reveals where the system lacks self-correcting capacity. Triggers on \"fresh eyes\", \"fresh-eyes\", \"what am I not seeing\", \"defamiliarize\", \"stranger test + what's missing\", or any request to combine outsider perspective with capacity creation. Always force-selected by /check (not via preselector \u2014 via check's own rules). auto_select false prevents double-selection alongside its component skills (scrutinize, genesis).",
+    "id": "fresh-eyes",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/fresh-eyes",
+    "title": "Fresh Eyes"
+  },
+  {
+    "description": "Calculate the half-life of every anchor in your work \u2014 tools, metrics, trends, positioning, dependencies \u2014 against exponentially exponential change. Not linear extrapolation. Not even exponential. The rate of change itself is accelerating. Find what's locked to something depreciating and replace it with something that appreciates. Triggers on phrases like \"future-proof,\" \"future proof,\" \"will this age well,\" \"half-life,\" \"is this still relevant,\" \"shelf life,\" \"what will be obsolete,\" \"depreciation check,\" \"relevance decay,\" \"what survives,\" \"time-test this,\" or any request to assess whether work, positioning, strategy, or architecture will hold up over time.",
+    "id": "future-proof",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/future-proof",
+    "title": "Future-Proof"
+  },
+  {
+    "description": "Finds solutions locked to one specific case that could solve the general case. A function that handles JSON when the logic works for any format. A pitch tailored to one buyer when the value applies to all buyers. A script for one service when the pattern works for every service. Unlike unhardcode (values at wrong control level), this targets the scope of the solution itself. Unlike patternify (needs N>1 instances to spot a pattern), generalize works on a single instance \u2014 you see one narrow solution and recognize its aperture should be wider. Triggers on \"generalize,\" \"too specific,\" \"narrow,\" \"one case,\" \"special case,\" \"only works for,\" \"what about other cases,\" \"widen this,\" \"make it univ",
+    "id": "generalize",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/generalize",
+    "title": "Generalize"
+  },
+  {
+    "description": "angle: structural-absence",
+    "id": "genesis",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/genesis",
+    "title": "Genesis"
+  },
+  {
+    "description": "type: content-transformation",
+    "id": "hook-optimizer",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/hook-optimizer",
+    "title": "Hook Optimizer"
+  },
+  {
+    "description": "type: content-transformation",
+    "id": "humanize-text",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/humanize-text",
+    "title": "Humanize Text"
+  },
+  {
+    "description": "The recursive implementation engine. Takes anything (spec, idea, goal, vague intent) and drives it from description to verified working reality. Unlike actualize (intent to delivery via DAG decomposition), implement focuses on the verify-fix loop: build it, test it against the spec, fix what fails, recurse. Unlike execute (finding fictional prerequisites), implement assumes work IS happening and asks whether the results match intent. Unlike master (discover-update-execute), implement doesn't discover the environment \u2014 it takes a specific target and makes it real. The key differentiator: implement spins up whatever skills are needed dynamically during execution, treating the skill catalog as ",
+    "id": "implement",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/implement",
+    "title": "Implement"
+  },
+  {
+    "description": "Finds things that work well enough that nobody refines them despite accumulated evidence of exactly how they should be better. Not broken (maintain), not missing (genesis), not wrong (debug), not stale (evolve). Just never iterated past first-draft quality because adequacy killed urgency. Trigger: \"improve\", \"refine\", \"what could be better\", \"polish\", \"iterate on this\", \"upgrade quality\".",
+    "id": "improve",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/improve",
+    "title": "Improve"
+  },
+  {
+    "description": "Finds incentive misalignment: systems that accidentally reward the wrong behavior, penalize the right behavior, or create perverse optimization targets. Not about whether something serves its stated goal (that's purpose) but about what behaviors the structure actually encourages, regardless of intent. Trigger: \"What does this reward?\", \"Why do people keep doing the wrong thing?\", \"What behavior is this optimizing for?\", \"Who benefits from dysfunction?\". Goodhart's Law lives here: when a measure becomes a target, it ceases to be a good measure.",
+    "id": "incentives",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/incentives",
+    "title": "/incentives"
+  },
+  {
+    "description": "type: content-transformation",
+    "id": "info-clarity",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/info-clarity",
+    "title": "Information Clarity Audit"
+  },
+  {
+    "description": "type: content-transformation",
+    "id": "info-density",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/info-density",
+    "title": "Information Density Audit"
+  },
+  {
+    "description": "description: \"Finds fixes, lessons, and patterns that keep being applied at the leaf (instance, output, running system) when they should be integrated into the source (template, ge",
+    "id": "inoculate",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/inoculate",
+    "title": "Inoculate"
+  },
+  {
+    "description": "The universal recursive registry gap detector. One question that finds every recurring need this work revealed that isn't tracked in the maintenance registry, then codifies it as permanent infrastructure before it evaporates from memory. Triggers on phrases like \"institutionalize,\" \"should this be recurring,\" \"add to registry,\" \"track this,\" \"make this permanent,\" \"schedule this,\" \"what should recur,\" \"this keeps coming up,\" \"make this a maintenance task,\" \"add a recurring check,\" \"after every deploy,\" \"daily follow-up,\" \"weekly follow-up,\" \"turn this into a runbook,\" or any request to find ad-hoc recurring work that deserves formal scheduling. The bridge between discovering a need and makin",
+    "id": "institutionalize",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/institutionalize",
+    "title": "Institutionalize"
+  },
+  {
+    "description": "The universal learning engine. Extracts unlearned lessons from experience, converts inert knowledge into behavioral change, absorbs external knowledge that's better than current, verifies outcomes match expectations, evolves stale strategies, and breaks through ceilings. Produces an actionable learning map. Trigger: \"learn,\" \"what did we learn,\" \"what's not sticking,\" \"feedback loop,\" \"grow smarter,\" \"retrospective,\" \"post-mortem,\" \"wisdom check,\" \"what changed behavior,\" \"are we actually learning.\" Unlike any constituent skill alone, learn runs ALL learning angles in one invocation. The output is not six separate reports but one unified learning map showing exactly what the system experienc",
+    "id": "learn",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/learn",
+    "title": "/learn"
+  },
+  {
+    "description": "The universal recursive focused investigation. Takes a specific system, process, or artifact and examines it through a stated goal or constraint to extract every piece of information needed to achieve that goal. Not analyze (general comprehension of what something is). Not discovery (finding unknown unknowns from scratch). Lens ALREADY KNOWS what it's looking for and systematically gathers everything needed to solve that specific problem. You point lens at a target with a goal, and it returns a complete, actionable understanding of everything relevant to that goal. The difference between exploring a city and searching a building for a specific thing: lens searches the building. Triggers on \"",
+    "id": "lens",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/lens",
+    "title": "Lens"
+  },
+  {
+    "description": "Finds unextracted lessons from experiences, failures, successes, and surprises. Trigger: \"what did we learn?\", \"lessons\", \"take lessons\", \"learn from this\", \"what's the takeaway?\", \"post-mortem\", \"retrospective\", \"never again\". Unlike propagate-fix (propagation), which ensures known fixes reach everywhere, lessons asks whether the INSIGHT was ever extracted at all. Not just \"did we fix it\" but \"did we understand WHY it happened and encode that understanding for the future?\"",
+    "id": "lessons",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/lessons",
+    "title": "Lessons"
+  },
+  {
+    "description": "description: \"The universal recursive self-improvement engine. One question that finds the ceiling you're not hitting, the level you're leaving on the table, and whether each upgra",
+    "id": "level-up",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/level-up",
+    "title": "Raise the Bar"
+  },
+  {
+    "description": "The universal recursive force multiplier. Finds or creates tools, services, and autonomous mechanisms that multiply effort toward the goal, then uses those tools to create further tools in a compounding chain. Not efficiency (reducing waste in existing processes). Not operationalize (making a task run autonomously). Leverage asks: what TOOL doesn't exist yet that would make this 10x easier, and can I build it from tools I already have? The difference between carrying water by hand and building a pipe. Both move water. One scales. Leverage finds the pipe, builds it, then asks: can this pipe build other pipes? Triggers on \"leverage,\" \"force multiplier,\" \"build a tool,\" \"automate this,\" \"scale,",
+    "id": "leverage",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/leverage",
+    "title": "Leverage"
+  },
+  {
+    "description": "Finds broken knowledge dependencies: references that point nowhere, nodes that nothing references, and knowledge that exists but isn't connected to where it's needed. The -K detector (Bion's attacks on linking): not whether knowledge exists (blind-spot), not whether components communicate (connect), but whether the structural references between knowledge nodes actually resolve and form a navigable graph. Trigger: \"broken references\", \"orphan files\", \"dead links\", \"what's disconnected\", \"link integrity\". The unique angle is referential integrity of the knowledge graph.",
+    "id": "link-integrity",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/link-integrity",
+    "title": "Link Integrity"
+  },
+  {
+    "description": "Pre-post and post-publish engagement automation via stealthy-docker instance 1. REINSTATED Mar 11, 2026. DISABLED by default (golden-hour-config.yaml toggle). Engages target audience before posting, replies rapidly to comments after posting, monitors for 60 minutes. All actions via OS-level input (system_click, system_type).",
+    "id": "linkedin-golden-hour",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/linkedin-golden-hour",
+    "title": "LinkedIn Golden Hour Agent"
+  },
+  {
+    "description": "type: content-transformation",
+    "id": "linkedin-virality",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/linkedin-virality",
+    "title": "LinkedIn Virality Review"
+  },
+  {
+    "description": "Find every modification point where a change would break a running system if applied directly, then design the safe sequence to apply it without disruption. The surgical precision skill. Maintain finds decay. Self-heal finds drift. Live-patch finds how to change something that's currently in use without killing it. Every \"just deploy it\" hides a sequence problem. Triggers on phrases like \"live-patch,\" \"hot fix,\" \"zero-downtime,\" \"safe to change,\" \"can I update this while it's running,\" \"how to deploy without breaking,\" \"rolling update,\" \"in-place upgrade,\" \"change without restarting,\" \"swap while live,\" \"surgical fix,\" or any request to modify a running system without disruption.",
+    "id": "live-patch",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/live-patch",
+    "title": "Live-Patch"
+  },
+  {
+    "description": "the operator's single intervention command. Focuses the entire autonomous system on a target. Uses the full capability map, skill catalog, maintenance infrastructure, and every tool the system has ever built \u2014 discovered dynamically, never hardcoded. Triggers on \"/look-into\", \"look into\", \"check on\", \"handle\", \"deal with\", \"take care of\".",
+    "id": "look-into",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/look-into",
+    "title": "/look-into [X]"
+  },
+  {
+    "description": "description: \"The universal recursive entropy check. One question that finds what's silently decaying, what's one missed cycle from breaking, and whether every fix has a scheduled",
+    "id": "maintain",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/maintain",
+    "title": "Maintain"
+  },
+  {
+    "description": "type: content-transformation",
+    "id": "mass-appeal",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/mass-appeal",
+    "title": "Mass Appeal"
+  },
+  {
+    "description": "The master method. The one question that discovers how to do anything, plans how to do it, and executes it. Chains three phases: discover the environment (bootload), update with latest knowledge (evolve), execute all intent (actualize). Regularly re-runnable in a changing world to produce the best method adapted to current reality. This is the answer to \"what single question, asked regularly, ensures we always know the best way to do anything?\" Triggers on \"master method\", \"solve everything\", \"what should I do?\", \"run the master\", or any request that doesn't know where to start.",
+    "id": "master",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/master",
+    "title": "Master"
+  },
+  {
+    "description": "The universal recursive progress tracker. Finds every goal, initiative, and effort that lacks concrete measurement of how far it has come and how far it has to go, then builds the instrumentation to make progress visible and optimizable. Not calibrate (does the process achieve what it claims). Not project-pulse (is the project stalled). Measure asks: HOW FAR along the path are we, WHAT is the rate of advancement, and WHERE do we optimize to accelerate? Calibrate checks if the engine runs. Measure checks the odometer, speedometer, and fuel gauge. The difference between \"we're working on it\" and \"we're 63% complete, advancing 4% per week, blocked on X.\" Triggers on \"measure,\" \"progress,\" \"how ",
+    "id": "measure",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/measure",
+    "title": "Measure"
+  },
+  {
+    "description": "Finds inputs that were received but never changed behavior. The alpha function detector: lessons recorded but not enforced, feedback acknowledged but not integrated, decisions made but not propagated, fixes applied but not absorbed into how the system works. Trigger: \"what didn't stick\", \"what was learned but not used\", \"inert knowledge\", \"behavior change\", \"metabolize\". The unique angle is behavioral conversion. Not whether knowledge exists (absorb checks that), but whether knowledge that ARRIVED actually converted into changed behavior in the system that received it.",
+    "id": "metabolize",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/metabolize",
+    "title": "Metabolize"
+  },
+  {
+    "description": "angle: completeness-at-birth",
+    "id": "mint",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/mint",
+    "title": "Mint"
+  },
+  {
+    "description": "Finds missed natural analogies: solutions that nature, physics, ecology, or other domains have already solved that could transform the current approach. Draws from biology (4 billion years of R&D), physics (universal structural laws), ecology (complex adaptive systems), and human civilization's emergent solutions. Trigger: \"what would nature do\", \"biomimicry\", \"natural analog\", \"what system already solved this\", \"find inspiration from nature\". Unlike absorb (which integrates known techniques from your own domain), natural-inspiration goes to SOURCE across all domains: nature, universe, civilization. The recursion goes deeper: every biomimetic solution has a deeper natural analog, and novel c",
+    "id": "natural-inspiration",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/natural-inspiration",
+    "title": "Natural-Inspiration"
+  },
+  {
+    "description": "description: \"The meta-recursive question generator. The one question that produces all other questions \u2014 finds not what's wrong, but what angle you haven't looked from yet, then l",
+    "id": "new-angle",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/new-angle",
+    "title": "New Angle"
+  },
+  {
+    "description": "The skill sequencer. Given a problem, prompt, or just-completed answer, recommends the top 1-3 recursive skills in execution order and says why each matters and how they chain. Lighter than /prime (which builds a full lens brief). Use before a prompt (\"next: how should I approach X?\"), after an answer (\"what skill would improve this?\"), or standalone (\"next <problem>\"). Triggers on \"next\", \"which skill\", \"what skill should I run\", \"best skill for\", \"recommend a skill\", \"what would help here\".",
+    "id": "next",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/next",
+    "title": "Next"
+  },
+  {
+    "description": "type: content-transformation",
+    "id": "no-fluff-post",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/no-fluff-post",
+    "title": "No-Fluff Post"
+  },
+  {
+    "description": "The universal recursive maintenance wiring engine. Takes any task in the maintenance registry and ensures the infrastructure for autonomous execution is complete: outcomes entry, state file (if fractional), skill integration (if skill-driven), daemon readiness, and pheromone plumbing. Unlike institutionalize (which finds untracked recurring needs and adds registry entries), operationalize finds tasks that ARE registered but CAN'T actually run because their wiring is incomplete. A registry entry without outcomes tracking is a promise. A fractional task without a state file is a lie. This skill closes the gap between \"scheduled\" and \"operational.\" Triggers on phrases like \"operationalize,\" \"wi",
+    "id": "operationalize",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/operationalize",
+    "title": "Operationalize"
+  },
+  {
+    "description": "type: content-transformation",
+    "id": "operator-voice",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/operator-voice",
+    "title": "the operator Voice"
+  },
+  {
+    "description": "Finds coordination failures: independent parts that need a conductor but don't have one. Not contradiction (coherence), not wrong order (prioritize), not wrong time (timing), not unexploited connection (symbiosis) \u2014 but active parts that ARE supposed to work together and have no mechanism making them do so. Triggers on \"orchestrate\", \"coordinate\", \"what needs a conductor?\", \"what's running independently?\", \"uncoordinated\", \"no handoff\".",
+    "id": "orchestrate",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/orchestrate",
+    "title": "Orchestrate"
+  },
+  {
+    "description": "Finds unextracted patterns: recurring structures, behaviors, or solutions that appear multiple times but haven't been recognized, named, or made reusable. Trigger: \"what patterns am I missing\", \"what keeps repeating\", \"extract the pattern\", \"name the recurring thing\". Unlike propagate-fix (which spreads known fixes), patternify finds patterns NOBODY HAS NAMED YET. It is pre-propagation: you can't share what you haven't recognized. The recursion goes deeper: extracted patterns themselves contain sub-patterns that also need naming.",
+    "id": "patternify",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/patternify",
+    "title": "Patternify"
+  },
+  {
+    "description": "description: Convert Markdown, HTML, and URLs to PDF using the optimal tool for each format. Use when asked to generate PDFs from text files, web pages, or markdown documents, or w",
+    "id": "pdf-generation",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/pdf-generation",
+    "title": "PDF Generation"
+  },
+  {
+    "description": "Finds the highest-signal moments where a person's motivation, hesitation, or willingness-to-pay is briefly clear but no automated probe captures it before the signal cools. Unlike timing (general wrong-time detection), measure (progress visibility), or institutionalize (registry gaps), this skill owns the narrow window where intent is warm and qualitative truth is still cheap to collect. Triggers on phrases like \"peak intent,\" \"highest-signal moment,\" \"warm intent,\" \"conversion event,\" \"signup question,\" \"payment completion,\" \"first-use probe,\" \"willingness-to-pay,\" \"qualitative probe,\" \"why did they sign up,\" \"what stopped them,\" or any request to capture user motivation before it decays.",
+    "id": "peak-intent-interrogation",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/peak-intent-interrogation",
+    "title": "Peak Intent Interrogation"
+  },
+  {
+    "description": "description: \"The universal recursive self-check. One question that finds what's wrong, what's missing, and what's wrong with the fixes \u2014 then resolves everything before returning.",
+    "id": "pressure-test",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/pressure-test",
+    "title": "Pressure Test"
+  },
+  {
+    "description": "The pre-execution lens selector. Reads the user's prompt before any work begins, consults the skill catalog via skill-preselector.py, and selects which quality dimensions matter for THIS specific output. Produces a \"lens brief\" of core questions to hold during generation so the output arrives already refined from every relevant angle. The pre-execution complement to /check: /prime shapes the output before generation, /check verifies after. Triggers on \"prime\", \"prime this\", \"lens brief\", \"which angles matter\", \"what should I watch for\", or any request to pre-select quality lenses. Auto-triggered by the UserPromptSubmit hook only for prompts that clear the hook complexity gate.",
+    "id": "prime",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/prime",
+    "title": "Prime"
+  },
+  {
+    "description": "Finds ordering failures where things are done in the wrong sequence, at the wrong priority, or before their prerequisites are met. Trigger: \"prioritize\", \"what's next?\", \"wrong order\", \"what should I do first?\", \"sort by importance\", \"dependencies\", \"sequence\", \"what matters most?\", \"rank these\", \"triage\". Unlike timing (sequencing), which asks \"is NOW the right time for this?\", prioritize asks \"is THIS the right NEXT thing among all competing options?\" Timing is temporal appropriateness. Prioritize is comparative ordering across the full set.",
+    "id": "prioritize",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/prioritize",
+    "title": "Prioritize"
+  },
+  {
+    "description": "type: content-transformation",
+    "id": "product-seeder",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/product-seeder",
+    "title": "Product Seeder"
+  },
+  {
+    "description": "The universal production loop. Takes any problem and produces the absolute, complete, well-thought final product through an optimal skill pipeline. Not a simple working minimum but the definitive output. Chains analyze, discovery, bootload, skill-architect, implement, pressure-test, absorb, level-up, and finish in a topology designed to converge on completeness. Triggers on \"production loop\", \"infinite loop\", \"solve this completely\", \"full production\", \"build the absolute solution\", \"universal solver\", or any request for a complete, no-shortcuts solution to any problem. Unlike conductor (which manages multi-session projects with state files and scheduling), production-loop operates within a ",
+    "id": "production-loop",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/production-loop",
+    "title": "Production Loop"
+  },
+  {
+    "description": "Monitors project vital signs to detect stalls nobody admits, endings nobody recognizes, and connections nobody uses. Trigger: \"is this project alive,\" \"should this project stop,\" \"what's this project connected to,\" \"project health check,\" \"why isn't this moving.\" Unique angle: not decay (things breaking) or process compliance (did-i). Project-pulse is a vital signs monitor. It reads pulse, breathing, and reflexes. A project can follow every process perfectly and still be dead. A project can look active and actually be stalled. A project can be alive but disconnected from the resources that would make it thrive.",
+    "id": "project-pulse",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/project-pulse",
+    "title": "/project-pulse"
+  },
+  {
+    "description": "Find every fix, learning, or workaround that was applied at the point of failure but not at the point of generation \u2014 the system, template, process, memory, or pattern that will produce the same situation again. The #1 way fixes die: they solve the instance but don't reach the apparatus that generates instances. Next run, same problem. Triggers on phrases like \"fix,\" \"fix it,\" \"propagate,\" \"did you actually fix it,\" \"upstream fix,\" \"root fix,\" \"fix the generator,\" \"fix the system not the symptom,\" \"embed the learning,\" \"will this happen again,\" \"same mistake twice,\" \"didn't you learn this,\" \"where's the fix,\" or any indication that a fix was applied locally without reaching the mechanism tha",
+    "id": "propagate-fix",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/propagate-fix",
+    "title": "Fix"
+  },
+  {
+    "description": "The outward-looking goal finder. Scans the external world from the vantage point of available capabilities to find problems worth solving for money. Not discovery (finds unknown unknowns about a given topic). Not wish (imagines additions for felt problems). Not leverage (builds tools to multiply effort). Prospect looks OUTWARD: what problem exists in the world that we could solve profitably? Every other skill in the system either inspects, builds, or orchestrates. This one HUNTS. It's the sales team for a factory that has been running without one. Triggers on \"what should we build next,\" \"find opportunities,\" \"what can we sell,\" \"market scan,\" \"revenue opportunity,\" \"prospecting,\" \"business ",
+    "id": "prospect",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/prospect",
+    "title": "Prospect"
+  },
+  {
+    "description": "The universal entropy reduction engine. Performs a full sweep for dead weight, unnecessary complexity, and waste across the target scope, then removes it. Finds zombie code, unused artifacts, bloated structures, over-engineered layers, token waste, and limbo work that's rotting in place. Produces an actionable pruning map. Trigger: \"prune,\" \"clean up,\" \"reduce complexity,\" \"trim the fat,\" \"what's dead weight,\" \"entropy check,\" \"simplify everything,\" \"cut the waste,\" \"what can I remove,\" \"declutter,\" \"lighten the system,\" \"too much stuff.\" Unlike any constituent skill alone, prune runs ALL entropy-reduction angles in one invocation. The output is not six separate reports but one unified pruni",
+    "id": "prune",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/prune",
+    "title": "/prune"
+  },
+  {
+    "description": "Finds purpose drift: things that exist but no longer serve the goal they were built for, or never did. Goes deeper than spec compliance (that's comply). Purpose asks whether the spec itself serves the actual goal. Goes deeper than self-heal (drift from claimed identity). Purpose asks whether what something claims to be is worth claiming. Trigger: \"why does this exist\", \"what's this for\", \"purpose\", \"does this serve the goal\", \"alignment\".",
+    "id": "purpose",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/purpose",
+    "title": "Purpose"
+  },
+  {
+    "description": "Finds comfort zones, underambition, and self-protective thinking in the human's goals and strategies. Trigger: \"push me,\" \"am I thinking big enough,\" \"what am I avoiding,\" \"challenge my goals,\" \"what hard truth am I dodging.\" Unique angle: not ceilings in the work (level-up) but ceilings in the person. The only skill that challenges the human directly. Goals that are too safe, strategies that dodge real risk, narratives that sound ambitious but protect the ego. Push doesn't care about feelings. Push cares about the distance between where the person is aiming and where they could actually land if they stopped flinching.",
+    "id": "push",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/push",
+    "title": "/push"
+  },
+  {
+    "description": "description: \"The skill that builds recursive question skills. Takes any domain, problem space, or recurring need and forges a single recursive question that covers it \u2014 following",
+    "id": "question-forge",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/question-forge",
+    "title": "Question Forge"
+  },
+  {
+    "description": "Engineer LinkedIn posts for explosive reposts, comments, and early reach amplification. Takes an already-written post and rewrites it to guarantee maximum repost velocity, comment flooding, and first-hour algorithmic momentum. This is NOT a quality/virality scorer -- it is a reach-amplification engine that restructures posts so they are impossible to ignore, impossible not to repost, and impossible not to comment on. Triggers on \"reach amplification,\" \"amplify this,\" \"blow this up,\" \"repost machine,\" \"comment flood,\" \"hyper viral,\" \"make this explode,\" \"maximize reach,\" \"viral explosion,\" \"ultra repost,\" or any request to maximize reposts, comments, or early reach on a LinkedIn post. Also tr",
+    "id": "reach-amplification",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/reach-amplification",
+    "title": "REACH AMPLIFICATION ENGINE"
+  },
+  {
+    "description": "The universal recursive composition engine. Examines how all recursive question skills work together as a system. Finds overlaps to merge, gaps to fill, broken compositions to rewire, suboptimal arrangements to reorder, and dead or bloated skill surfaces to prune or retarget. Every time it runs, the skill ecosystem gets closer to a unified general solver. Triggers on \"recompose skills\", \"optimize the skill system\", \"are skills overlapping?\", \"how do skills compose?\", \"general solver\", \"skill audit\", \"dead skills\", \"zero-finding skills\", \"catalog bloat\", \"skill effectiveness\", \"coverage gaps\", \"trigger coverage\", or any question about the recursive question ecosystem.",
+    "id": "recompose",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/recompose",
+    "title": "Recompose"
+  },
+  {
+    "description": "Find every process, structure, or solution that runs once but could run on its own output for compounding improvement. Nature selects for recursion in every dimension. A test suite that tests itself. A cleanup script that cleans up after itself. A learning system that learns how it learns. Most things are built linear when they could be recursive. This skill finds where recursion is missing and adds it. Different from all other recursive question skills which ARE recursive but don't FIND recursion opportunities. Recursify is the meta-skill that sees where recursion is absent. Triggers on phrases like \"recursify,\" \"make it recursive,\" \"compound this,\" \"self-referential,\" \"apply to itself,\" \"m",
+    "id": "recursify",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/recursify",
+    "title": "Recursify"
+  },
+  {
+    "description": "Finds solution fixation: approaches that persist because they were the first thing tried, not because they're the best way. The most expensive technical debt isn't bad code \u2014 it's a good solution to a problem that should have been solved differently. Triggers on \"step back\", \"fresh eyes\", \"is there a better way\", \"reframe\", \"rethink this\", \"are we doing this the hard way\", \"zero-base this\", \"start from scratch mentally\", or any sense that the current approach was inherited rather than chosen. Unlike simplicity (which reduces excess), reframe challenges the entire frame. Unlike new-angle (which finds new questions), reframe finds that the current answer is the wrong answer. Unlike blind-spot ",
+    "id": "reframe",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/reframe",
+    "title": "Reframe"
+  },
+  {
+    "description": "The audience fit engine. Ensures every output (content, products, outreach, pitches, emails) resonates with its intended audience. Detects audience mismatch, projection (substituting your preferences for the reader's), misaligned incentives, surface friction, and underambition. Trigger: \"resonate,\" \"does this fit,\" \"audience check,\" \"who is this for,\" \"will this land,\" \"friction check,\" \"push harder.\" Unlike any constituent skill alone, resonate runs the full assessment-to-elevation pipeline: understand who you're talking to, verify you're not projecting, align incentives, smooth friction, then push ambition. The output is not five separate reports but one unified fit assessment with specifi",
+    "id": "resonate",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/resonate",
+    "title": "/resonate"
+  },
+  {
+    "description": "Finds money flowing through systems that cannot be seen, summed, or attributed to a source. Unlike unmonetized-signal (captured value that never feeds back) or pricing-decision-blindspot (pricing-stage ambiguity), this skill owns the revenue observability gap: the dollars that exist but are trapped in vendor dashboards, manual exports, or unqueryable reporting. Triggers on phrases like \"revenue blind spots,\" \"can't see revenue,\" \"attribution gap,\" \"money flow,\" \"revenue visibility,\" \"manual export\", \"vendor dashboard\", or any request to make revenue measurable end to end.",
+    "id": "revenue-blind-spots",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/revenue-blind-spots",
+    "title": "Revenue Blind Spots"
+  },
+  {
+    "description": "Finds irreversible decisions hiding as casual choices. Not about whether something will age well (that's future-proof) but whether it can be undone at all if it turns out to be wrong. Trigger: \"Can I undo this?\", \"What if this is wrong?\", \"Is this a one-way door?\", \"Am I locking myself in?\". The most dangerous decisions are the ones that look reversible but aren't: naming things, shipping APIs, making promises, choosing foundations, burning bridges that looked like they led nowhere.",
+    "id": "reversibility",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/reversibility",
+    "title": "/reversibility"
+  },
+  {
+    "description": "The universal recursive coupling tracer. One question that finds every location that mirrors, depends on, or must match something that just changed \u2014 then updates them all and maps the coupling topology so future changes propagate automatically. Maintains a persistent coupling map (core/system/data/coupling-map.yaml) that records which concepts live in which locations. Unlike propagate-fix (which traces fixes backward to generators), ripple traces changes laterally to all mirrors and dependents. Triggers on phrases like \"ripple,\" \"what else needs to change,\" \"sync everything,\" \"coupling check,\" \"where else does this live,\" \"dependency map,\" \"what mirrors this,\" \"trace the change,\" \"update ev",
+    "id": "ripple",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/ripple",
+    "title": "Ripple"
+  },
+  {
+    "description": "Finds happy-path assumptions \u2014 code, config, infrastructure, or processes that assume clean starts, valid inputs, available dependencies, and working networks, with no recovery when any assumption breaks. Triggers on \"robustness\", \"fragile\", \"what if it crashes\", \"single point of failure\", \"what breaks\", \"resilience\", \"fault tolerance\", \"recovery\", \"what if this fails\".",
+    "id": "robustness",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/robustness",
+    "title": "Robustness"
+  },
+  {
+    "description": "The universal recursive fresh-eyes audit. Strips away all accumulated context, familiarity, and normalization to see the target as a capable stranger would on first encounter. Finds everything that has become invisible because you've looked at it too long. Trigger: \"fresh eyes\", \"look at this like it's new\", \"what am I not seeing\", \"scrutinize\", \"naive review\", \"outsider perspective\", \"first impression audit\", \"what would someone new think\", \"beginner's mind\".",
+    "id": "scrutinize",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/scrutinize",
+    "title": "Scrutinize"
+  },
+  {
+    "description": "Finds untracked downstream consequences of changes, decisions, and fixes. Trigger: \"what does this cause?\", \"downstream effects\", \"second-order\", \"what happens next?\", \"unintended consequences\", \"knock-on effects\". Unlike ripple (coupling), which finds things that must match a change already made, second-order goes further: what does this change CAUSE that nobody planned for, nobody is monitoring, and nobody will notice until it breaks?",
+    "id": "second-order",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/second-order",
+    "title": "Second-Order"
+  },
+  {
+    "description": "description: \"Finds what an adversary can exploit: exposed secrets, unverified trust, missing boundaries, unguarded inputs, over-privileged access, information leakage, AI/LLM-spec",
+    "id": "security",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/security",
+    "title": "Security"
+  },
+  {
+    "description": "description: \"The universal recursive integrity check. One question that finds where something has drifted from what it claims to be \u2014 stale promises, outdated assumptions, things",
+    "id": "self-heal",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/self-heal",
+    "title": "Self-Heal"
+  },
+  {
+    "description": "The universal execution pipeline. Takes the system from intent to shipped reality with maintenance wiring. Unlike every other composite (which finds problems), ship DOES things. It discovers deferred work and stalled execution, drives implementation from description to verified working artifact, completes or kills everything in limbo, then ensures every shipped item produces its successor and sustains itself autonomously. The autonomous system that can't ship is an expensive notebook. Trigger: \"ship,\" \"ship it,\" \"get it done,\" \"build and deploy,\" \"make it real,\" \"stop planning start doing,\" \"nothing ships,\" \"intent to reality,\" \"execute everything,\" \"full pipeline,\" \"from idea to production,",
+    "id": "ship",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/ship",
+    "title": "/ship"
+  },
+  {
+    "description": "Finds invisible degradation: state that decays with no signal, metrics that degrade within thresholds, data that rots while passing all checks, and processes that hollow out while maintaining surface health. The skill specifically targets corruption that produces no alerts, no errors, and no anomalies. The kind that's only discovered when a dependent system fails or a human spot-checks something that's been trusted for too long. Triggers on \"silent corruption\", \"invisible decay\", \"what's rotting\", \"quiet degradation\", \"no-signal failure\", \"check for rot\", \"silent drift\", \"phantom health\".",
+    "id": "silent-corruption",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/silent-corruption",
+    "title": "Silent Corruption"
+  },
+  {
+    "description": "Finds unnecessary complexity: extra layers, over-engineering, abstractions that earn nothing, indirection that confuses. Trigger: \"simplify\", \"too complex\", \"over-engineered\", \"could this be simpler\". The unique angle is that simplicity interrogates whether each piece of complexity PAYS for itself, and whether the simplifications you attempt introduce their own accidental complexity.",
+    "id": "simplicity",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/simplicity",
+    "title": "Simplicity"
+  },
+  {
+    "description": "The meta-decision layer for skill creation. Given a goal or capability gap, decides whether to forge a new atomic skill (via question-forge), assemble existing skills into a composite (via skill-assembler), or determine that existing skills already cover the need. Prevents unnecessary skill proliferation by routing to the right creation mechanism. Triggers on \"should I create a skill for this\", \"skill architect\", \"what skill do I need\", \"new skill or combine existing\", \"build capability for\", \"coverage gap\", \"skill-discovery\", \"capability evolution\", \"trigger expansion or new skill\", \"should this be reuse or forge\", or any request to solve a capability gap where the right approach (create vs",
+    "id": "skill-architect",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/skill-architect",
+    "title": "Skill Architect"
+  },
+  {
+    "description": "The skill combinator. Given a goal too large for any single skill, discovers which existing skills combine to solve it, designs their interaction topology (sequence, parallel, feedback), and assembles them into a new named combined skill. Not recompose (auditing the ecosystem), not orchestrate (finding coordination gaps), not master (discover-update-execute) \u2014 this is genetic recombination for skills: taking proven capabilities and fusing them into new compound capabilities that didn't exist before. Triggers on \"assemble skills for\", \"combine skills\", \"skill assembler\", \"build a skill combo\", \"what skills solve this together?\", \"compose a solution from skills\", \"skill combinator\", or any goa",
+    "id": "skill-assembler",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/skill-assembler",
+    "title": "Skill Assembler"
+  },
+  {
+    "description": "type: content-transformation",
+    "id": "stat-impact",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/stat-impact",
+    "title": "Stat Impact Audit"
+  },
+  {
+    "description": "The universal recursive connection detector. One question that finds pairs of systems, processes, or outputs that coexist without feeding each other, where connecting them would create mutual acceleration. Not coherence (things contradicting each other), not coupling (tracking existing dependencies), not emergence (missing self-sustaining properties). Symbiosis finds the UNBUILT BRIDGES: outputs from A that would make B stronger, while outputs from B would make A stronger. The difference between a forest of isolated trees and one linked by mycorrhizal networks. Same trees, 10x more resilient and productive. Triggers on phrases like \"symbiosis,\" \"mutual recursion,\" \"feed each other,\" \"feedbac",
+    "id": "symbiosis",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/symbiosis",
+    "title": "Symbiosis"
+  },
+  {
+    "description": "Finds temporal misplacement: work being done at the wrong time. Not task ordering (that's prioritize) but whether NOW is the right moment for THIS specific action. Trigger: \"Is this the right time?\", \"Should I be doing this now?\", \"Am I too early?\", \"Did I miss the window?\". Catches premature optimization, late-stage foundational work, building on sand that hasn't dried, and solutions deployed before the problem has fully materialized.",
+    "id": "timing",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/timing",
+    "title": "/timing"
+  },
+  {
+    "description": "description: \"The universal recursive fine-tuning pass. One question that finds what's slightly off \u2014 the small misalignments, awkward edges, and subtle friction that separate 'wor",
+    "id": "tweak",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/tweak",
+    "title": "Tweak"
+  },
+  {
+    "description": "Finds capabilities that already exist, already work, and would help right now, but sit idle because nobody connected them to a current need. Triggers on \"underutilized,\" \"unused,\" \"dormant,\" \"forgotten feature,\" \"sleeping asset,\" \"untapped,\" and similar prompts about dormant tools or features.",
+    "id": "underutilized",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/underutilized",
+    "title": "Underutilized"
+  },
+  {
+    "description": "Find every decision embedded at the point of use instead of the point of control \u2014 hardcoded values, magic numbers, literal strings, frozen assumptions, baked-in paths, static counts, inline configurations, and copy-pasted constants \u2014 then extract each to the right level of abstraction. Not just code. Content hardcodes product counts that go stale. Strategies hardcode market assumptions. Processes hardcode steps that should be dynamic. Profiles hardcode tool names instead of referencing capabilities. Every hardcoded value is a future manual update, a future inconsistency, or a future drift. Triggers on phrases like \"unhardcode,\" \"unbake,\" \"hardcoded,\" \"magic number,\" \"what's baked in,\" \"extr",
+    "id": "unhardcode",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/unhardcode",
+    "title": "Unhardcode"
+  },
+  {
+    "description": "Finds every place where user words that shaped a decision lose their exact phrasing, source, or product context before anyone can query them later. Unlike peak-intent-interrogation (which captures warm moments before they cool), this skill owns the persistence and lineage of the words themselves: exact quote, source channel, user segment, product context, date, and decision thread. Triggers on phrases like \"verbatim feedback,\" \"voice of customer,\" \"quote provenance,\" \"where did this user signal come from,\" \"feedback store,\" \"exact user words,\" \"what did users actually say,\" or \"why can't we trace this decision back to source text.\"",
+    "id": "verbatim-feedback-provenance",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/verbatim-feedback-provenance",
+    "title": "Verbatim Feedback Provenance"
+  },
+  {
+    "description": "type: content-transformation",
+    "id": "winning-formula",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/winning-formula",
+    "title": "/winning-formula \u2014 the operator's Viral Post DNA"
+  },
+  {
+    "description": "The universal recursive gap-to-solution ideator. Looks at any system, process, project, or situation and asks: what's missing, what would be nice to have here that would solve the problem? Not blind-spot (finding what should exist based on a template). Not discovery (finding unknown unknowns). Wish takes a FELT PROBLEM and imagines the ideal addition that would dissolve it. Blind-spot works from completeness. Discovery works from ignorance. Wish works from DESIRE: if you could wave a wand and add one thing to make this work perfectly, what would it be? Results are stored in a reusable format so other skills (leverage, execute, connect) can pick them up and act on them. Triggers on \"wish,\" \"i",
+    "id": "wish",
+    "kind": "recursive-question-skill",
+    "source_label": "home-templates/agent-dashboard/skills/wish",
+    "title": "Wish"
+  }
+]

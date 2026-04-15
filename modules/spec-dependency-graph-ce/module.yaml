@@ -1,7 +1,8 @@
 id: spec-dependency-graph-ce
 version: 0.1.0
-category: absorbed
-description: Mock absorbed module for spec-dependency-graph.
+category: connection-engine
+description: Spec Dependency Graph reconstructed as a protocol-native self-improvement
+  organ.
 entry:
   type: python
   command: entry.py
@@ -9,11 +10,21 @@ entry:
 triggers:
 - 'on': tick
 provides:
-- name: absorbed.spec.dependency.graph
-  address: events:absorbed.spec-dependency-graph.ran
-  description: Emits events for spec-dependency-graph.
-requires: []
+- name: ce.spec.dependency.graph
+  address: events:ce.spec.dependency.graph.snapshot
+  description: Publishes Spec Dependency Graph reconstruction snapshots.
+requires:
+- providers:
+  - bus
+  - memory
+  - discovery
 setpoints: {}
 hooks:
   reconcile: reconcile.sh
   doctor: doctor.sh
+limits:
+  max_runtime_seconds: 60
+  max_memory_mb: 128
+personas:
+- static
+- dynamic

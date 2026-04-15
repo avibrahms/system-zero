@@ -1,7 +1,7 @@
 id: agent-dashboard-ce
 version: 0.1.0
-category: absorbed
-description: Mock absorbed module for agent-dashboard.
+category: connection-engine
+description: Agent Dashboard reconstructed as a protocol-native self-improvement organ.
 entry:
   type: python
   command: entry.py
@@ -9,11 +9,21 @@ entry:
 triggers:
 - 'on': tick
 provides:
-- name: absorbed.agent.dashboard
-  address: events:absorbed.agent-dashboard.ran
-  description: Emits events for agent-dashboard.
-requires: []
+- name: ce.agent.dashboard
+  address: events:ce.agent.dashboard.snapshot
+  description: Publishes Agent Dashboard reconstruction snapshots.
+requires:
+- providers:
+  - bus
+  - memory
+  - discovery
 setpoints: {}
 hooks:
   reconcile: reconcile.sh
   doctor: doctor.sh
+limits:
+  max_runtime_seconds: 60
+  max_memory_mb: 128
+personas:
+- static
+- dynamic

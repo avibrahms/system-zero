@@ -1,0 +1,36 @@
+{
+  "behaviors": [
+    "observe installed modules through the registry",
+    "publish a deterministic reconstruction snapshot",
+    "record reconstruction state in memory for downstream modules"
+  ],
+  "capability": "ce.agent.dashboard",
+  "event_type": "ce.agent.dashboard.snapshot",
+  "interfaces": [
+    "bus",
+    "memory",
+    "discovery"
+  ],
+  "module_id": "agent-dashboard-ce",
+  "public_purpose": "keywords: agent, autonomous, maintenance, dashboard, monitor, launchd, 24/7",
+  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "source_kind": "module-dir",
+  "source_label": "modules/agent-dashboard",
+  "source_metrics": {
+    "extensions": {
+      ".bak": 5,
+      ".html": 1,
+      ".json": 9,
+      ".jsonl": 1,
+      ".md": 3,
+      ".plist": 5,
+      ".py": 14,
+      ".sh": 4,
+      ".yaml": 5,
+      "<none>": 1
+    },
+    "file_count": 48,
+    "function_count": 836,
+    "line_count": 44523
+  }
+}

@@ -7,11 +7,6 @@ mkdir -p "$(dirname "$REPORT")"
 
 # Fresh clone of the reference repo.
 WORK=$(mktemp -d)
-SHIM_DIR="$WORK/bin"
-source "$REPO_ROOT/tests/e2e/sz-shim.sh"
-install_local_sz_shim "$REPO_ROOT" "$SHIM_DIR"
-export SZ_LLM_PROVIDER=mock
-
 cd "$WORK"
 gh repo clone "${SZ_GITHUB_OWNER:-avibrahms}/connection-engine-reference"
 cd connection-engine-reference
@@ -20,9 +15,12 @@ bash bootstrap.sh
 # Must end up alive.
 LIST_OUTPUT="$(sz list)"
 printf '%s\n' "$LIST_OUTPUT" | grep -Eq "heartbeat|immune|subconscious" || { echo "no core modules"; exit 1; }
+printf '%s\n' "$LIST_OUTPUT" | grep -q "skill-library-ce" || { echo "no rewritten skill library"; exit 1; }
 sz tick --reason reconstruct-check
 sz tick --reason reconstruct-check
 sz bus tail --last 50 --filter "health.snapshot" | grep -q . || { echo "no snapshot"; exit 1; }
+CE_SNAPSHOTS="$(sz bus tail --last 200 --filter "ce.*.snapshot" | jq 'length')"
+[ "$CE_SNAPSHOTS" -gt 0 ] || { echo "no reconstructed module snapshots"; exit 1; }
 
 # Anonymization sweep — no HITs in the entire checkout.
 rm -f .sz/bin/sz
@@ -35,5 +33,6 @@ if [ -s /tmp/anon.out ]; then
   echo "anonymization violated"; exit 1
 fi
 
-echo '{"status":"PASSED","modules":"'$(sz list | wc -l | tr -d " ")'"}' > "$REPORT"
+MODULES="$(sz list | wc -l | tr -d " ")"
+printf '{"status":"PASSED","modules":%s,"ce_snapshot_events":%s,"catalog":"public"}\n' "$MODULES" "$CE_SNAPSHOTS" > "$REPORT"
 echo "PHASE 16 PASSED"

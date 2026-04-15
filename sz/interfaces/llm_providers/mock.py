@@ -29,29 +29,44 @@ def _absorb_response(prompt: str) -> dict:
         ),
     )
     module_id = _slug(feature)
+    event_type = f"absorbed.{module_id}.snapshot"
+    source_basename = source_file.split("/")[-1]
     return {
         "module_id": module_id,
-        "description": f"Mock absorbed module for {feature}.",
+        "description": f"Deterministic absorbed module for {feature}.",
         "category": "absorbed",
         "entry": {"type": "python", "command": "entry.py", "args": []},
         "triggers": [{"on": "tick"}],
         "provides": [
             {
                 "name": f"absorbed.{module_id.replace('-', '.')}",
-                "address": f"events:absorbed.{module_id}.ran",
-                "description": f"Emits events for {feature}.",
+                "address": f"events:{event_type}",
+                "description": f"Emits a source-backed snapshot for {feature}.",
             }
         ],
         "requires": [],
         "setpoints": {},
-        "files_to_copy": [{"from": source_file, "to": f"source/{source_file.split('/')[-1]}"}],
+        "files_to_copy": [{"from": source_file, "to": f"source/{source_basename}"}],
         "entry_script": (
             "#!/usr/bin/env python3\n"
-            "import json, os\n"
+            "import hashlib, json, os\n"
             "from pathlib import Path\n"
+            "from sz.interfaces import bus, memory\n"
             "module_dir = Path(os.environ.get('SZ_MODULE_DIR', Path(__file__).resolve().parent))\n"
-            f"source = module_dir / 'source' / {source_file.split('/')[-1]!r}\n"
-            "print(json.dumps({'absorbed_source': str(source), 'exists': source.exists()}))\n"
+            "repo_root = Path(os.environ.get('SZ_REPO_ROOT', '.')).resolve()\n"
+            "module_id = os.environ.get('SZ_MODULE_ID', module_dir.name)\n"
+            "bus_path = Path(os.environ.get('SZ_BUS_PATH', repo_root / '.sz' / 'bus.jsonl'))\n"
+            f"source = module_dir / 'source' / {source_basename!r}\n"
+            "text = source.read_text(errors='ignore') if source.exists() else ''\n"
+            "payload = {\n"
+            "    'source_file': source.name,\n"
+            "    'source_exists': source.exists(),\n"
+            "    'source_lines': len(text.splitlines()),\n"
+            "    'source_sha256': hashlib.sha256(text.encode()).hexdigest()[:16],\n"
+            "}\n"
+            f"bus.emit(bus_path, module_id, {event_type!r}, payload)\n"
+            "memory.append(repo_root, 'absorbed.snapshots', {'module_id': module_id, **payload})\n"
+            "print(json.dumps(payload, sort_keys=True))\n"
         ),
         "reconcile_script": (
             "#!/usr/bin/env bash\n"
@@ -66,7 +81,7 @@ def _absorb_response(prompt: str) -> dict:
             "(module / 'runtime.json').write_text(json.dumps(runtime, sort_keys=True) + '\\n')\n"
             "PY\n"
         ),
-        "notes": "Mock provider generated a deterministic dry-run absorb draft.",
+        "notes": "Mock provider generated a deterministic source-backed absorb draft.",
     }
 
 

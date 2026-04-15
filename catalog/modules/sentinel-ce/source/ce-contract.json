@@ -1,0 +1,31 @@
+{
+  "behaviors": [
+    "observe installed modules through the registry",
+    "publish a deterministic reconstruction snapshot",
+    "record reconstruction state in memory for downstream modules"
+  ],
+  "capability": "ce.sentinel",
+  "event_type": "ce.sentinel.snapshot",
+  "interfaces": [
+    "bus",
+    "memory",
+    "discovery"
+  ],
+  "module_id": "sentinel-ce",
+  "public_purpose": "keywords: security, scanning, secrets, SAST, dependencies, vulnerabilities, model-agnostic",
+  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "source_kind": "module-dir",
+  "source_label": "modules/sentinel",
+  "source_metrics": {
+    "extensions": {
+      ".bak": 2,
+      ".json": 3,
+      ".md": 3,
+      ".py": 11,
+      ".yaml": 3
+    },
+    "file_count": 22,
+    "function_count": 86,
+    "line_count": 5213
+  }
+}
