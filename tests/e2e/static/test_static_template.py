@@ -24,6 +24,7 @@ def test_static_weatherbot_becomes_alive(tmp_path):
         subprocess.run(["git", "init", "-q"], check=True)
         subprocess.run(["git", "config", "user.email", "t@t"], check=True)
         subprocess.run(["git", "config", "user.name", "t"], check=True)
+        subprocess.run(["git", "config", "commit.gpgsign", "false"], check=True)
         subprocess.run(["git", "add", "-A"], check=True)
         subprocess.run(["git", "commit", "-qm", "init"], check=True)
 

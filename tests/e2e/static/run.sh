@@ -13,6 +13,7 @@ find "$WORK/repo/posts" -type f ! -name ".gitkeep" -delete
 cd "$WORK/repo"
 git init -q
 git config user.email "t@t" && git config user.name "t"
+git config commit.gpgsign false
 git add -A && git commit -qm "init"
 
 # Run init with auto-yes. The test forces a canned profile by launching a small
