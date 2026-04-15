@@ -56,12 +56,22 @@ def _command_for_entry(module_dir: Path, entry: dict[str, Any]) -> list[str]:
     return [resolved, *args]
 
 
-def run_hook(root: Path, module_id: str, module_dir: Path, hook_name: str, relative_path: str) -> subprocess.CompletedProcess[str]:
+def run_hook(
+    root: Path,
+    module_id: str,
+    module_dir: Path,
+    hook_name: str,
+    relative_path: str,
+    extra_env: dict[str, str] | None = None,
+) -> subprocess.CompletedProcess[str]:
     command = ["/bin/bash", str((module_dir / relative_path).resolve())]
+    env = module_environment(root, module_id, module_dir)
+    if extra_env:
+        env.update(extra_env)
     return subprocess.run(
         command,
         cwd=module_dir,
-        env=module_environment(root, module_id, module_dir),
+        env=env,
         capture_output=True,
         text=True,
         check=False,

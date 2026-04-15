@@ -199,7 +199,6 @@ def _run_cli_smoke(tmp_path: Path, monkeypatch, host: str, host_mode: str) -> No
     assert (repo_root / "doctor-ran.txt").read_text().strip() == "doctor-ok"
 
     stub_expectations = {
-        "reconcile": "Reconcile is implemented in phase 04.",
         "absorb": "Absorb is implemented in phase 06.",
         "genesis": "Repo Genesis is implemented in phase 07.",
         "catalog": "Catalog is implemented in phase 09.",

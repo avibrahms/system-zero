@@ -4,7 +4,7 @@ import shutil
 
 import click
 
-from sz.core import bus, manifest, paths, registry, repo_config, runtime
+from sz.core import bus, manifest, paths, reconcile as engine, repo_config, runtime
 
 
 @click.command(help="Uninstall a module from the current repo.")
@@ -26,10 +26,11 @@ def cmd(module_id: str, confirm: bool) -> None:
         if result.returncode != 0:
             raise click.ClickException(result.stderr.strip() or result.stdout.strip() or f"Uninstall hook failed for {module_id}.")
 
-    shutil.rmtree(module_dir)
     cfg = repo_config.read(root)
     cfg["modules"].pop(module_id, None)
     repo_config.write(root, cfg)
-    registry.rebuild(root)
+
+    engine.reconcile(root, reason=f"uninstall:{module_id}")
+    shutil.rmtree(module_dir)
     bus.emit(paths.bus_path(root), "s0", "module.uninstalled", {"module_id": module_id})
     click.echo(f"Uninstalled {module_id}")

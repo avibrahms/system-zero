@@ -5,7 +5,7 @@ from pathlib import Path
 
 import click
 
-from sz.core import bus, manifest, paths, registry, repo_config, runtime
+from sz.core import bus, manifest, paths, reconcile as engine, repo_config, runtime
 
 
 @click.command(help="Install a module into the current repo.")
@@ -40,11 +40,11 @@ def cmd(module_id: str | None, source: Path, force: bool) -> None:
     cfg = repo_config.read(root)
     cfg["modules"][resolved_module_id] = {"version": data["version"], "enabled": True}
     repo_config.write(root, cfg)
-    registry.rebuild(root)
     bus.emit(
         paths.bus_path(root),
         "s0",
         "module.installed",
         {"module_id": resolved_module_id, "version": data["version"], "source": str(source)},
     )
+    engine.reconcile(root, reason=f"install:{resolved_module_id}")
     click.echo(f"Installed {resolved_module_id} from {source}")

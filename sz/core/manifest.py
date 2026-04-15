@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import re
 from typing import Any
 
 import jsonschema
@@ -28,6 +29,12 @@ for first_letter, resolvers in list(_ManifestLoader.yaml_implicit_resolvers.item
         for tag, regexp in resolvers
         if tag != "tag:yaml.org,2002:bool"
     ]
+
+_ManifestLoader.add_implicit_resolver(
+    "tag:yaml.org,2002:bool",
+    re.compile(r"^(?:true|True|TRUE|false|False|FALSE)$"),
+    list("tTfF"),
+)
 
 
 def schema_path() -> Path:
