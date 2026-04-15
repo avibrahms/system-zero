@@ -60,3 +60,21 @@ def test_init_auto_adopts_detected_heartbeat_with_yes(tmp_path: Path, monkeypatc
     assert _invoke(runner, ["host", "current"]).strip() == "hermes (adopt)"
     assert "sz tick --reason hermes" in (repo / ".hermes/config.yaml").read_text()
     assert not cron_file.exists() or "sz tick --reason cron" not in cron_file.read_text()
+
+
+def test_init_auto_installs_for_unknown_heartbeat_with_yes(tmp_path: Path, monkeypatch) -> None:
+    repo = tmp_path / "auto-unknown-install"
+    repo.mkdir()
+    (repo / ".git/hooks").mkdir(parents=True)
+    (repo / "custom").mkdir()
+    (repo / "custom/config.yaml").write_text("on_tick:\n  - custom tick\n")
+    cron_file = repo / "cron.txt"
+    monkeypatch.chdir(repo)
+    monkeypatch.setenv("SZ_CRONTAB_FILE", str(cron_file))
+    runner = CliRunner()
+
+    _invoke(runner, ["init", "--yes"])
+
+    assert _invoke(runner, ["host", "current"]).strip() == "generic (install)"
+    assert "sz tick --reason cron" in cron_file.read_text()
+    assert "sz tick --reason unknown" not in (repo / "custom/config.yaml").read_text()

@@ -24,15 +24,23 @@ def cmd(host: str, host_mode: str, force: bool, auto_yes: bool) -> None:
     detected_manifest = host_registry.manifest(selected_host)
     if selected_mode == "auto":
         if detected_manifest.get("mode") == "adopt":
+            default_mode = "install" if selected_host == "unknown" else "adopt"
             if auto_yes:
-                selected_mode = "adopt"
+                selected_mode = default_mode
             else:
                 click.echo(f"I detected an existing heartbeat: {selected_host}.")
-                click.echo("  1) Adopt   - use only the existing heartbeat (recommended).")
-                click.echo("  2) Merge   - run both (existing + SZ's own slower pulse).")
-                click.echo("  3) Install - replace the existing heartbeat with SZ's own.")
-                choice = click.prompt("Choose", default="1", show_default=True)
-                selected_mode = {"1": "adopt", "2": "merge", "3": "install"}.get(str(choice).strip(), "adopt")
+                if selected_host == "unknown":
+                    click.echo("  1) Adopt   - use only the existing heartbeat.")
+                    click.echo("  2) Merge   - run both (existing + SZ's own slower pulse; consider after the unknown daemon API is understood).")
+                    click.echo("  3) Install - use SZ's own heartbeat (recommended for unknown heartbeats).")
+                    default_choice = "3"
+                else:
+                    click.echo("  1) Adopt   - use only the existing heartbeat (recommended).")
+                    click.echo("  2) Merge   - run both (existing + SZ's own slower pulse).")
+                    click.echo("  3) Install - replace the existing heartbeat with SZ's own.")
+                    default_choice = "1"
+                choice = click.prompt("Choose", default=default_choice, show_default=True)
+                selected_mode = {"1": "adopt", "2": "merge", "3": "install"}.get(str(choice).strip(), default_mode)
         else:
             selected_mode = "install"
 
