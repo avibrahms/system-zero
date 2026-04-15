@@ -6,8 +6,12 @@ COPY catalog /app/catalog
 COPY local-sz /app/sz
 COPY pyproject.toml /app/pyproject.toml
 COPY spec /app/spec
-RUN pip install --no-cache-dir fastapi uvicorn[standard] stripe httpx pyyaml supabase resend pyjwt[crypto] \
- && pip install --no-deps -e /app
+# Hosted absorb imports the local package and shells out to git for GitHub sources.
+# Editable install must include pyproject dependencies such as jsonschema.
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends ca-certificates git \
+ && rm -rf /var/lib/apt/lists/* \
+ && pip install --no-cache-dir -e /app fastapi uvicorn[standard] stripe httpx supabase resend pyjwt[crypto]
 ENV PYTHONPATH=/app
 EXPOSE 8080
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
