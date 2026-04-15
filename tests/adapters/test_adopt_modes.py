@@ -58,7 +58,7 @@ def test_adopt_mode_adapters_do_not_install_cron(tmp_path: Path, monkeypatch) ->
         monkeypatch.setenv("SZ_CRONTAB_FILE", str(cron_file))
         runner = CliRunner()
 
-        _invoke(runner, ["init", "--host", "generic", "--yes"])
+        _invoke(runner, ["init", "--host", "generic", "--no-genesis", "--yes"])
         assert "sz tick --reason cron" in cron_file.read_text()
         _invoke(runner, ["host", "install", adapter])
 
@@ -88,7 +88,7 @@ def test_merge_mode_installs_adopt_hook_and_generic_cron(tmp_path: Path, monkeyp
     monkeypatch.setenv("SZ_CRONTAB_FILE", str(cron_file))
     runner = CliRunner()
 
-    _invoke(runner, ["init", "--host", "generic", "--yes"])
+    _invoke(runner, ["init", "--host", "generic", "--no-genesis", "--yes"])
     _invoke(runner, ["host", "install", "hermes", "--mode", "merge"])
 
     assert _invoke(runner, ["host", "current"]).strip() == "hermes (merge)"

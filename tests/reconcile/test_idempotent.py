@@ -24,7 +24,7 @@ def _init_repo(tmp_path: Path, monkeypatch, *, host: str = "generic", host_mode:
     monkeypatch.chdir(repo_root)
     monkeypatch.setenv("SZ_CRONTAB_FILE", str(repo_root / "cron.txt"))
     runner = CliRunner()
-    result = runner.invoke(cli, ["init", "--host", host, "--host-mode", host_mode, "--yes"])
+    result = runner.invoke(cli, ["init", "--host", host, "--host-mode", host_mode, "--no-genesis", "--yes"])
     assert result.exit_code == 0, result.output
     return repo_root, runner
 

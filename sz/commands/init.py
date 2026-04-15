@@ -17,7 +17,8 @@ HOSTS = ["auto", "claude_code", "cursor", "opencode", "aider", "hermes", "opencl
 @click.option("--host-mode", type=click.Choice(["install", "adopt", "merge", "auto"]), default="auto", show_default=True)
 @click.option("--force", is_flag=True, help="Reinitialize even if .sz/ exists.")
 @click.option("--yes", "auto_yes", is_flag=True, help="Skip Repo Genesis confirmation.")
-def cmd(host: str, host_mode: str, force: bool, auto_yes: bool) -> None:
+@click.option("--no-genesis", is_flag=True, help="Initialize only; do not run Repo Genesis.")
+def cmd(host: str, host_mode: str, force: bool, auto_yes: bool, no_genesis: bool) -> None:
     root = Path.cwd()
     selected_host = host_registry.autodetect(root) if host == "auto" else host
     selected_mode = host_mode
@@ -81,18 +82,19 @@ def cmd(host: str, host_mode: str, force: bool, auto_yes: bool) -> None:
     )
 
     util.atomic_write_json(paths.registry_path(root), registry.empty_registry())
-    util.atomic_write_json(
-        paths.profile_path(root),
-        {
-            "purpose": "Pending Repo Genesis",
-            "language": "other",
-            "frameworks": [],
-            "existing_heartbeat": "none",
-            "goals": ["Run Repo Genesis"],
-            "recommended_modules": [{"id": "heartbeat", "reason": "Repo Genesis pending"}],
-            "risk_flags": ["genesis_pending"],
-        },
-    )
+    if no_genesis:
+        util.atomic_write_json(
+            paths.profile_path(root),
+            {
+                "purpose": "Pending Repo Genesis",
+                "language": "other",
+                "frameworks": [],
+                "existing_heartbeat": "none",
+                "goals": ["Run Repo Genesis"],
+                "recommended_modules": [{"id": "heartbeat", "reason": "Repo Genesis pending"}],
+                "risk_flags": ["genesis_pending"],
+            },
+        )
 
     bus.emit(
         paths.bus_path(root),
@@ -102,5 +104,15 @@ def cmd(host: str, host_mode: str, force: bool, auto_yes: bool) -> None:
     )
 
     click.echo(f"Initialized S0 ({configured_host}) at {sub}")
+    if no_genesis:
+        if not auto_yes:
+            click.echo("Next: run `sz genesis` to make this repo alive (one-click).")
+        return
+
     if not auto_yes:
-        click.echo("Next: run `sz genesis` to make this repo alive (one-click).")
+        click.echo("Run Repo Genesis now? It will detect what this repo does and recommend modules.")
+        ans = click.prompt("[Y/n]", default="Y")
+        if ans.lower() not in ("y", "yes"):
+            return
+    from sz.core import genesis as engine
+    engine.genesis(root, auto_yes=auto_yes, host_mode_override=selected_mode)

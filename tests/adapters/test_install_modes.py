@@ -39,7 +39,7 @@ def test_install_mode_adapters_install_uninstall_idempotently(tmp_path: Path, mo
         monkeypatch.setenv("SZ_CRONTAB_FILE", str(cron_file))
         runner = CliRunner()
 
-        _invoke(runner, ["init", "--host", adapter, "--yes"])
+        _invoke(runner, ["init", "--host", adapter, "--no-genesis", "--yes"])
         _invoke(runner, ["host", "install", adapter])
 
         for rel in expected_paths:
@@ -68,7 +68,7 @@ def test_host_list_includes_phase_05_adapters(tmp_path: Path, monkeypatch) -> No
     monkeypatch.setenv("SZ_CRONTAB_FILE", str(repo / "cron.txt"))
     runner = CliRunner()
 
-    _invoke(runner, ["init", "--host", "generic", "--yes"])
+    _invoke(runner, ["init", "--host", "generic", "--no-genesis", "--yes"])
     output = _invoke(runner, ["host", "list"])
 
     for adapter in [

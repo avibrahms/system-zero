@@ -125,7 +125,7 @@ def test_absorb_non_dry_installs_and_reconciles(tmp_path: Path, monkeypatch) -> 
     draft = _draft()
     _patch_absorb(monkeypatch, tmp_path, draft)
     monkeypatch.chdir(repo)
-    init_command.cmd.main(args=["--host", "generic", "--yes"], standalone_mode=False)
+    init_command.cmd.main(args=["--host", "generic", "--no-genesis", "--yes"], standalone_mode=False)
     original_run = subprocess_module.run
 
     def fake_run(args, check=False, **kwargs):

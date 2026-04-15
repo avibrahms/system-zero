@@ -40,7 +40,7 @@ def test_absorb_clc_retries_until_valid_response(tmp_path: Path, monkeypatch) ->
     repo.mkdir()
     source = _write_source(tmp_path)
     monkeypatch.chdir(repo)
-    init_command.cmd.main(args=["--host", "generic", "--yes"], standalone_mode=False)
+    init_command.cmd.main(args=["--host", "generic", "--no-genesis", "--yes"], standalone_mode=False)
     monkeypatch.setattr(absorb_engine, "CACHE", tmp_path / ".home" / ".sz" / "cache" / "absorb")
 
     responses = iter(

@@ -26,7 +26,8 @@ def _is_running(pid: int) -> bool:
 
 
 @click.command(help="Start the owned heartbeat loop.")
-def cmd() -> None:
+@click.option("--interval", type=int, default=None, help="Heartbeat interval in seconds.")
+def cmd(interval: int | None) -> None:
     root = paths.repo_root()
     pid_path = paths.heartbeat_pid_path(root)
     if pid_path.exists():
@@ -43,7 +44,7 @@ def cmd() -> None:
         stdout=log_file,
         stderr=subprocess.STDOUT,
         start_new_session=True,
-        env=os.environ.copy(),
+        env={**os.environ.copy(), **({"SZ_INTERVAL": str(interval)} if interval else {})},
     )
     pid_path.write_text(f"{process.pid}\n")
     click.echo(f"Heartbeat started (pid {process.pid}).")

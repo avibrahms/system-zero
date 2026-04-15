@@ -24,7 +24,7 @@ def test_autodetect_prefers_adopt_mode_markers(tmp_path: Path, monkeypatch) -> N
     monkeypatch.setenv("SZ_CRONTAB_FILE", str(repo / "cron.txt"))
     runner = CliRunner()
 
-    _invoke(runner, ["init", "--host", "generic", "--yes"])
+    _invoke(runner, ["init", "--host", "generic", "--no-genesis", "--yes"])
 
     assert _invoke(runner, ["host", "detect"]).strip() == "hermes"
 
@@ -39,7 +39,7 @@ def test_autodetect_reports_unknown_before_generic(tmp_path: Path, monkeypatch) 
     monkeypatch.setenv("SZ_CRONTAB_FILE", str(repo / "cron.txt"))
     runner = CliRunner()
 
-    _invoke(runner, ["init", "--host", "generic", "--yes"])
+    _invoke(runner, ["init", "--host", "generic", "--no-genesis", "--yes"])
 
     assert _invoke(runner, ["host", "detect"]).strip() == "unknown"
 
@@ -55,7 +55,7 @@ def test_init_auto_adopts_detected_heartbeat_with_yes(tmp_path: Path, monkeypatc
     monkeypatch.setenv("SZ_CRONTAB_FILE", str(cron_file))
     runner = CliRunner()
 
-    _invoke(runner, ["init", "--yes"])
+    _invoke(runner, ["init", "--no-genesis", "--yes"])
 
     assert _invoke(runner, ["host", "current"]).strip() == "hermes (adopt)"
     assert "sz tick --reason hermes" in (repo / ".hermes/config.yaml").read_text()
@@ -73,7 +73,7 @@ def test_init_auto_installs_for_unknown_heartbeat_with_yes(tmp_path: Path, monke
     monkeypatch.setenv("SZ_CRONTAB_FILE", str(cron_file))
     runner = CliRunner()
 
-    _invoke(runner, ["init", "--yes"])
+    _invoke(runner, ["init", "--no-genesis", "--yes"])
 
     assert _invoke(runner, ["host", "current"]).strip() == "generic (install)"
     assert "sz tick --reason cron" in cron_file.read_text()

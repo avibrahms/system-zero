@@ -64,9 +64,54 @@ def _absorb_response(prompt: str) -> dict:
     }
 
 
+def _repo_genesis_response(prompt: str) -> dict:
+    heartbeat_match = re.search(r"existing_heartbeat \(algorithmic\):\s*([a-z_]+)", prompt)
+    existing_heartbeat = heartbeat_match.group(1) if heartbeat_match else "none"
+    languages_match = re.search(r"detected_languages:\s*(\[.*?\])", prompt)
+    try:
+        languages = json.loads(languages_match.group(1)) if languages_match else []
+    except json.JSONDecodeError:
+        languages = []
+    language = languages[0] if languages else "other"
+    if len(languages) > 1:
+        language = "mixed"
+    if language not in {"python", "javascript", "typescript", "go", "rust", "ruby", "java", "kotlin", "swift", "php", "shell", "mixed", "other"}:
+        language = "other"
+
+    readme_match = re.search(r"README excerpt \(first 5 KB\):\n---\n(.*?)\n---", prompt, flags=re.DOTALL)
+    readme = (readme_match.group(1).strip() if readme_match else "")
+    heading = next((line.lstrip("# ").strip() for line in readme.splitlines() if line.strip()), "")
+    purpose = heading[:200] or "Self-improving repository"
+
+    if existing_heartbeat == "none":
+        modules = [
+            {"id": "heartbeat", "reason": "Start the owned pulse loop."},
+            {"id": "immune", "reason": "Detect early failure signals."},
+            {"id": "subconscious", "reason": "Summarize repository health."},
+        ]
+    else:
+        modules = [
+            {"id": "immune", "reason": "Detect early failure signals."},
+            {"id": "subconscious", "reason": "Summarize repository health."},
+            {"id": "prediction", "reason": "Predict likely next events."},
+        ]
+
+    return {
+        "purpose": purpose,
+        "language": language,
+        "frameworks": [],
+        "existing_heartbeat": existing_heartbeat,
+        "goals": ["Run autonomously", "Detect regressions", "Improve safely"],
+        "recommended_modules": modules,
+        "risk_flags": [],
+    }
+
+
 def call(prompt: str, *, model: str | None = None, max_tokens: int = 1024):
     if prompt.lstrip().startswith("# S0 absorb prompt"):
         text = json.dumps(_absorb_response(prompt))
+    elif prompt.lstrip().startswith("# S0 Repo Genesis prompt"):
+        text = json.dumps(_repo_genesis_response(prompt))
     else:
         text = json.dumps(
             {

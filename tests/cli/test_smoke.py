@@ -142,7 +142,7 @@ def _run_cli_smoke(tmp_path: Path, monkeypatch, host: str, host_mode: str) -> No
         (repo_root / ".openclaw").mkdir()
         (repo_root / ".openclaw/config.yaml").write_text("hooks:\n  on_tick: []\n")
 
-    result = runner.invoke(cli, ["init", "--host", host, "--host-mode", host_mode, "--yes"])
+    result = runner.invoke(cli, ["init", "--host", host, "--host-mode", host_mode, "--no-genesis", "--yes"])
     assert result.exit_code == 0, result.output
 
     sz_dir = repo_root / ".sz"
@@ -209,7 +209,6 @@ def _run_cli_smoke(tmp_path: Path, monkeypatch, host: str, host_mode: str) -> No
     assert "--feature" in result.output
 
     stub_expectations = {
-        "genesis": "Repo Genesis is implemented in phase 07.",
         "catalog": "Catalog is implemented in phase 09.",
     }
     for command, expected in stub_expectations.items():

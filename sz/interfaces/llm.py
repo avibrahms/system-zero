@@ -107,6 +107,30 @@ def _format_error_path(error) -> str:
     return "$." + ".".join(str(item) for item in error.absolute_path)
 
 
+def _load_schema(schema_path: Path) -> Any:
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    return _resolve_local_refs(schema)
+
+
+def _resolve_local_refs(value: Any) -> Any:
+    if isinstance(value, list):
+        return [_resolve_local_refs(item) for item in value]
+    if not isinstance(value, dict):
+        return value
+
+    ref = value.get("$ref")
+    if isinstance(ref, str) and ref.startswith("https://systemzero.dev/spec/v0.1.0/"):
+        rel = ref.removeprefix("https://systemzero.dev/spec/v0.1.0/")
+        ref_path = util.repo_base() / "spec" / "v0.1.0" / rel
+        resolved = json.loads(ref_path.read_text(encoding="utf-8"))
+        siblings = {key: item for key, item in value.items() if key != "$ref"}
+        if siblings:
+            resolved.update(siblings)
+        return _resolve_local_refs(resolved)
+
+    return {key: _resolve_local_refs(item) for key, item in value.items()}
+
+
 def _log_call(
     template_id: str | None,
     text: str,
@@ -156,7 +180,7 @@ def invoke(
             provider=response.provider,
         )
 
-    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    schema = _load_schema(schema_path)
     validator = Draft202012Validator(schema)
     feedback = ""
     errors: list[str] = []
