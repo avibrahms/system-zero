@@ -59,7 +59,35 @@ TEAM_PRICE=$(curl -sS https://api.stripe.com/v1/prices \
 {
   echo "STRIPE_PRICE_PRO=$PRO_PRICE"
   echo "STRIPE_PRICE_TEAM=$TEAM_PRICE"
-} > .env.cloud
+} > .env.cloud.tmp
+
+python3 - <<'PY'
+import pathlib
+
+target = pathlib.Path(".env.cloud")
+updates = {}
+for line in pathlib.Path(".env.cloud.tmp").read_text().splitlines():
+    key, value = line.split("=", 1)
+    updates[key] = value
+
+existing = {}
+order = []
+if target.exists():
+    for raw in target.read_text().splitlines():
+        if not raw or raw.lstrip().startswith("#") or "=" not in raw:
+            continue
+        key, value = raw.split("=", 1)
+        existing[key] = value
+        order.append(key)
+
+for key, value in updates.items():
+    if key not in order:
+        order.append(key)
+    existing[key] = value
+
+target.write_text("".join(f"{key}={existing.get(key, '')}\n" for key in order))
+pathlib.Path(".env.cloud.tmp").unlink()
+PY
 
 python3 - <<PY
 import json, pathlib

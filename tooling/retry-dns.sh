@@ -21,6 +21,7 @@ else
   domains=("$DOMAIN")
 fi
 
+successes=()
 for zone in "${domains[@]}"; do
   ZONE_ID=$(curl -sS -H "Authorization: Bearer $HOSTINGER_API_TOKEN" \
     "$ENDPOINT/zones?name=$zone" | jq -r '(.data // .zones // .result // [])[0].id // empty')
@@ -42,13 +43,22 @@ for zone in "${domains[@]}"; do
       "$ENDPOINT/zones/$ZONE_ID/records/$EXISTING" \
       -d "{\"name\":\"$RECORD\",\"type\":\"CNAME\",\"value\":\"$FLY_CLOUD.fly.dev\",\"ttl\":300}" >/dev/null
   fi
+  successes+=("$zone")
 done
 
+if [ "${#successes[@]}" -eq 0 ]; then
+  echo "no Hostinger zones were updated" >&2
+  exit 1
+fi
+
+UPDATED_ZONES=$(printf '%s\n' "${successes[@]}" | jq -R . | jq -s .)
 python3 - <<PY
 import json, pathlib
 p = pathlib.Path(".s0-release.json")
 s = json.loads(p.read_text())
-s.setdefault("dns", {})["status"] = "hostinger"
-s.setdefault("endpoints", {})["api"] = "https://api.systemzero.dev"
+updated = json.loads('''$UPDATED_ZONES''')
+s.setdefault("dns", {})["status"] = "hostinger-partial" if "systemzero.dev" not in updated else "hostinger"
+if "systemzero.dev" in updated:
+    s.setdefault("endpoints", {})["api"] = "https://api.systemzero.dev"
 p.write_text(json.dumps(s, indent=2) + "\n")
 PY

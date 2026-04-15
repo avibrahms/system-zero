@@ -11,6 +11,39 @@ create table if not exists users (
   created_at timestamptz not null default now()
 );
 
+-- Some existing Supabase projects already have a public.users table owned by
+-- Clerk-facing products. Keep that table and add the System Zero columns
+-- instead of assuming our phase created it from scratch.
+alter table users add column if not exists clerk_user_id text;
+alter table users add column if not exists email text;
+alter table users add column if not exists tier text not null default 'free';
+alter table users add column if not exists stripe_customer_id text;
+alter table users add column if not exists stripe_subscription_id text;
+alter table users add column if not exists team_id uuid;
+alter table users add column if not exists created_at timestamptz not null default now();
+
+do $$
+begin
+  if exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'users' and column_name = 'clerk_id'
+  ) then
+    execute 'update users set clerk_user_id = clerk_id where clerk_user_id is null and clerk_id is not null';
+  end if;
+
+  if not exists (
+    select 1 from pg_constraint where conname = 'users_clerk_user_id_key'
+  ) then
+    alter table users add constraint users_clerk_user_id_key unique (clerk_user_id);
+  end if;
+
+  if not exists (
+    select 1 from pg_constraint where conname = 'users_tier_check'
+  ) then
+    alter table users add constraint users_tier_check check (tier in ('free','pro','team'));
+  end if;
+end $$;
+
 create table if not exists teams (
   id uuid primary key default gen_random_uuid(),
   owner_clerk_user_id text not null,

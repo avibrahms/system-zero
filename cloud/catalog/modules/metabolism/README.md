@@ -1,0 +1,1 @@
+Metabolism keeps the append-only bus usable over time by rotating and archiving old event logs. It preserves the protocol's JSONL discipline while preventing long-running repositories from accumulating unbounded operational weight.

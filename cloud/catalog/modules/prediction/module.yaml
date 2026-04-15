@@ -1,0 +1,20 @@
+id: prediction
+version: 0.1.0
+category: cognition
+description: Predicts the next likely event type from recent bus history.
+entry:
+  type: python
+  command: predict.py
+triggers:
+  - "on": tick
+provides:
+  - name: prediction.next
+    address: events:prediction.next
+    description: Top-K predicted next event types.
+setpoints:
+  history_window: {default: 200, range: [10, 5000], description: "Recent bus events to consider."}
+  top_k: {default: 3, range: [1, 20], description: "Predictions to return."}
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh
+personas: [static, dynamic]

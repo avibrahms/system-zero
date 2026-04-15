@@ -1,0 +1,22 @@
+id: dreaming
+version: 0.1.0
+category: cognition
+description: Generates novel hypotheses from accumulated bus history during quiet periods.
+entry:
+  type: bash
+  command: dream.sh
+triggers:
+  - cron: "0 3 * * *"
+requires:
+  - providers: [llm, memory, bus]
+provides:
+  - name: hypothesis
+    address: events:hypothesis.generated
+    description: A drafted hypothesis with a novelty score.
+setpoints:
+  novelty_threshold: {default: 0.7, range: [0.0, 1.0], description: "Min novelty to emit."}
+  max_history_lines: {default: 50, range: [10, 500], description: "Bus lines to consider."}
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh
+personas: [static, dynamic]

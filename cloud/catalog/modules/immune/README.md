@@ -1,0 +1,1 @@
+Immune watches the repository's event stream for simple anomaly signals and emits normalized anomaly events. It gives downstream modules a shared first layer of passive health detection without coupling them to the host.

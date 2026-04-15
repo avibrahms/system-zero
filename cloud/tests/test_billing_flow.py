@@ -62,3 +62,39 @@ def test_checkout_webhook_upgrade_then_hosted_absorb(cloud_app, monkeypatch) -> 
     assert absorb.status_code == 200
     assert absorb.json()["draft"]["module_id"] == "cache-module"
     assert fake.rows["absorb_records"][0]["status"] == "succeeded"
+
+
+def test_existing_supabase_schema_subscription_fallback(cloud_app, monkeypatch) -> None:
+    main, fake, client, headers = cloud_app
+    monkeypatch.setattr(main, "_phase_schema_available", lambda: False)
+    monkeypatch.setattr(main, "_shared_schema_available", lambda: True)
+    fake.rows["users"].append({"id": "u1", "clerk_id": "user_1", "email": "avi@example.com"})
+
+    event = {
+        "type": "checkout.session.completed",
+        "data": {
+            "object": {
+                "metadata": {"clerk_user_id": "user_1", "tier": "team"},
+                "customer": "cus_123",
+                "customer_email": "avi@example.com",
+                "subscription": "sub_123",
+            }
+        },
+    }
+    monkeypatch.setattr(
+        main.stripe.Webhook,
+        "construct_event",
+        lambda body, signature, secret: json.loads(body),
+    )
+
+    webhook = client.post(
+        "/v1/billing/webhook",
+        content=json.dumps(event),
+        headers={"stripe-signature": "mocked"},
+    )
+    assert webhook.status_code == 200
+    assert fake.rows["subscriptions"][0]["product_slug"] == "system-zero-team"
+
+    me = client.get("/v1/me", headers=headers)
+    assert me.status_code == 200
+    assert me.json()["tier"] == "team"

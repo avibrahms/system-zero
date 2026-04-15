@@ -1,0 +1,1 @@
+Heartbeat is the minimum living signal for a static System Zero repository. It emits a pulse event on each tick and records a lightweight memory trace so other modules can tell that the repo is active.

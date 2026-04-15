@@ -1,4 +1,4 @@
-.PHONY: launch deploy deploy-prelaunch logs ssh secrets prepare-prelaunch
+.PHONY: launch deploy deploy-prelaunch logs ssh secrets prepare-assets prepare-prelaunch
 
 launch:
 	fly launch --copy-config --no-deploy --name sz-cloud --region iad
@@ -21,6 +21,8 @@ secrets:
 	  fi; \
 	  [ -z "$$CLERK_JWKS_URL" ] && { echo "CLERK_JWKS_URL could not be resolved; set it manually in .env"; exit 2; }; \
 	fi; \
+	POSTHOG_KEY=$${POSTHOG_KEY:-$${NEXT_PUBLIC_POSTHOG_KEY:-}}; \
+	POSTHOG_HOST=$${POSTHOG_HOST:-$${NEXT_PUBLIC_POSTHOG_HOST:-https://app.posthog.com}}; \
 	fly secrets set --stage \
 	  STRIPE_SECRET_KEY=$$STRIPE_SECRET_KEY \
 	  STRIPE_PUBLISHABLE_KEY=$$STRIPE_PUBLISHABLE_KEY \
@@ -33,20 +35,25 @@ secrets:
 	  SUPABASE_SERVICE_ROLE_KEY=$$SUPABASE_SERVICE_ROLE_KEY \
 	  RESEND_API_KEY=$$RESEND_API_KEY \
 	  OPENAI_API_KEY=$$OPENAI_API_KEY \
-	  GROQ_API_KEY=$$GROQ_API_KEY
+	  GROQ_API_KEY=$$GROQ_API_KEY \
+	  POSTHOG_KEY="$$POSTHOG_KEY" \
+	  POSTHOG_HOST="$$POSTHOG_HOST"
 
-deploy: secrets
+deploy: prepare-assets secrets
 	set -a; . ../.env; [ -f ../.env.cloud ] && . ../.env.cloud; set +a; \
 	export FLY_API_TOKEN="$$FLYIO_API_TOKEN"; \
 	fly deploy
 
-prepare-prelaunch:
-	rm -rf local-sz spec catalog pyproject.toml install.sh
+prepare-assets:
+	rm -rf catalog install.sh
+	cp -R ../catalog catalog
+	cp ../install.sh .
+
+prepare-prelaunch: prepare-assets
+	rm -rf local-sz spec pyproject.toml
 	cp -R ../sz local-sz
 	cp -R ../spec spec
-	cp -R ../catalog catalog
 	cp ../pyproject.toml .
-	cp ../install.sh .
 
 deploy-prelaunch: prepare-prelaunch secrets
 	set -a; . ../.env; [ -f ../.env.cloud ] && . ../.env.cloud; set +a; \

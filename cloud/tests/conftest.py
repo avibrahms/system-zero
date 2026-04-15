@@ -129,6 +129,8 @@ class FakeSupabase:
             "installs": [],
             "module_events": [],
             "absorb_records": [],
+            "subscriptions": [],
+            "usage_logs": [],
             "mv_trending_modules": [{"module_id": "heartbeat", "installs_30d": 3}],
             "mv_capability_bindings": [{"requirer": "immune", "provider": "heartbeat", "capability": "clock", "c": 2}],
         }
