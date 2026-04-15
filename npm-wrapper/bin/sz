@@ -55,7 +55,7 @@ function resolveFromPathSkippingSelf() {
 
 const cliPath = configuredCliPath() || resolveFromPathSkippingSelf();
 if (!cliPath) {
-  console.error('system-zero Python CLI was not found. Re-run `npm i -g system-zero` or install with `pipx install system-zero==0.1.0`.');
+  console.error('system-zero Python CLI was not found. Re-run `npm i -g system-zero` or install with `pipx install sz-cli==0.1.0`.');
   process.exit(1);
 }
 

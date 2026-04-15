@@ -137,7 +137,7 @@ def absorb(source: str, feature: str, *, ref: str | None = None,
     src = acquire(source, ref)
     inv = inventory(src)
     template = Path(__file__).resolve().parent.parent / "templates" / "absorb_prompt.md"
-    schema_path = Path(__file__).resolve().parents[2] / "spec" / "v0.1.0" / "llm-responses" / "absorb-draft.schema.json"
+    schema_path = Path(__file__).resolve().parents[1] / "spec" / "v0.1.0" / "llm-responses" / "absorb-draft.schema.json"
     prompt = render_prompt(template, source, ref, feature, inv)
 
     # CLC discipline: validated + retried + logged.

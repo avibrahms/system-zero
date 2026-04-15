@@ -16,7 +16,7 @@ This phase introduces no new code beyond minor configuration; it executes the pu
 
 - The current branch containing every phase's checkpoint commit history.
 - Public GitHub repos `avibrahms/system-zero`, `avibrahms/catalog`, `avibrahms/homebrew-tap`.
-- `system-zero==0.1.0` on PyPI.
+- `sz-cli==0.1.0` on PyPI (`system-zero==0.1.0` and `system-zero-cli==0.1.0` were published first but failed packaged smoke; the release state records the launchable package).
 - `system-zero@0.1.0` on npm.
 - `$(jq -r '.endpoints.web' .s0-release.json)/i` returns the install bootstrap.
 - `$(jq -r '.endpoints.api' .s0-release.json)/v1/catalog/index` returns the seven modules.

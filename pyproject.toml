@@ -1,5 +1,5 @@
 [project]
-name = "system-zero"
+name = "sz-cli"
 version = "0.1.0"
 description = "One-click autonomy and self-improvement for any repository."
 requires-python = ">=3.10"

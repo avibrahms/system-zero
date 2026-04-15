@@ -57,7 +57,7 @@ function writeCliConfig(cliPath) {
 }
 
 (async () => {
-  const target = localWheel || 'system-zero==0.1.0';
+  const target = localWheel || 'sz-cli==0.1.0';
   if (which('pipx')) {
     if (!run('pipx', ['install', target, '--force'])) process.exit(1);
     writeCliConfig(firstExecutable([path.join(pipxBinDir(), 'sz')]));

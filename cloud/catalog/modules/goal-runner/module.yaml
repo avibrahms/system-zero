@@ -1,0 +1,28 @@
+id: goal-runner
+version: 0.1.0
+category: action
+description: Reads .sz/repo-profile.json and executes a per-language run command if today's expected output is missing.
+entry:
+  type: bash
+  command: run.sh
+triggers:
+  - on: tick
+requires:
+  - providers: [memory, bus, storage]
+provides:
+  - name: goal.execution
+    address: events:goal.executed
+    description: Emitted after the project's run command is invoked.
+setpoints:
+  run_command:
+    default: ""
+    enum: [""]
+    description: "Override; if empty, derived from repo-profile."
+  expected_output_glob:
+    default: ""
+    enum: [""]
+    description: "Override; if empty, derived from repo-profile."
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh
+personas: [static, dynamic]

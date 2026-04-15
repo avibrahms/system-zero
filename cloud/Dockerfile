@@ -12,7 +12,7 @@ RUN apt-get update \
 # (pre-PyPI-publish) the build uses the fallback Dockerfile.prelaunch.
 ARG SZ_SOURCE=pypi
 RUN if [ "$SZ_SOURCE" = "pypi" ]; then \
-      pip install --no-cache-dir fastapi uvicorn[standard] stripe httpx pyyaml supabase resend pyjwt[crypto] system-zero; \
+      pip install --no-cache-dir fastapi uvicorn[standard] stripe httpx pyyaml supabase resend pyjwt[crypto] sz-cli; \
     else \
       pip install --no-cache-dir fastapi uvicorn[standard] stripe httpx pyyaml supabase resend pyjwt[crypto]; \
     fi

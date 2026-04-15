@@ -62,6 +62,11 @@ GENESIS_MODULES: dict[str, dict[str, str]] = {
         "event": "prediction.updated",
         "category": "cognition",
     },
+    "goal-runner": {
+        "description": "Genesis bootstrap goal execution verifier.",
+        "event": "goal.checked",
+        "category": "execution",
+    },
 }
 
 
@@ -115,7 +120,7 @@ def genesis(root: Path | None = None, *, hint: str = "", auto_yes: bool = False,
         )
 
     prompt = render_prompt(inv, hb, hint)
-    schema_path = Path(__file__).resolve().parents[2] / "spec" / "v0.1.0" / "llm-responses" / "repo-genesis.schema.json"
+    schema_path = Path(__file__).resolve().parents[1] / "spec" / "v0.1.0" / "llm-responses" / "repo-genesis.schema.json"
     try:
         result = llm.invoke(prompt, schema_path=schema_path, template_id="repo-genesis", max_tokens=1500)
     except llm.CLCFailure as exc:
@@ -294,22 +299,46 @@ def _ensure_genesis_module_source(root: Path, module_id: str) -> Path:
     meta = GENESIS_MODULES[module_id]
     source = paths.s0_dir(root) / "cache" / "genesis-modules" / module_id
     source.mkdir(parents=True, exist_ok=True)
-    manifest = {
-        "id": module_id,
-        "version": "0.1.0",
-        "category": meta["category"],
-        "description": meta["description"],
-        "entry": {"type": "python", "command": "entry.py"},
-        "triggers": [{"on": "tick"}],
-        "hooks": {"reconcile": "reconcile.sh", "doctor": "doctor.sh"},
-    }
+    if module_id == "goal-runner":
+        manifest = _goal_runner_manifest()
+        entry = _goal_runner_entry_script()
+    else:
+        manifest = {
+            "id": module_id,
+            "version": "0.1.0",
+            "category": meta["category"],
+            "description": meta["description"],
+            "entry": {"type": "python", "command": "entry.py"},
+            "triggers": [{"on": "tick"}],
+            "hooks": {"reconcile": "reconcile.sh", "doctor": "doctor.sh"},
+        }
+        entry = _entry_script(meta["event"])
     (source / "module.yaml").write_text(yaml.safe_dump(manifest, sort_keys=False))
-    (source / "entry.py").write_text(_entry_script(meta["event"]))
+    (source / "entry.py").write_text(entry)
     (source / "reconcile.sh").write_text(_reconcile_script())
     (source / "doctor.sh").write_text(_doctor_script())
     for executable in ["entry.py", "reconcile.sh", "doctor.sh"]:
         (source / executable).chmod(0o755)
     return source
+
+
+def _goal_runner_manifest() -> dict[str, Any]:
+    return {
+        "id": "goal-runner",
+        "version": "0.1.0",
+        "category": "action",
+        "description": "Executes a per-language run command if the expected output is missing.",
+        "entry": {"type": "python", "command": "entry.py"},
+        "triggers": [{"on": "tick"}],
+        "requires": [{"providers": ["memory", "bus", "storage"]}],
+        "provides": [{
+            "name": "goal.execution",
+            "address": "events:goal.executed",
+            "description": "Emitted after the project's run command is invoked.",
+        }],
+        "hooks": {"reconcile": "reconcile.sh", "doctor": "doctor.sh"},
+        "personas": ["static", "dynamic"],
+    }
 
 
 def _entry_script(event_type: str) -> str:
@@ -327,6 +356,56 @@ event = {{
 }}
 with Path(os.environ["SZ_BUS_PATH"]).open("a", encoding="utf-8") as handle:
     handle.write(json.dumps(event, separators=(",", ":")) + "\\n")
+"""
+
+
+def _goal_runner_entry_script() -> str:
+    return """#!/usr/bin/env python3
+import glob
+import json
+import os
+import subprocess
+from datetime import datetime, timezone
+from pathlib import Path
+
+repo = Path(os.environ["SZ_REPO_ROOT"])
+profile_path = Path(os.environ["SZ_PROFILE_PATH"])
+if not profile_path.exists():
+    raise SystemExit(0)
+
+profile = json.loads(profile_path.read_text(encoding="utf-8"))
+cmd = os.environ.get("SZ_SETPOINT_run_command", "")
+expected = os.environ.get("SZ_SETPOINT_expected_output_glob", "")
+
+if not expected:
+    expected = f"posts/{datetime.now(timezone.utc).strftime('%Y-%m-%d')}.txt"
+
+if glob.glob(str(repo / expected)):
+    raise SystemExit(0)
+
+if not cmd:
+    language = profile.get("language", "")
+    if language == "python":
+        frameworks = profile.get("frameworks") or []
+        module = frameworks[0] if frameworks else "weatherbot"
+        cmd = f"python3 -m {module}.post || python3 -m weatherbot.post || true"
+    elif language == "javascript":
+        cmd = "node ."
+    elif language == "typescript":
+        cmd = "npm start"
+    elif language == "shell" and (repo / "pulse.log").exists():
+        cmd = "test -s pulse.log"
+
+if cmd:
+    subprocess.run(["bash", "-lc", cmd], cwd=repo, check=False)
+    event = {
+        "ts": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+        "module": os.environ.get("SZ_MODULE_ID", "goal-runner"),
+        "type": "goal.executed",
+        "payload": {"cmd": cmd, "glob": expected},
+    }
+    with Path(os.environ["SZ_BUS_PATH"]).open("a", encoding="utf-8") as handle:
+        handle.write(json.dumps(event, separators=(",", ":")) + "\\n")
 """
 
 

@@ -33,8 +33,10 @@
         }
       },
       "source": {
-        "type": "local",
-        "path": "/Users/avi/Documents/Projects/system0-natural/modules/dreaming"
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/dreaming"
       },
       "readme": "Dreaming reviews recent bus history during quiet periods and drafts structured hypotheses through the protocol's constrained LLM path. It is the repo's low-frequency ideation loop, gated by novelty and schema validation.\n"
     },
@@ -53,10 +55,49 @@
       ],
       "setpoints": {},
       "source": {
-        "type": "local",
-        "path": "/Users/avi/Documents/Projects/system0-natural/modules/endocrine"
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/endocrine"
       },
       "readme": "Endocrine listens for aggregate health snapshots and adjusts module setpoints in response. It provides a first autonomous regulation loop so System Zero can dampen noisy behavior and react to unhealthy states.\n"
+    },
+    {
+      "id": "goal-runner",
+      "version": "0.1.0",
+      "category": "action",
+      "description": "Reads .sz/repo-profile.json and executes a per-language run command if today's expected output is missing.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "goal.execution"
+      ],
+      "requires": [],
+      "setpoints": {
+        "run_command": {
+          "default": "",
+          "enum": [
+            ""
+          ],
+          "description": "Override; if empty, derived from repo-profile."
+        },
+        "expected_output_glob": {
+          "default": "",
+          "enum": [
+            ""
+          ],
+          "description": "Override; if empty, derived from repo-profile."
+        }
+      },
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/goal-runner"
+      },
+      "readme": "Goal Runner is the bridge between Repo Genesis and repository action. It reads the S0 repo profile, derives a simple per-language run command, and invokes it on tick only when today's expected output is missing.\n"
     },
     {
       "id": "heartbeat",
@@ -81,8 +122,10 @@
         }
       },
       "source": {
-        "type": "local",
-        "path": "/Users/avi/Documents/Projects/system0-natural/modules/heartbeat"
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/heartbeat"
       },
       "readme": "Heartbeat is the minimum living signal for a static System Zero repository. It emits a pulse event on each tick and records a lightweight memory trace so other modules can tell that the repo is active.\n"
     },
@@ -111,8 +154,10 @@
         }
       },
       "source": {
-        "type": "local",
-        "path": "/Users/avi/Documents/Projects/system0-natural/modules/immune"
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/immune"
       },
       "readme": "Immune watches the repository's event stream for simple anomaly signals and emits normalized anomaly events. It gives downstream modules a shared first layer of passive health detection without coupling them to the host.\n"
     },
@@ -146,8 +191,10 @@
         }
       },
       "source": {
-        "type": "local",
-        "path": "/Users/avi/Documents/Projects/system0-natural/modules/metabolism"
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/metabolism"
       },
       "readme": "Metabolism keeps the append-only bus usable over time by rotating and archiving old event logs. It preserves the protocol's JSONL discipline while preventing long-running repositories from accumulating unbounded operational weight.\n"
     },
@@ -183,8 +230,10 @@
         }
       },
       "source": {
-        "type": "local",
-        "path": "/Users/avi/Documents/Projects/system0-natural/modules/prediction"
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/prediction"
       },
       "readme": "Prediction reads recent bus history and emits the next likely event types. It gives other modules a simple forecast signal they can use to prepare before repeated patterns turn into failures.\n"
     },
@@ -222,8 +271,10 @@
         }
       },
       "source": {
-        "type": "local",
-        "path": "/Users/avi/Documents/Projects/system0-natural/modules/subconscious"
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/subconscious"
       },
       "readme": "Subconscious turns anomaly events into a compact health snapshot. It aggregates recent signals into green, amber, or red state so regulators and operators can react to repo health through one stable capability.\n"
     }

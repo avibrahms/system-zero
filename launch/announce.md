@@ -5,7 +5,7 @@ I'm releasing System Zero today.
 It's the smallest, host-agnostic, framework-agnostic protocol that gives any repository, in one click, autonomy + self-improvement + safe absorption of any open-source feature.
 
 Two clicks for the visitor:
-1. `pipx install system-zero` (or `npm i -g system-zero`, or `curl -sSL https://systemzero.dev/i | sh`)
+1. `pipx install sz-cli` (or `curl -sSL https://systemzero.dev/i | sh`; npm is pending token rotation)
 2. `sz init`
 
 What happens at step 2 — Repo Genesis: System Zero scans the repo, detects whether it has a heartbeat (Claude Code, Cursor, Hermes, OpenClaw, MetaClaw, connection-engine, custom), then either installs its own (Owned) or adopts the existing one (Adopted). It picks 3-5 self-improvement modules to install (immune, subconscious, dreaming, metabolism, endocrine, prediction, …), runs the reconcile cycle, and starts the heartbeat. The repo is alive.

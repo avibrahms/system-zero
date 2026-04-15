@@ -9,7 +9,7 @@ LOCAL_WHEEL="${SYSTEM_ZERO_WHEEL:-}"
 if [ -z "$LOCAL_WHEEL" ] && [ -f "$SCRIPT_DIR/dist/system_zero-0.1.0-py3-none-any.whl" ]; then
   LOCAL_WHEEL="$SCRIPT_DIR/dist/system_zero-0.1.0-py3-none-any.whl"
 fi
-TARGET="${LOCAL_WHEEL:-system-zero==0.1.0}"
+TARGET="${LOCAL_WHEEL:-git+https://github.com/avibrahms/system-zero@v0.1.0}"
 
 if command -v pipx >/dev/null; then
   echo "Using pipx."

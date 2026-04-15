@@ -1,0 +1,1 @@
+Goal Runner is the bridge between Repo Genesis and repository action. It reads the S0 repo profile, derives a simple per-language run command, and invokes it on tick only when today's expected output is missing.
