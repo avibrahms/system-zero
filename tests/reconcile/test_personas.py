@@ -12,8 +12,8 @@ from tests.reconcile.test_idempotent import (
     _assert_old_module_sees_new_module,
     _init_repo,
     _install,
+    _registry_bytes,
     _registry,
-    _without_generated_at,
     _write_module,
 )
 
@@ -57,10 +57,10 @@ def test_reconcile_behaves_identically_for_static_and_dynamic_personas(tmp_path,
 
     result = runner.invoke(cli, ["reconcile", "--reason", f"{host}-persona"])
     assert result.exit_code == 0, result.output
-    first = _without_generated_at(repo_root)
+    first = _registry_bytes(repo_root)
     result = runner.invoke(cli, ["reconcile", "--reason", f"{host}-persona"])
     assert result.exit_code == 0, result.output
-    assert _without_generated_at(repo_root) == first
+    assert _registry_bytes(repo_root) == first
 
     registry = _registry(repo_root)
     assert registry["bindings"] == [

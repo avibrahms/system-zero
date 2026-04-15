@@ -7,6 +7,7 @@ import yaml
 from click.testing import CliRunner
 
 from sz.commands.cli import cli
+from sz.core import registry as registry_core
 
 
 CAPABILITY = "feature.alpha"
@@ -88,10 +89,8 @@ def _registry(root: Path) -> dict[str, object]:
     return json.loads((root / ".sz" / "registry.json").read_text(encoding="utf-8"))
 
 
-def _without_generated_at(root: Path) -> str:
-    payload = _registry(root)
-    payload["generated_at"] = "<ignored>"
-    return json.dumps(payload, indent=2, sort_keys=False) + "\n"
+def _registry_bytes(root: Path) -> bytes:
+    return (root / ".sz" / "registry.json").read_bytes()
 
 
 def _assert_old_module_sees_new_module(repo_root: Path, runner: CliRunner) -> None:
@@ -143,14 +142,21 @@ def test_reconcile_idempotent(tmp_path, monkeypatch) -> None:
     _install(runner, "consumer-mod", consumer)
     _install(runner, "provider-mod", provider)
 
+    generated_at = iter(["2099-01-01T00:00:01Z", "2099-01-01T00:00:02Z"])
+    monkeypatch.setattr(
+        registry_core,
+        "empty_registry",
+        lambda: {"generated_at": next(generated_at), "modules": {}, "bindings": [], "unsatisfied": []},
+    )
+
     result = runner.invoke(cli, ["reconcile", "--reason", "idempotent"])
     assert result.exit_code == 0, result.output
-    first = _without_generated_at(repo_root)
+    first = _registry_bytes(repo_root)
     first_log = (repo_root / ".sz" / "consumer-mod" / "reconcile.log").read_text(encoding="utf-8")
 
     result = runner.invoke(cli, ["reconcile", "--reason", "idempotent"])
     assert result.exit_code == 0, result.output
-    assert _without_generated_at(repo_root) == first
+    assert _registry_bytes(repo_root) == first
     assert (repo_root / ".sz" / "consumer-mod" / "reconcile.log").read_text(encoding="utf-8") == first_log
 
 

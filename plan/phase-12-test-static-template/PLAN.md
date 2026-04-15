@@ -316,9 +316,9 @@ TODAY="posts/$(date -u +%Y-%m-%d).txt"
 
 # Reconcile idempotent.
 sz reconcile --reason check
-A=$(jq 'del(.generated_at)' .sz/registry.json | sha256sum | awk '{print $1}')
+A=$(sha256sum .sz/registry.json | awk '{print $1}')
 sz reconcile --reason check
-B=$(jq 'del(.generated_at)' .sz/registry.json | sha256sum | awk '{print $1}')
+B=$(sha256sum .sz/registry.json | awk '{print $1}')
 [ "$A" = "$B" ] && record "static: reconcile idempotent" pass "$A" || record "static: reconcile idempotent" fail "A=$A B=$B"
 
 echo "$results" | jq . > "$REPORT"

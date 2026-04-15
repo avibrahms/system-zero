@@ -23,6 +23,23 @@ def empty_registry() -> dict[str, Any]:
     }
 
 
+def _without_generated_at(payload: dict[str, Any]) -> dict[str, Any]:
+    return {key: value for key, value in payload.items() if key != "generated_at"}
+
+
+def _preserve_generated_at_on_noop(root: Path, rebuilt: dict[str, Any]) -> None:
+    registry_path = paths.registry_path(root)
+    if not registry_path.exists():
+        return
+    existing = util.read_json(registry_path, {})
+    if not isinstance(existing, dict):
+        return
+    if not isinstance(existing.get("generated_at"), str):
+        return
+    if _without_generated_at(existing) == _without_generated_at(rebuilt):
+        rebuilt["generated_at"] = existing["generated_at"]
+
+
 def _split_capability(name: str) -> tuple[str, str | None]:
     base, marker, version_range = name.partition("@")
     return base, version_range if marker else None
@@ -218,6 +235,7 @@ def build(root: Path) -> tuple[dict[str, Any], list[dict[str, Any]]]:
         )
         registry["modules"][requirement["module_id"]]["status"] = "unsatisfied"
 
+    _preserve_generated_at_on_noop(root, registry)
     jsonschema.validate(registry, _SCHEMA)
     return registry, ambiguous
 
