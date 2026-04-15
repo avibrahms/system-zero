@@ -4,11 +4,13 @@ import json
 import os
 from pathlib import Path
 import shlex
+import shutil
 import signal
 import stat
 import sys
 import time
 
+import pytest
 import yaml
 from click.testing import CliRunner
 
@@ -281,6 +283,59 @@ def test_cli_smoke_static_repo(tmp_path: Path, monkeypatch) -> None:
 
 def test_cli_smoke_dynamic_adopt_repo(tmp_path: Path, monkeypatch) -> None:
     _run_cli_smoke(tmp_path, monkeypatch, host="openclaw", host_mode="adopt")
+
+
+def test_node_entry_can_call_bare_sz_without_global_sz(tmp_path: Path, monkeypatch) -> None:
+    node = shutil.which("node")
+    if not node:
+        pytest.skip("node is not available")
+    node_bin = tmp_path / "node-bin"
+    node_bin.mkdir()
+    (node_bin / "node").symlink_to(node)
+
+    repo_root = tmp_path / "repo"
+    repo_root.mkdir()
+    module_source = tmp_path / "node-cli-shim"
+    module_source.mkdir()
+    (module_source / "entry.js").write_text(
+        "const {execFileSync} = require('child_process');\n"
+        "const pathHead = (process.env.PATH || '').split(':')[0];\n"
+        "execFileSync('sz', [\n"
+        "  'bus', 'emit', 'node.shim.ok', JSON.stringify({pathHead}),\n"
+        "  '--module', process.env.SZ_MODULE_ID || 'node-cli-shim'\n"
+        "], {stdio: 'ignore'});\n"
+    )
+    (module_source / "module.yaml").write_text(
+        yaml.safe_dump(
+            {
+                "id": "node-cli-shim",
+                "version": "0.1.0",
+                "category": "testing",
+                "description": "Node module that calls the sz CLI by name.",
+                "entry": {"type": "node", "command": "entry.js"},
+                "triggers": [{"on": "tick"}],
+            },
+            sort_keys=False,
+        )
+    )
+
+    runner = CliRunner()
+    monkeypatch.chdir(repo_root)
+    monkeypatch.delenv("SZ_CLI", raising=False)
+    monkeypatch.delenv("SZ_COMMAND", raising=False)
+    monkeypatch.setenv("PATH", f"{node_bin}:/usr/bin:/bin")
+
+    result = runner.invoke(cli, ["init", "--host", "generic", "--no-genesis", "--yes"])
+    assert result.exit_code == 0, result.output
+    result = runner.invoke(cli, ["install", "node-cli-shim", "--source", str(module_source)])
+    assert result.exit_code == 0, result.output
+    result = runner.invoke(cli, ["tick", "--reason", "node-cli-shim"])
+    assert result.exit_code == 0, result.output
+
+    events = _read_events(repo_root / ".sz" / "bus.jsonl")
+    emitted = [event for event in events if event["type"] == "node.shim.ok"]
+    assert emitted
+    assert emitted[-1]["payload"]["pathHead"] == str(repo_root / ".sz" / "bin")
 
 
 def test_stop_falls_back_when_process_group_signal_is_denied(tmp_path: Path, monkeypatch) -> None:

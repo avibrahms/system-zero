@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+import shlex
 import shutil
 import subprocess
 import sys
@@ -11,21 +12,62 @@ from typing import Any
 from sz.core import bus, manifest, paths, repo_config
 
 
-def _resolve_llm_bin() -> str:
+def _active_cli_command(root: Path) -> list[str]:
+    configured = os.environ.get("SZ_COMMAND") or os.environ.get("SZ_CLI")
+    if configured:
+        command = shlex.split(configured)
+        shim_path = (paths.bin_dir(root) / "sz").resolve()
+        command_path = Path(command[0]) if command else None
+        if command and command_path and command_path.name == "sz" and (
+            not command_path.is_absolute() or command_path.resolve() == shim_path
+        ):
+            resolved = shutil.which("sz")
+            if resolved and Path(resolved).resolve() != shim_path.resolve():
+                command[0] = resolved
+                return command
+        elif command:
+            return command
+    return [sys.executable, "-m", "sz.commands.cli"]
+
+
+def _ensure_cli_shim(root: Path, command: list[str]) -> Path:
+    bin_dir = paths.bin_dir(root)
+    bin_dir.mkdir(parents=True, exist_ok=True)
+    shim = bin_dir / "sz"
+    import_root = Path(__file__).resolve().parents[2]
+    content = (
+        "#!/usr/bin/env bash\n"
+        "set -euo pipefail\n"
+        f"export PYTHONPATH={shlex.quote(str(import_root))}:\"${{PYTHONPATH:-}}\"\n"
+        f"exec {shlex.join(command)} \"$@\"\n"
+    )
+    if not shim.exists() or shim.read_text(encoding="utf-8") != content:
+        shim.write_text(content, encoding="utf-8")
+        shim.chmod(0o755)
+    return shim
+
+
+def cli_environment(root: Path, base_env: dict[str, str] | None = None) -> dict[str, str]:
+    env = dict(os.environ if base_env is None else base_env)
+    command = _active_cli_command(root)
+    shim = _ensure_cli_shim(root, command)
+    existing_path = env.get("PATH", "")
+    env["PATH"] = f"{shim.parent}{os.pathsep}{existing_path}" if existing_path else str(shim.parent)
+    env["SZ_CLI"] = str(shim)
+    env["SZ_COMMAND"] = shlex.join(command)
+    return env
+
+
+def _resolve_llm_bin(cli_shim: Path) -> str:
     configured = os.environ.get("SZ_LLM_BIN")
     if configured:
         return configured
-
-    for candidate in ("sz", "s0"):
-        resolved = shutil.which(candidate)
-        if resolved:
-            return resolved
-
-    return sys.executable
+    return str(cli_shim)
 
 
 def module_environment(root: Path, module_id: str, module_dir: Path) -> dict[str, str]:
-    env = os.environ.copy()
+    env = cli_environment(root)
+    cli_shim = Path(env["SZ_CLI"])
     data = manifest.load(module_dir / "module.yaml")
     cfg = repo_config.read(root)
     module_cfg = cfg.get("modules", {}).get(module_id, {})
@@ -42,7 +84,7 @@ def module_environment(root: Path, module_id: str, module_dir: Path) -> dict[str
             "SZ_MEMORY_DIR": str(paths.memory_dir(root)),
             "SZ_REGISTRY_PATH": str(paths.registry_path(root)),
             "SZ_PROFILE_PATH": str(paths.profile_path(root)),
-            "SZ_LLM_BIN": _resolve_llm_bin(),
+            "SZ_LLM_BIN": _resolve_llm_bin(cli_shim),
         }
     )
     return env

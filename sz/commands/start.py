@@ -6,7 +6,7 @@ import subprocess
 
 import click
 
-from sz.core import paths
+from sz.core import paths, runtime
 
 
 def _is_running(pid: int) -> bool:
@@ -47,7 +47,10 @@ def cmd(interval: int | None) -> None:
         stdout=log_file,
         stderr=subprocess.STDOUT,
         start_new_session=True,
-        env={**os.environ.copy(), **({"SZ_INTERVAL": str(interval)} if interval else {})},
+        env=runtime.cli_environment(
+            root,
+            {**os.environ.copy(), **({"SZ_INTERVAL": str(interval)} if interval else {})},
+        ),
     )
     pid_path.write_text(f"{process.pid}\n")
     click.echo(f"Heartbeat started (pid {process.pid}).")
