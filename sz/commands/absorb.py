@@ -26,6 +26,9 @@ def cmd(source, feature, ref, module_id, dry_run, auto_rollback):
         r = subprocess.run(["sz", "doctor", result["installed"]], capture_output=True, text=True)
         if r.returncode != 0:
             click.echo("doctor failed after absorb", err=True)
+            notes = result.get("notes")
+            if notes:
+                click.echo(f"LLM draft notes: {notes}", err=True)
             if r.stdout.strip():
                 click.echo(r.stdout.strip(), err=True)
             if r.stderr.strip():
@@ -33,5 +36,9 @@ def cmd(source, feature, ref, module_id, dry_run, auto_rollback):
             if auto_rollback:
                 click.echo("rolling back absorbed module", err=True)
                 subprocess.run(["sz", "uninstall", result["installed"], "--confirm"], check=False)
+            elif click.confirm("Roll back absorbed module?", default=False):
+                subprocess.run(["sz", "uninstall", result["installed"], "--confirm"], check=False)
+            else:
+                click.echo("leaving absorbed module installed for inspection", err=True)
             sys.exit(2)
     click.echo(json.dumps(result, indent=2))

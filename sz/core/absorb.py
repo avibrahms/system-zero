@@ -84,6 +84,18 @@ def _inventory_file_paths(inv: dict[str, Any]) -> set[str]:
     return paths_from_inventory
 
 
+def _resolve_beneath(base: Path, raw_path: str, error_prefix: str) -> Path:
+    if Path(raw_path).is_absolute():
+        raise ValueError(f"{error_prefix}: {raw_path}")
+    base_resolved = base.resolve()
+    candidate = (base_resolved / raw_path).resolve()
+    try:
+        candidate.relative_to(base_resolved)
+    except ValueError:
+        raise ValueError(f"{error_prefix}: {raw_path}")
+    return candidate
+
+
 def materialize(src: Path, draft: dict, target: Path, *, inventory_paths: set[str] | None = None) -> None:
     target.mkdir(parents=True, exist_ok=True)
     manifest = {
@@ -101,21 +113,17 @@ def materialize(src: Path, draft: dict, target: Path, *, inventory_paths: set[st
     src_resolved = src.resolve()
     target_resolved = target.resolve()
     for spec in draft.get("files_to_copy", []):
-        from_p = (src / spec["from"]).resolve()
+        from_p = _resolve_beneath(src_resolved, spec["from"], "Refusing to copy outside source")
         try:
             inventory_rel = from_p.relative_to(src_resolved).as_posix()
         except ValueError:
             raise ValueError(f"Refusing to copy outside source: {spec['from']}")
         if inventory_paths is not None and inventory_rel not in inventory_paths:
             raise ValueError(f"Refusing to copy path not present in inventory: {spec['from']}")
-        to_p = (target / spec["to"]).resolve()
-        try:
-            to_p.relative_to(target_resolved)
-        except ValueError:
-            raise ValueError(f"Refusing to copy outside module: {spec['to']}")
+        to_p = _resolve_beneath(target_resolved, spec["to"], "Refusing to copy outside module")
         to_p.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(from_p, to_p)
-    entry = target / draft["entry"]["command"]
+    entry = _resolve_beneath(target_resolved, draft["entry"]["command"], "Refusing to write entry outside module")
     entry.parent.mkdir(parents=True, exist_ok=True)
     entry.write_text(draft["entry_script"])
     entry.chmod(0o755)
@@ -169,4 +177,4 @@ def absorb(source: str, feature: str, *, ref: str | None = None,
         capture_output=True,
         text=True,
     )
-    return {"installed": draft["module_id"], "staging": str(staging)}
+    return {"installed": draft["module_id"], "staging": str(staging), "notes": draft.get("notes", "")}
