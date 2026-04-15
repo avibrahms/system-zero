@@ -28,17 +28,18 @@ The Python package is the canonical artifact; npm and brew wrap it.
 - `install.sh` — curl bootstrap.
 - `brew/system-zero.rb` — Homebrew formula stub.
 - `tests/distribution/test_install_channels.sh` — end-to-end channel test.
-- Branch `phase-09-catalog-and-distribution`.
+- Current-branch git checkpoint history for this phase, with no branch operations.
 
 ## Atomic steps
 
-### Step 9.1 — Branch + dirs
+### Step 9.1 — Confirm current branch + dirs
 
 ```bash
-git checkout main
-git checkout -b phase-09-catalog-and-distribution
+git branch --show-current
 mkdir -p catalog/modules catalog/scripts npm-wrapper/{bin,scripts} brew tests/distribution
 ```
+
+Verify: prints the current branch name, creates the distribution directories, and does not create or switch branches.
 
 ### Step 9.2 — Catalog entries
 

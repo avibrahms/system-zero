@@ -39,16 +39,18 @@ The one LLM call (`repo-genesis`) returns `repo-profile.json` validated against 
 - `sz/core/inventory.py` — algorithmic repo inventory.
 - `sz/core/heartbeat_detect.py` — algorithmic existing-heartbeat detection.
 - `tests/genesis/` — comprehensive tests covering both personas and CLC failure paths.
-- Branch `phase-07-repo-genesis`.
+- Current-branch git checkpoint history for this phase, with no branch operations.
 
 ## Atomic steps
 
-### Step 7.1 — Branch
+### Step 7.1 — Confirm current branch and stay on it
 
 ```bash
-git checkout main
-git checkout -b phase-07-repo-genesis
+git branch --show-current
 ```
+
+Verify: prints the current branch name; do not create, switch, rename, or delete any branch during this phase.
+
 
 ### Step 7.2 — Algorithmic inventory: `sz/core/inventory.py`
 
@@ -587,7 +589,7 @@ git commit -m "phase 07: repo genesis (becomes-alive) complete"
 3. CLC failure on Genesis aborts cleanly with `llm.call.failed` and no partial state.
 4. Path-invariants hold: nothing outside `.sz/`, `.sz.yaml`, the host adapter's marker block, and the framework's config (Adopt mode) is touched.
 5. `pytest tests/genesis -q` passes.
-6. Branch `phase-07-repo-genesis` exists with one commit.
+6. The current branch contains this phase's checkpoint commit(s), with no branch operations.
 
 ## Failure modes and recovery
 

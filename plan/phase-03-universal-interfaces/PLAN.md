@@ -15,16 +15,18 @@ Replace the stubs from phase 02 with working implementations of the seven socket
 - `sz/interfaces/llm_providers/{anthropic,openai,mock}.py`.
 - Replaced `sz/commands/{memory,bus,llm,schedule,discovery}.py` with full implementations.
 - `tests/interfaces/test_*.py` for each interface, including a CLC validation/retry test.
-- Branch `phase-03-universal-interfaces` with one commit.
+- Current-branch git checkpoint history for this phase, with no branch operations.
 
 ## Atomic steps
 
-### Step 3.1 — Branch
+### Step 3.1 — Confirm current branch and stay on it
 
 ```bash
-git checkout main
-git checkout -b phase-03-universal-interfaces
+git branch --show-current
 ```
+
+Verify: prints the current branch name; do not create, switch, rename, or delete any branch during this phase.
+
 
 ### Step 3.2 — `sz/interfaces/bus.py`
 

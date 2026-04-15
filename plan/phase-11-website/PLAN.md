@@ -41,17 +41,18 @@ There is **no carousel**, **no testimonial section**, **no email capture**, **no
 - `website/canvas.js` — the canvas drawing routines.
 - DNS configured via Hostinger (only): both `systemzero.dev` and `system0.dev` A/CNAME records point at the Fly.io `sz-web` app.
 - `tests/website/test_render.py` — a Playwright-based smoke test that loads the page and asserts the organism is drawn.
-- Branch `phase-11-website`.
+- Current-branch git checkpoint history for this phase, with no branch operations.
 
 ## Atomic steps
 
-### Step 11.1 — Branch + dirs
+### Step 11.1 — Confirm current branch + dirs
 
 ```bash
-git checkout main
-git checkout -b phase-11-website
+git branch --show-current
 mkdir -p website/install tests/website
 ```
+
+Verify: prints the current branch name, creates the website directories, and does not create or switch branches.
 
 ### Step 11.2 — `website/index.html`
 

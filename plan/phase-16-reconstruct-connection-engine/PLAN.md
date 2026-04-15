@@ -32,7 +32,7 @@ Because it requires every earlier phase to work. The SZ protocol, the absorb com
   - No source code of its own — everything comes from installed SZ modules.
 - `tests/e2e/reconstruct/run.sh` — boots the reference repo from scratch and asserts equivalent behavior.
 - `.test-reports/phase-16.json`.
-- Branch `phase-16-reconstruct-connection-engine`.
+- Current-branch git checkpoint history for this phase, with no branch operations.
 
 ## The anonymization discipline (NORMATIVE)
 
@@ -73,13 +73,14 @@ The categorization is manual on first run. GPT-5.4 may propose categories via a 
 
 ## Atomic steps
 
-### Step 16.1 — Branch + survey
+### Step 16.1 — Confirm current branch + survey
 
 ```bash
-git checkout main
-git checkout -b phase-16-reconstruct-connection-engine
+git branch --show-current
 mkdir -p tools tests/e2e/reconstruct .test-reports
 ```
+
+Verify: prints the current branch name, creates the survey scaffolding, and does not create or switch branches.
 
 Write `tools/connection_engine_survey.py`:
 ```python

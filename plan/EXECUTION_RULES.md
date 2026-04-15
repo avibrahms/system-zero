@@ -94,9 +94,9 @@ If two phases would reasonably need the same helper function, the helper is impl
 
 No phase plan, scaffold, or test in this folder may hardcode a specific LLM provider, IDE, or operating system beyond what is explicitly required by the host adapter being implemented. Default LLM provider is selected from the user's environment.
 
-## R24. Git checkpoint boundaries
+## R24. Current-branch checkpoint boundaries
 
-Each phase ends at a verifiable git checkpoint, but spec-loop execution stays on the current branch for the entire run. Do not create, switch, rename, or delete branches while executing a phase. If follow-up reconciliation is required after an initial phase commit, keep the additional commit(s) on the current branch and update the affected phase plan so verification checks the current-branch checkpoint history explicitly. Do not commit mid-phase unless the phase plan calls for it. Do not squash phases.
+Each phase ends at a verifiable git checkpoint on the current branch. Spec-loop execution never creates, switches, renames, deletes, or merges phase branches. If follow-up reconciliation is required after an initial phase commit, keep the additional commit(s) on the current branch and treat the resulting current-branch checkpoint history as the authoritative phase boundary. Exact one-commit branch counts are not normative. Do not commit mid-phase unless the phase plan calls for it. Do not squash phases.
 
 ## R25. Constrained LLM Call (CLC) discipline — spec-driven
 
@@ -154,7 +154,7 @@ The plan is designed to run unattended (e.g. `./bin/run-system0-overnight`). Whe
 2. **`FLYIO_API_TOKEN` invalid** — cannot deploy any service.
 3. **`SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY` invalid** — cloud app cannot start.
 4. **Python 3.10+ missing / core CLI tools missing** — phase 00 cannot complete bootstrap.
-5. **Git repo corrupted or uncommittable** — phase-branch discipline (R24) cannot proceed.
+5. **Git repo corrupted or uncommittable** — current-branch checkpoint discipline (R24) cannot proceed.
 6. **User explicitly set `S0_HARD_STOP=1`** — manual kill switch.
 7. **Data-integrity violation inside the protocol itself** — e.g. `registry.json` schema validation fails after reconcile, or `bus.jsonl` corruption prevents future writes. These indicate a protocol bug, not an external failure.
 
@@ -179,7 +179,7 @@ Any other failure is a soft blocker.
 | `sz absorb` produces invalid draft after 3 CLC retries | Mark source `skip` in inventory. Continue. | Phase 14 needs ≥2 of 3; phase 16 needs ≥15 candidates. |
 | Hostinger API body shape unknown | Try `.data`, `.zones`, `.result`. If all empty, soft-skip DNS for that zone. | Same as zone-not-visible. |
 | Fly dedicated IP allocation fails | Fall back to `dig sz-web.fly.dev`. Flag `drift_risk: true`. | DNS created but manual re-point if Fly rotates IPs. |
-| Phase verifier fails 4 attempts | Mark phase `status: degraded`. Emit `phase.soft_blocked`. Move on. | Tests (12/13/14) validate whether degraded phases matter. |
+| Phase verifier fails 5 attempts | Mark phase `status: degraded`. Emit `phase.soft_blocked`. Move on. | Tests (12/13/14) validate whether degraded phases matter. |
 | PostHog rejects events | Silent drop. Telemetry is non-essential. | No user-visible impact. |
 | Absorb source clone fails (404, DMCA, rate-limit) | Skip that source. Move on. | Phase 14/16 thresholds use N-1 instead of N. |
 

@@ -26,7 +26,7 @@ These seven cover every interface, every trigger type, both personas, and at lea
 - `modules/{heartbeat,immune,subconscious,dreaming,metabolism,endocrine,prediction}/`.
 - Each contains `module.yaml`, entry, `reconcile.sh`, `doctor.sh`, plus vendored scripts.
 - `tests/modules/test_install_all.py`, `test_personas.py`.
-- Branch `phase-08-port-modules`.
+- Current-branch git checkpoint history for this phase, with no branch operations.
 
 ## Porting recipe (apply to every module)
 
@@ -41,14 +41,15 @@ These seven cover every interface, every trigger type, both personas, and at lea
 
 ## Atomic steps
 
-### Step 8.1 — Branch + folders
+### Step 8.1 — Confirm current branch + folders
 
 ```bash
-git checkout main
-git checkout -b phase-08-port-modules
+git branch --show-current
 mkdir -p modules/{heartbeat,immune,subconscious,dreaming,metabolism,endocrine,prediction}/scripts
 mkdir -p tests/modules
 ```
+
+Verify: prints the current branch name, creates the module folders, and does not create or switch branches.
 
 ### Step 8.2 — heartbeat
 

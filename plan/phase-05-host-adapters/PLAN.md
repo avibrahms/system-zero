@@ -30,16 +30,18 @@ Adopt-mode adapters are tiny and almost identical: each detects a known marker (
 - `sz/commands/init.py` — extended to invoke the adapter's install hook.
 - `sz/commands/host.py` — `host install <name>`, `host uninstall`, `host list`, `host current`, `host detect`.
 - Tests for each adapter, with explicit Install vs Adopt tests.
-- Branch `phase-05-host-adapters`.
+- Current-branch git checkpoint history for this phase, with no branch operations.
 
 ## Atomic steps
 
-### Step 5.1 — Branch
+### Step 5.1 — Confirm current branch and stay on it
 
 ```bash
-git checkout main
-git checkout -b phase-05-host-adapters
+git branch --show-current
 ```
+
+Verify: prints the current branch name; do not create, switch, rename, or delete any branch during this phase.
+
 
 ### Step 5.2 — Adapter directory layout
 

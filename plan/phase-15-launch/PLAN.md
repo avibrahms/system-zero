@@ -2,19 +2,19 @@
 
 ## Goal
 
-Make System Zero publicly usable. Merge all phase branches, run the full test bench, publish the Python package to PyPI, publish the npm wrapper to npm, create the Homebrew tap, deploy the cloud apps to Fly.io, point DNS at them via Hostinger, cut a v0.1.0 GitHub release, post a launch announcement.
+Make System Zero publicly usable. Audit the current-branch checkpoint history, run the full test bench, publish the Python package to PyPI, publish the npm wrapper to npm, create the Homebrew tap, deploy the cloud apps to Fly.io, point DNS at them via Hostinger, cut a v0.1.0 GitHub release, post a launch announcement.
 
 This phase introduces no new code beyond minor configuration; it executes the publishing steps.
 
 ## Inputs
 
-- Phases 00–14 complete and committed on their respective branches.
+- Phases 00–14 complete and committed on the current branch.
 - All credentials in `.env` validated in phase 00.
 - The two Fly.io apps (`sz-cloud`, `sz-web`) live from phases 10 and 11.
 
 ## Outputs
 
-- A merged `main` branch containing every phase's commit.
+- The current branch containing every phase's checkpoint commit history.
 - Public GitHub repos `systemzero-dev/system-zero`, `systemzero-dev/catalog`, `systemzero-dev/homebrew-tap`.
 - `system-zero==0.1.0` on PyPI.
 - `system-zero@0.1.0` on npm.
@@ -25,23 +25,14 @@ This phase introduces no new code beyond minor configuration; it executes the pu
 
 ## Atomic steps
 
-### Step 15.1 — Merge all phase branches into main
+### Step 15.1 — Audit the current-branch checkpoint history
 
 ```bash
-git checkout main
-for b in phase-00-prerequisites phase-01-protocol-spec phase-02-sz-cli \
-         phase-03-universal-interfaces phase-04-reconciliation-engine \
-         phase-05-host-adapters phase-06-absorb-workflow phase-07-repo-genesis \
-         phase-08-port-modules phase-09-catalog-and-distribution \
-         phase-10-cloud-and-billing phase-11-website \
-         phase-12-test-static-template phase-13-test-dynamic-template \
-         phase-14-test-absorb-os-feature; do
-  git merge --no-ff "$b" -m "merge $b into main"
-done
+git branch --show-current
 git log --oneline | head -25
 ```
 
-Verify: 15 phase merges + initial commit visible.
+Verify: prints the current branch name and shows the accumulated checkpoint history from phases 00–14 without any branch merges.
 
 ### Step 15.2 — Re-run the full test bench
 
@@ -55,7 +46,7 @@ bash tests/distribution/test_install_channels.sh
 
 Verify: every command exits 0.
 
-Recovery: do not patch over failures. `git revert` the offending merge, fix the underlying phase, rerun.
+Recovery: do not patch over failures. `git revert` the offending checkpoint commit(s), fix the underlying phase, rerun.
 
 ### Step 15.3 — Create public GitHub repos
 
@@ -298,14 +289,13 @@ Apache 2.0. PRs welcome.
 ```bash
 git tag v0.1.0
 git push --tags
-git checkout main
 ```
 
 ## Acceptance criteria
 
 Phase 15 reads `.s0-release.json` and `BLOCKERS.md` written by earlier phases and checks the **core-essentials green** invariant defined in Appendix A of `plan/EXECUTION_RULES.md`. All of these must hold for `overall_status = green` or `degraded` (either is launch-acceptable for v0.1.0-rc1):
 
-1. `git log --oneline | head -25` shows merges of every phase plus the v0.1.0 tag.
+1. `git log --oneline | head -25` shows the current-branch checkpoint history for every completed phase plus the v0.1.0 tag.
 2. `pytest -q` and every e2e driver script pass on `main` (tests that themselves hit deferred services use the mocks).
 3. `gh release view v0.1.0` shows the three assets attached.
 4. `pipx install "$(jq -r .pypi_package .s0-release.json)==0.1.0"` on a fresh machine produces a working `sz` that can `sz init` a temp repo and run Repo Genesis end-to-end. (If `pypi_package` is `null`, the git-install fallback in `install.sh` is used instead.)

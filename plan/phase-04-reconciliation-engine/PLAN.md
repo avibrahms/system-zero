@@ -15,16 +15,18 @@ Implement the cycle that wires modules together every time the module landscape 
 - `sz/commands/install.py` — extended to call reconcile after a successful install.
 - `sz/commands/uninstall.py` — extended to call reconcile before files are removed.
 - `tests/reconcile/` — comprehensive tests including the "old module learns about new module" scenario, repeated for both Static and Dynamic personas.
-- Branch `phase-04-reconciliation-engine` with one commit.
+- Current-branch git checkpoint history for this phase, with no branch operations.
 
 ## Atomic steps
 
-### Step 4.1 — Branch
+### Step 4.1 — Confirm current branch and stay on it
 
 ```bash
-git checkout main
-git checkout -b phase-04-reconciliation-engine
+git branch --show-current
 ```
+
+Verify: prints the current branch name; do not create, switch, rename, or delete any branch during this phase.
+
 
 ### Step 4.2 — Write `sz/core/reconcile.py`
 

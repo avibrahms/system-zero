@@ -81,17 +81,18 @@ The protocol stays fully usable Free without any cloud call; the cloud unlocks t
 - `sz/commands/upgrade.py` — `sz upgrade` opens checkout.
 - `sz/commands/insights.py` — `sz insights` reveals community/team aggregations.
 - DNS records configured for `api.systemzero.dev`.
-- Branch `phase-10-cloud-and-billing`.
+- Current-branch git checkpoint history for this phase, with no branch operations.
 
 ## Atomic steps
 
-### Step 10.1 — Branch + scaffold
+### Step 10.1 — Confirm current branch + scaffold
 
 ```bash
-git checkout main
-git checkout -b phase-10-cloud-and-billing
+git branch --show-current
 mkdir -p cloud/{app,migrations,tests} sz/cloud
 ```
+
+Verify: prints the current branch name, creates the cloud scaffolding, and does not create or switch branches.
 
 ### Step 10.2 — Supabase schema
 

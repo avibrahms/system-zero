@@ -91,18 +91,19 @@ If you install System Zero into this repo, it must NOT start a competing daemon.
 - `tests/e2e/dynamic/run.sh`.
 - `tests/e2e/dynamic/test_dynamic_template.py`.
 - `.test-reports/phase-13.json`.
-- Branch `phase-13-test-dynamic-template`.
+- Current-branch git checkpoint history for this phase, with no branch operations.
 
 ## Atomic steps
 
-### Step 13.1 — Branch + dirs
+### Step 13.1 — Confirm current branch + dirs
 
 ```bash
-git checkout main
-git checkout -b phase-13-test-dynamic-template
+git branch --show-current
 mkdir -p tests/templates/mini-hermes/{.hermes,bin}
 mkdir -p tests/e2e/dynamic .test-reports
 ```
+
+Verify: prints the current branch name, creates the dynamic test scaffolding, and does not create or switch branches.
 
 ### Step 13.2 — Materialize the template
 

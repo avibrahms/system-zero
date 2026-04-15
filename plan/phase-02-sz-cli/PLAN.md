@@ -15,16 +15,18 @@ Implement the user-facing `sz` command. End of phase: `sz init` creates `.sz/` i
 - A console entry point `sz` installable via `pipx install -e .`.
 - `pyproject.toml` declaring the package.
 - `tests/cli/` with smoke tests for every sub-command.
-- Branch `phase-02-sz-cli` with one commit.
+- Current-branch git checkpoint history for this phase, with no branch operations.
 
 ## Atomic steps
 
-### Step 2.1 — Branch
+### Step 2.1 — Confirm current branch and stay on it
 
 ```bash
-git checkout main
-git checkout -b phase-02-sz-cli
+git branch --show-current
 ```
+
+Verify: prints the current branch name; do not create, switch, rename, or delete any branch during this phase.
+
 
 ### Step 2.2 — Create the package skeleton
 
@@ -296,7 +298,7 @@ git commit -m "phase 02: s0 CLI complete"
 2. `sz init`, `install --source`, `list`, `tick`, `doctor`, `uninstall` all work on a temp dir.
 3. The bus log accumulates the expected event types in the expected order.
 4. `pytest tests/cli -q` passes.
-5. Branch `phase-02-sz-cli` exists with one commit.
+5. The current branch contains this phase's checkpoint commit(s), with no branch operations.
 
 ## Failure modes and recovery
 

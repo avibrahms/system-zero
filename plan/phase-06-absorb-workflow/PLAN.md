@@ -21,7 +21,7 @@ When an LLM absorbs a feature ad hoc, it modifies the receiving repo's source fi
 - `sz/core/absorb.py` — orchestration logic (clone, scan, draft via CLC, validate, install).
 - `tests/absorb/test_absorb_dry.py` — dry-run tests with the `mock` LLM.
 - `tests/absorb/test_clc_retry.py` — verifies CLC retry behavior on this specific call.
-- Branch `phase-06-absorb-workflow`.
+- Current-branch git checkpoint history for this phase, with no branch operations.
 
 ## How absorption works (algorithm)
 
@@ -37,12 +37,14 @@ When an LLM absorbs a feature ad hoc, it modifies the receiving repo's source fi
 
 ## Atomic steps
 
-### Step 6.1 — Branch
+### Step 6.1 — Confirm current branch and stay on it
 
 ```bash
-git checkout main
-git checkout -b phase-06-absorb-workflow
+git branch --show-current
 ```
+
+Verify: prints the current branch name; do not create, switch, rename, or delete any branch during this phase.
+
 
 ### Step 6.2 — Write `sz/templates/absorb_prompt.md`
 
@@ -326,7 +328,7 @@ git commit -m "phase 06: absorb workflow with CLC complete"
 4. Path-traversal attempts are rejected (test must explicitly cover `../../`).
 5. CLC retry test passes: invalid → invalid → valid completes in 3 attempts.
 6. `pytest tests/absorb -q` passes.
-7. Branch `phase-06-absorb-workflow` exists with one commit.
+7. The current branch contains this phase's checkpoint commit(s), with no branch operations.
 
 ## Failure modes and recovery
 

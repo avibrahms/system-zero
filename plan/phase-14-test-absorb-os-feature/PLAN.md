@@ -46,17 +46,18 @@ After each absorption, at least one of `subconscious / metabolism / heartbeat` m
 - `tests/e2e/absorb/test_absorb_e2e.py` — pytest wrapper.
 - `tests/e2e/absorb/conftest.py` — stub fixture.
 - `.test-reports/phase-14.json`.
-- Branch `phase-14-test-absorb-os-feature`.
+- Current-branch git checkpoint history for this phase, with no branch operations.
 
 ## Atomic steps
 
-### Step 14.1 — Branch + dirs
+### Step 14.1 — Confirm current branch + dirs
 
 ```bash
-git checkout main
-git checkout -b phase-14-test-absorb-os-feature
+git branch --show-current
 mkdir -p tests/e2e/absorb/canned .test-reports
 ```
+
+Verify: prints the current branch name, creates the absorb test scaffolding, and does not create or switch branches.
 
 ### Step 14.2 — Pre-cache the source repos
 

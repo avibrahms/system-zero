@@ -16,7 +16,7 @@ The intended executor is **GPT-5.4**: precise, focused, literal, does not improv
 - Atomic steps with one action each.
 - Exact file paths, exact commands, exact expected outputs.
 - A verification command after every meaningful step.
-- A fail-recovery branch when something can go wrong.
+- A fail-recovery path when something can go wrong.
 - No metaphors, no "use judgment", no "etc."
 
 A human or a more creative model is invoked from inside a phase only when the plan explicitly says `INVOKE_REVIEWER`. Otherwise GPT-5.4 executes deterministically.
