@@ -15,3 +15,4 @@
 - Reconciled phase verification with the spec-loop current-branch workflow so phase checkpoints are verified without any branch operations.
 - Added `groq` to the v0.1 shipped LLM provider list for phase 03 universal interfaces.
 - Allowed capability version ranges in manifest capability names so `requires` / `provides` entries can use `name@range` contracts.
+- Added `unknown` as a repo-config host for phase 05 generic heartbeat detection.

@@ -39,3 +39,6 @@ adapters:
   - host: connection_engine
     mode: adopt
     provides: [external_heartbeat, session_lifecycle]
+  - host: unknown
+    mode: adopt
+    provides: [external_heartbeat]

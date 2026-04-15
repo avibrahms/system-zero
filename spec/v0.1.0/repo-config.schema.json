@@ -7,7 +7,7 @@
   "additionalProperties": false,
   "properties": {
     "sz_version": { "type": "string" },
-    "host": { "enum": ["claude_code", "cursor", "opencode", "aider", "hermes", "openclaw", "metaclaw", "connection_engine", "generic"] },
+    "host": { "enum": ["claude_code", "cursor", "opencode", "aider", "hermes", "openclaw", "metaclaw", "connection_engine", "unknown", "generic"] },
     "host_mode": { "enum": ["install", "adopt", "merge"] },
     "modules": {
       "type": "object",

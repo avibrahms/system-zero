@@ -226,7 +226,7 @@ The single file the user (or the website) edits to configure their installed mod
 
 ```yaml
 sz_version: 0.1.0
-host: claude_code | cursor | opencode | aider | hermes | openclaw | metaclaw | connection_engine | generic
+host: claude_code | cursor | opencode | aider | hermes | openclaw | metaclaw | connection_engine | unknown | generic
 host_mode: install | adopt | merge
 modules:
   <module-id>:
@@ -405,6 +405,7 @@ Standard host adapters in v0.1:
 | `openclaw` | n/a | hooks into OpenClaw loop | external_heartbeat, session_lifecycle |
 | `metaclaw` | n/a | hooks into MetaClaw loop | external_heartbeat, session_lifecycle |
 | `connection_engine` | n/a | adopts circadian-daemon | external_heartbeat, session_lifecycle |
+| `unknown` | n/a | records unknown heartbeat detection; manual pulse wiring required | external_heartbeat |
 
 Adopt-mode adapters all expose the host capability `external_heartbeat`. A module that declares `requires_host: [external_heartbeat]` will not be installed in a Static repo (S0 emits a clear error and suggests `--persona static`).
 
