@@ -13,6 +13,7 @@ from sz.commands import (
     host,
     init,
     install,
+    lifecycle,
     llm,
     ls,
     memory,
@@ -20,6 +21,7 @@ from sz.commands import (
     schedule,
     start,
     stop,
+    storage,
     tick,
     uninstall,
 )
@@ -50,6 +52,8 @@ cli.add_command(bus.group, name="bus")
 cli.add_command(llm.group, name="llm")
 cli.add_command(schedule.group, name="schedule")
 cli.add_command(discovery.group, name="discovery")
+cli.add_command(storage.group, name="storage")
+cli.add_command(lifecycle.group, name="lifecycle")
 
 
 def main() -> None:

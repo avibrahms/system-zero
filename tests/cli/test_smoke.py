@@ -204,16 +204,44 @@ def _run_cli_smoke(tmp_path: Path, monkeypatch, host: str, host_mode: str) -> No
         "genesis": "Repo Genesis is implemented in phase 07.",
         "catalog": "Catalog is implemented in phase 09.",
         "host": "Host management is implemented in phase 05.",
-        "memory": "Memory interface is implemented in phase 03.",
-        "bus": "Bus interface is implemented in phase 03.",
-        "llm": "LLM interface is implemented in phase 03.",
-        "schedule": "Schedule interface is implemented in phase 03.",
-        "discovery": "Discovery interface is implemented in phase 03.",
     }
     for command, expected in stub_expectations.items():
         result = runner.invoke(cli, [command])
         assert result.exit_code == 0, result.output
         assert expected in result.output
+
+    result = runner.invoke(cli, ["memory", "set", "answer", "42"])
+    assert result.exit_code == 0, result.output
+    result = runner.invoke(cli, ["memory", "get", "answer"])
+    assert result.exit_code == 0, result.output
+    assert json.loads(result.output) == 42
+
+    result = runner.invoke(cli, ["bus", "tail", "--last", "1"])
+    assert result.exit_code == 0, result.output
+    assert json.loads(result.output)[0]["type"] == "tick"
+
+    monkeypatch.setenv("SZ_LLM_PROVIDER", "mock")
+    result = runner.invoke(cli, ["llm", "provider"])
+    assert result.exit_code == 0, result.output
+    assert result.output.strip() == "mock"
+
+    result = runner.invoke(cli, ["schedule", "list"])
+    assert result.exit_code == 0, result.output
+    schedule_entries = json.loads(result.output)
+    assert any(entry["module_id"] == "hello-module" for entry in schedule_entries)
+
+    result = runner.invoke(cli, ["discovery", "list"])
+    assert result.exit_code == 0, result.output
+    modules = json.loads(result.output)
+    assert any(item["module_id"] == "hello-module" for item in modules)
+
+    result = runner.invoke(cli, ["storage", "path", "private", "hello-module"])
+    assert result.exit_code == 0, result.output
+    assert result.output.strip().endswith("/.sz/hello-module")
+
+    result = runner.invoke(cli, ["lifecycle", "run-hook", "hello-module", "doctor"])
+    assert result.exit_code == 0, result.output
+    assert json.loads(result.output)["returncode"] == 0
 
     result = runner.invoke(cli, ["uninstall", "hello-module", "--confirm"])
     assert result.exit_code == 0, result.output

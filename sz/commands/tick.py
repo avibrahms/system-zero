@@ -3,6 +3,8 @@ from __future__ import annotations
 import click
 
 from sz.core import bus, manifest, paths, registry, runtime
+from sz.interfaces import bus as bus_interface
+from sz.interfaces import schedule
 
 
 @click.command(help="Run one System Zero tick.")
@@ -15,7 +17,20 @@ def cmd(reason: str) -> None:
     for module_id in sorted(current["modules"]):
         module_dir = paths.module_dir(root, module_id)
         data = manifest.load(module_dir / "module.yaml")
-        if not any(trigger.get("on") == "tick" for trigger in data.get("triggers", [])):
+        triggers = data.get("triggers", [])
+        should_run = any(trigger.get("on") == "tick" for trigger in triggers)
+        should_run = should_run or any(
+            trigger.get("cron") and schedule.matches(trigger["cron"])
+            for trigger in triggers
+        )
+        event_patterns = [
+            trigger["match"]
+            for trigger in triggers
+            if trigger.get("on") == "event" and trigger.get("match")
+        ]
+        if event_patterns:
+            should_run = should_run or bool(bus_interface.subscribe(root, module_id, event_patterns))
+        if not should_run:
             continue
         timeout = data.get("limits", {}).get("max_runtime_seconds", 300)
         result = runtime.run_entry(root, module_id, module_dir, data["entry"], timeout)
