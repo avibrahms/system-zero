@@ -107,11 +107,22 @@ def _repo_genesis_response(prompt: str) -> dict:
     }
 
 
+def _dreaming_hypothesis_response(prompt: str) -> dict:
+    return {
+        "hypothesis": "Recent health events suggest anomaly density is rising before prediction confidence stabilizes.",
+        "novelty_score": 0.82,
+        "confidence": 0.64,
+        "rationale": "The bus history links health and prediction events closely enough to test a threshold adjustment.",
+    }
+
+
 def call(prompt: str, *, model: str | None = None, max_tokens: int = 1024):
     if prompt.lstrip().startswith("# S0 absorb prompt"):
         text = json.dumps(_absorb_response(prompt))
     elif prompt.lstrip().startswith("# S0 Repo Genesis prompt"):
         text = json.dumps(_repo_genesis_response(prompt))
+    elif prompt.lstrip().startswith("# S0 Dreaming hypothesis prompt"):
+        text = json.dumps(_dreaming_hypothesis_response(prompt))
     else:
         text = json.dumps(
             {
