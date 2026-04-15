@@ -14,6 +14,13 @@ seed_pipx_shared() {
 
 # 1) PyPI-equivalent: install from local wheel via pipx
 TMP=$(mktemp -d)
+export NPM_CONFIG_CACHE="$TMP/npm-cache"
+export NPM_CONFIG_USERCONFIG="$TMP/npmrc"
+export NPM_CONFIG_PREFIX="$TMP/npm-global"
+export NPM_CONFIG_AUDIT=false
+export NPM_CONFIG_FUND=false
+mkdir -p "$NPM_CONFIG_CACHE" "$NPM_CONFIG_PREFIX"
+: > "$NPM_CONFIG_USERCONFIG"
 WHEEL=$(ls "$PWD/dist"/*-0.1.0-py3-none-any.whl | head -n1)
 seed_pipx_shared "$TMP/pipx"
 PIPX_HOME="$TMP/pipx" PIPX_BIN_DIR="$TMP/bin" pipx install --system-site-packages "$WHEEL" --force
