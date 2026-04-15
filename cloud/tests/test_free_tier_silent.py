@@ -60,35 +60,6 @@ def test_pro_tier_requires_explicit_opt_in(cloud_app) -> None:
     assert fake.rows["module_events"] == []
 
 
-def test_existing_supabase_schema_telemetry_uses_usage_logs(cloud_app, monkeypatch) -> None:
-    main, fake, client, headers = cloud_app
-    monkeypatch.setattr(main, "_phase_schema_available", lambda: False)
-    monkeypatch.setattr(main, "_shared_schema_available", lambda: True)
-    fake.rows["subscriptions"].append({
-        "user_id": "user_1",
-        "product_slug": "system-zero-pro",
-        "status": "active",
-    })
-
-    result = client.post(
-        "/v1/telemetry",
-        json={
-            "install_id": "00000000-0000-0000-0000-000000000001",
-            "repo_fingerprint": "hash",
-            "host": "generic",
-            "host_mode": "install",
-            "sz_version": "0.1.0",
-            "telemetry_opt_in": True,
-            "events": [{"type": "module.installed", "module": "heartbeat", "payload": {"ok": True}}],
-        },
-        headers=headers,
-    )
-    assert result.status_code == 200
-    assert result.json() == {"accepted": True, "count": 1}
-    assert fake.rows["usage_logs"][0]["action"] == "module.installed"
-    assert fake.rows["usage_logs"][0]["metadata"]["module_id"] == "heartbeat"
-
-
 def test_posthog_forwarding_is_after_paid_opt_in(cloud_app, monkeypatch) -> None:
     main, fake, client, headers = cloud_app
     captures: list[dict] = []

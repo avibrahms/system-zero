@@ -4,8 +4,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
-from collections import Counter
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
@@ -43,14 +42,12 @@ if resend is not None and os.environ.get("RESEND_API_KEY"):
     resend.api_key = os.environ["RESEND_API_KEY"]
 
 CATALOG_REMOTE = "https://raw.githubusercontent.com/systemzero-dev/catalog/main/index.json"
-SYSTEM_ZERO_PRODUCT_SLUG = os.environ.get("SYSTEM_ZERO_PRODUCT_SLUG", "system-zero")
 POSTHOG_KEY = os.environ.get("POSTHOG_KEY") or os.environ.get("NEXT_PUBLIC_POSTHOG_KEY", "")
 POSTHOG_HOST = (
     os.environ.get("POSTHOG_HOST")
     or os.environ.get("NEXT_PUBLIC_POSTHOG_HOST")
     or "https://app.posthog.com"
 ).rstrip("/")
-ACTIVE_SUBSCRIPTION_STATUSES = {"active", "trialing"}
 
 
 def _asset_path(*parts: str) -> Path:
@@ -101,25 +98,8 @@ def require_user(authorization: str | None) -> dict[str, str]:
 
 
 def tier_of(clerk_user_id: str) -> str:
-    if _phase_schema_available():
-        try:
-            r = supa.table("users").select("tier").eq("clerk_user_id", clerk_user_id).maybe_single().execute()
-        except Exception:
-            return "free"
-        return (r.data or {}).get("tier", "free")
-
-    if _shared_schema_available():
-        rows = _shared_subscription_rows(clerk_user_id, "product_slug,status,user_id")
-        active = {
-            row.get("product_slug")
-            for row in rows
-            if row.get("status") in ACTIVE_SUBSCRIPTION_STATUSES
-        }
-        if _product_slug_for_tier("team") in active:
-            return "team"
-        if _product_slug_for_tier("pro") in active:
-            return "pro"
-    return "free"
+    r = supa.table("users").select("tier").eq("clerk_user_id", clerk_user_id).maybe_single().execute()
+    return (r.data or {}).get("tier", "free")
 
 
 def send_transactional_email(*, to_email: str, subject: str, html: str) -> dict[str, Any]:
@@ -148,126 +128,17 @@ def send_transactional_email(*, to_email: str, subject: str, html: str) -> dict[
     return {"status": "queued", "provider": "outbox", "path": str(target)}
 
 
-# ---- Supabase schema compatibility ----
-
-
-@lru_cache(maxsize=64)
-def _table_select_works(table: str, columns: str) -> bool:
-    try:
-        supa.table(table).select(columns).limit(1).execute()
-    except Exception:
-        return False
-    return True
-
-
-def _phase_schema_available() -> bool:
-    return all(
-        (
-            _table_select_works("users", "clerk_user_id,tier"),
-            _table_select_works("installs", "id"),
-            _table_select_works("module_events", "id"),
-            _table_select_works("absorb_records", "id"),
-        )
-    )
-
-
-def _shared_schema_available() -> bool:
-    return all(
-        (
-            _table_select_works("users", "id,clerk_id,email"),
-            _table_select_works("subscriptions", "id,user_id,product_slug,status"),
-            _table_select_works("usage_logs", "id,user_id,product_slug,action,metadata"),
-        )
-    )
-
-
-def _product_slug_for_tier(tier: str) -> str:
-    return f"{SYSTEM_ZERO_PRODUCT_SLUG}-{tier}"
-
-
-def _shared_user_ids_for_clerk(clerk_user_id: str) -> list[str]:
-    ids = [clerk_user_id]
-    if not _shared_schema_available():
-        return ids
-    try:
-        rows = supa.table("users").select("id").eq("clerk_id", clerk_user_id).limit(1).execute().data or []
-    except Exception:
-        return ids
-    for row in rows:
-        user_id = row.get("id")
-        if user_id and user_id not in ids:
-            ids.append(user_id)
-    return ids
-
-
-def _shared_primary_user_id(clerk_user_id: str) -> str:
-    ids = _shared_user_ids_for_clerk(clerk_user_id)
-    return ids[1] if len(ids) > 1 else ids[0]
-
-
-def _shared_subscription_rows(clerk_user_id: str, columns: str) -> list[dict[str, Any]]:
-    if not _shared_schema_available():
-        return []
-    ids = _shared_user_ids_for_clerk(clerk_user_id)
-    try:
-        if len(ids) == 1:
-            return supa.table("subscriptions").select(columns).eq("user_id", ids[0]).execute().data or []
-        return supa.table("subscriptions").select(columns).in_("user_id", ids).execute().data or []
-    except Exception:
-        return []
-
-
 def _stripe_customer_id_for_user(user: dict[str, str]) -> str | None:
-    if _phase_schema_available():
-        try:
-            row = supa.table("users").select("stripe_customer_id").eq(
-                "clerk_user_id", user["sub"]
-            ).maybe_single().execute().data or {}
-        except Exception:
-            row = {}
-        if row.get("stripe_customer_id"):
-            return row["stripe_customer_id"]
-
-    for row in _shared_subscription_rows(user["sub"], "stripe_customer_id,status,product_slug,user_id"):
-        if row.get("status") not in ACTIVE_SUBSCRIPTION_STATUSES:
-            continue
-        if row.get("stripe_customer_id"):
-            return row["stripe_customer_id"]
-    return None
+    row = supa.table("users").select("stripe_customer_id").eq(
+        "clerk_user_id", user["sub"]
+    ).maybe_single().execute().data or {}
+    return row.get("stripe_customer_id")
 
 
 def _ensure_user(user: dict[str, str]) -> None:
-    if _phase_schema_available():
-        supa.table("users").upsert({"clerk_user_id": user["sub"], "email": user["email"]}).execute()
-        return
-
-    if not _shared_schema_available():
-        return
-
-    existing = supa.table("users").select("id").eq("clerk_id", user["sub"]).limit(1).execute().data or []
-    if existing:
-        return
-    supa.table("users").insert({
-        "clerk_id": user["sub"],
+    supa.table("users").upsert({
+        "clerk_user_id": user["sub"],
         "email": user["email"] or f"{user['sub']}@systemzero.dev",
-    }).execute()
-
-
-def _record_usage_log(
-    clerk_user_id: str,
-    action: str,
-    metadata: dict[str, Any],
-    *,
-    tokens_used: int = 0,
-) -> None:
-    if not _shared_schema_available():
-        return
-    supa.table("usage_logs").insert({
-        "user_id": _shared_primary_user_id(clerk_user_id),
-        "product_slug": SYSTEM_ZERO_PRODUCT_SLUG,
-        "action": action,
-        "tokens_used": tokens_used,
-        "metadata": metadata,
     }).execute()
 
 
@@ -280,48 +151,18 @@ def _record_subscription(
     stripe_subscription_id: str | None,
     stripe_price_id: str | None,
 ) -> None:
-    if _phase_schema_available():
-        supa.table("users").update({
-            "tier": tier,
-            "stripe_customer_id": stripe_customer_id,
-            "stripe_subscription_id": stripe_subscription_id,
-        }).eq("clerk_user_id", clerk_user_id).execute()
-        return
-
-    user = {"sub": clerk_user_id, "email": email}
-    _ensure_user(user)
-    if not _shared_schema_available():
-        return
-
-    subscription_user_id = _shared_primary_user_id(clerk_user_id)
-    subscription_id = stripe_subscription_id or f"checkout-{clerk_user_id}-{tier}"
-    payload = {
-        "user_id": subscription_user_id,
-        "product_slug": _product_slug_for_tier(tier),
+    supa.table("users").upsert({
+        "clerk_user_id": clerk_user_id,
+        "email": email or f"{clerk_user_id}@systemzero.dev",
+        "tier": tier,
         "stripe_customer_id": stripe_customer_id,
-        "stripe_subscription_id": subscription_id,
-        "stripe_price_id": stripe_price_id or "",
-        "status": "active",
-        "current_period_end": (datetime.now(timezone.utc) + timedelta(days=31)).isoformat(),
-    }
-    existing = supa.table("subscriptions").select("id").eq(
-        "stripe_subscription_id", subscription_id
-    ).limit(1).execute().data or []
-    if existing:
-        supa.table("subscriptions").update(payload).eq("id", existing[0]["id"]).execute()
-    else:
-        supa.table("subscriptions").insert(payload).execute()
+        "stripe_subscription_id": stripe_subscription_id,
+    }).execute()
 
 
 def _record_subscription_deleted(stripe_subscription_id: str) -> None:
-    if _phase_schema_available():
-        supa.table("users").update({"tier": "free", "stripe_subscription_id": None}) \
-            .eq("stripe_subscription_id", stripe_subscription_id).execute()
-        return
-    if _shared_schema_available():
-        supa.table("subscriptions").update({"status": "canceled"}).eq(
-            "stripe_subscription_id", stripe_subscription_id
-        ).execute()
+    supa.table("users").update({"tier": "free", "stripe_subscription_id": None}) \
+        .eq("stripe_subscription_id", stripe_subscription_id).execute()
 
 
 def _record_absorb(
@@ -333,64 +174,19 @@ def _record_absorb(
     status: str,
     validation_errors: dict[str, Any] | None = None,
 ) -> None:
-    if _phase_schema_available():
-        payload: dict[str, Any] = {
-            "clerk_user_id": clerk_user_id,
-            "source_url": source_url,
-            "feature": feature,
-            "module_id": module_id,
-            "llm_provider": os.environ.get("SZ_LLM_PROVIDER", "openai"),
-            "status": status,
-        }
-        if status == "succeeded":
-            payload.update({"tokens_in": 0, "tokens_out": 0})
-        if validation_errors is not None:
-            payload["validation_errors"] = validation_errors
-        supa.table("absorb_records").insert(payload).execute()
-        return
-
-    _record_usage_log(
-        clerk_user_id,
-        f"absorb.{status}",
-        {
-            "source_url": source_url,
-            "feature": feature,
-            "module_id": module_id,
-            "llm_provider": os.environ.get("SZ_LLM_PROVIDER", "openai"),
-            "validation_errors": validation_errors,
-        },
-    )
-
-
-def _fallback_public_insights() -> dict[str, Any]:
-    if not _shared_schema_available():
-        return {"trending_modules": [], "common_bindings": []}
-    rows = supa.table("usage_logs").select("action,metadata").eq(
-        "product_slug", SYSTEM_ZERO_PRODUCT_SLUG
-    ).limit(1000).execute().data or []
-    modules: Counter[str] = Counter()
-    bindings: Counter[tuple[str, str, str]] = Counter()
-    for row in rows:
-        metadata = row.get("metadata") or {}
-        if row.get("action") == "module.installed":
-            module_id = metadata.get("module_id") or metadata.get("module")
-            if module_id:
-                modules[module_id] += 1
-        if row.get("action") == "module.reconciled":
-            payload = metadata.get("payload") or metadata
-            key = (payload.get("requirer"), payload.get("provider"), payload.get("capability"))
-            if all(key):
-                bindings[key] += 1
-    return {
-        "trending_modules": [
-            {"module_id": module_id, "installs_30d": count}
-            for module_id, count in modules.most_common(20)
-        ],
-        "common_bindings": [
-            {"requirer": requirer, "provider": provider, "capability": capability, "c": count}
-            for (requirer, provider, capability), count in bindings.most_common(50)
-        ],
+    payload: dict[str, Any] = {
+        "clerk_user_id": clerk_user_id,
+        "source_url": source_url,
+        "feature": feature,
+        "module_id": module_id,
+        "llm_provider": os.environ.get("SZ_LLM_PROVIDER", "openai"),
+        "status": status,
     }
+    if status == "succeeded":
+        payload.update({"tokens_in": 0, "tokens_out": 0})
+    if validation_errors is not None:
+        payload["validation_errors"] = validation_errors
+    supa.table("absorb_records").insert(payload).execute()
 
 
 def _posthog_capture(*, distinct_id: str, event: str, properties: dict[str, Any]) -> None:
@@ -449,16 +245,8 @@ async def get_module(mod_id: str) -> dict[str, Any]:
 
 @app.get("/v1/insights/public")
 def public_insights() -> dict[str, Any]:
-    try:
-        trending = supa.table("mv_trending_modules").select("*").limit(20).execute().data
-    except Exception:
-        trending = []
-    try:
-        bindings = supa.table("mv_capability_bindings").select("*").limit(50).execute().data
-    except Exception:
-        bindings = []
-    if not trending and not bindings:
-        return _fallback_public_insights()
+    trending = supa.table("mv_trending_modules").select("*").limit(20).execute().data
+    bindings = supa.table("mv_capability_bindings").select("*").limit(50).execute().data
     return {"trending_modules": trending, "common_bindings": bindings}
 
 
@@ -516,12 +304,9 @@ async def stripe_webhook(req: Request, stripe_signature: str = Header(None)) -> 
         clerk_user_id = sess["metadata"]["clerk_user_id"]
         tier = sess["metadata"]["tier"]
         email = sess.get("customer_details", {}).get("email") or sess.get("customer_email") or ""
-        if not email and _phase_schema_available():
+        if not email:
             u = supa.table("users").select("email").eq("clerk_user_id", clerk_user_id).single().execute().data or {}
             email = u.get("email", "")
-        elif not email and _shared_schema_available():
-            rows = supa.table("users").select("email").eq("clerk_id", clerk_user_id).limit(1).execute().data or []
-            email = rows[0].get("email", "") if rows else ""
         _record_subscription(
             clerk_user_id=clerk_user_id,
             email=email,
@@ -610,31 +395,15 @@ def telemetry(payload: dict[str, Any], authorization: str | None = Header(None))
     if not install_id:
         raise HTTPException(400, "install_id required")
     events = payload.get("events", [])
-    if _phase_schema_available():
-        supa.table("installs").upsert(_install_payload(payload, user), on_conflict="id").execute()
-        for ev in events:
-            supa.table("module_events").insert({
-                "install_id": install_id,
-                "event_type": ev["type"],
-                "module_id": ev.get("module"),
-                "payload": ev.get("payload", {}),
-                "ts": ev.get("ts"),
-            }).execute()
-    else:
-        for ev in events:
-            _record_usage_log(
-                user["sub"],
-                ev["type"],
-                {
-                    "install_id": install_id,
-                    "module_id": ev.get("module"),
-                    "payload": ev.get("payload", {}),
-                    "host": payload.get("host", "unknown"),
-                    "host_mode": payload.get("host_mode", "install"),
-                    "sz_version": payload.get("sz_version", "0.1.0"),
-                    "ts": ev.get("ts"),
-                },
-            )
+    supa.table("installs").upsert(_install_payload(payload, user), on_conflict="id").execute()
+    for ev in events:
+        supa.table("module_events").insert({
+            "install_id": install_id,
+            "event_type": ev["type"],
+            "module_id": ev.get("module"),
+            "payload": ev.get("payload", {}),
+            "ts": ev.get("ts"),
+        }).execute()
     for ev in events:
         _posthog_capture(
             distinct_id=user["sub"],
@@ -658,13 +427,6 @@ def team_insights(authorization: str | None = Header(None)) -> dict[str, Any]:
     user = require_user(authorization)
     if tier_of(user["sub"]) != "team":
         raise HTTPException(402, "Team tier required")
-    if not _phase_schema_available():
-        rows = []
-        if _shared_schema_available():
-            rows = supa.table("usage_logs").select("*").eq("user_id", user["sub"]).eq(
-                "product_slug", SYSTEM_ZERO_PRODUCT_SLUG
-            ).limit(500).execute().data or []
-        return {"installs": [], "events_7d": len(rows)}
     u = supa.table("users").select("team_id").eq("clerk_user_id", user["sub"]).single().execute().data
     if not u or not u.get("team_id"):
         return {"installs": [], "events_7d": 0}
