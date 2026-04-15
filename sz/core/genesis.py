@@ -117,6 +117,12 @@ def genesis(root: Path | None = None, *, hint: str = "", auto_yes: bool = False,
     # Force the algorithmic heartbeat decision unless the LLM has very strong signal.
     # Algorithm wins by default; the LLM may add nuance via risk_flags.
     profile["existing_heartbeat"] = hb["existing_heartbeat"]
+    try:
+        _enforce_recommendation_constraints(profile)
+    except llm.CLCFailure as exc:
+        _emit_llm_failure(root, exc.errors)
+        _remove_pending_profile(root)
+        raise
 
     # Persist the profile.
     paths.profile_path(root).write_text(json.dumps(profile, indent=2, sort_keys=True))
@@ -187,6 +193,34 @@ def _resolve_host(root: Path, existing_heartbeat: str, host_mode_override: str |
     if requested_mode == "merge":
         return existing_heartbeat, "merge"
     return existing_heartbeat, "adopt"
+
+
+def _enforce_recommendation_constraints(profile: dict[str, Any]) -> None:
+    errors: list[str] = []
+    modules = profile.get("recommended_modules")
+    if not isinstance(modules, list):
+        raise llm.CLCFailure(["$.recommended_modules: must be an array"])
+
+    if not 3 <= len(modules) <= 5:
+        errors.append("$.recommended_modules: must contain 3 to 5 modules")
+
+    module_ids = [
+        item.get("id")
+        for item in modules
+        if isinstance(item, dict)
+    ]
+    existing_heartbeat = profile.get("existing_heartbeat")
+    if existing_heartbeat == "none":
+        first_id = module_ids[0] if module_ids else None
+        if first_id != "heartbeat":
+            errors.append('$.recommended_modules[0].id: static repos must recommend "heartbeat" first')
+    else:
+        for index, module_id in enumerate(module_ids):
+            if module_id == "heartbeat":
+                errors.append(f'$.recommended_modules[{index}].id: dynamic repos must not recommend "heartbeat"')
+
+    if errors:
+        raise llm.CLCFailure(errors)
 
 
 def _install_host_adapter(root: Path, host: str, host_mode: str) -> tuple[str, str]:

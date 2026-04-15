@@ -41,3 +41,28 @@ def test_adopt_heartbeat_wins_over_editor_marker(tmp_path: Path) -> None:
 
     assert result["existing_heartbeat"] == "hermes"
     assert result["candidate_hosts"][0] == "hermes"
+    assert "unknown" not in result["candidate_hosts"]
+
+
+def test_detects_unknown_on_tick_config(tmp_path: Path) -> None:
+    custom_config = tmp_path / "custom" / "config.yaml"
+    custom_config.parent.mkdir()
+    custom_config.write_text("on_tick:\n  - custom tick\n", encoding="utf-8")
+
+    result = heartbeat_detect.detect(tmp_path)
+
+    assert result["existing_heartbeat"] == "unknown"
+    assert result["candidate_hosts"] == ["unknown"]
+
+
+def test_unknown_heartbeat_wins_over_editor_marker(tmp_path: Path) -> None:
+    (tmp_path / ".claude").mkdir()
+    custom_config = tmp_path / "custom" / "config.yaml"
+    custom_config.parent.mkdir()
+    custom_config.write_text("on_tick:\n  - custom tick\n", encoding="utf-8")
+
+    result = heartbeat_detect.detect(tmp_path)
+
+    assert result["existing_heartbeat"] == "unknown"
+    assert result["candidate_hosts"][0] == "unknown"
+    assert "claude_code" in result["candidate_hosts"]
