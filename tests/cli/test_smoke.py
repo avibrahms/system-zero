@@ -13,21 +13,39 @@ def _write_module(source: Path) -> None:
     (source / "entry.sh").write_text(
         "#!/usr/bin/env bash\n"
         "set -euo pipefail\n"
+        "if [ -z \"${SZ_LLM_BIN:-}\" ]; then\n"
+        "  echo 'missing SZ_LLM_BIN' >&2\n"
+        "  exit 1\n"
+        "fi\n"
+        "printf '%s\\n' \"$SZ_LLM_BIN\" > \"$SZ_REPO_ROOT/llm-bin.txt\"\n"
         "printf 'tick-ran\\n' >> \"$SZ_REPO_ROOT/tick-ran.txt\"\n"
     )
     (source / "install.sh").write_text(
         "#!/usr/bin/env bash\n"
         "set -euo pipefail\n"
+        "if [ -z \"${SZ_LLM_BIN:-}\" ]; then\n"
+        "  echo 'missing SZ_LLM_BIN' >&2\n"
+        "  exit 1\n"
+        "fi\n"
+        "printf '%s\\n' \"$SZ_LLM_BIN\" > \"$SZ_MODULE_DIR/install-llm-bin.txt\"\n"
         "printf 'installed\\n' > \"$SZ_MODULE_DIR/install.txt\"\n"
     )
     (source / "doctor.sh").write_text(
         "#!/usr/bin/env bash\n"
         "set -euo pipefail\n"
+        "if [ -z \"${SZ_LLM_BIN:-}\" ]; then\n"
+        "  echo 'missing SZ_LLM_BIN' >&2\n"
+        "  exit 1\n"
+        "fi\n"
         "printf 'doctor-ok\\n' > \"$SZ_REPO_ROOT/doctor-ran.txt\"\n"
     )
     (source / "uninstall.sh").write_text(
         "#!/usr/bin/env bash\n"
         "set -euo pipefail\n"
+        "if [ -z \"${SZ_LLM_BIN:-}\" ]; then\n"
+        "  echo 'missing SZ_LLM_BIN' >&2\n"
+        "  exit 1\n"
+        "fi\n"
         "printf 'uninstalled\\n' > \"$SZ_REPO_ROOT/uninstall-ran.txt\"\n"
     )
     (source / "reconcile.sh").write_text(
@@ -56,8 +74,8 @@ def _write_module(source: Path) -> None:
     )
 
 
-def test_cli_smoke(tmp_path: Path, monkeypatch) -> None:
-    repo_root = tmp_path / "repo"
+def _run_cli_smoke(tmp_path: Path, monkeypatch, host: str, host_mode: str) -> None:
+    repo_root = tmp_path / f"{host_mode}-repo"
     repo_root.mkdir()
     module_source = tmp_path / "hello-module"
     module_source.mkdir()
@@ -66,7 +84,7 @@ def test_cli_smoke(tmp_path: Path, monkeypatch) -> None:
     runner = CliRunner()
     monkeypatch.chdir(repo_root)
 
-    result = runner.invoke(cli, ["init", "--host", "generic", "--yes"])
+    result = runner.invoke(cli, ["init", "--host", host, "--host-mode", host_mode, "--yes"])
     assert result.exit_code == 0, result.output
 
     sz_dir = repo_root / ".sz"
@@ -77,13 +95,14 @@ def test_cli_smoke(tmp_path: Path, monkeypatch) -> None:
     assert (sz_dir / "shared").is_dir()
 
     config = yaml.safe_load((repo_root / ".sz.yaml").read_text())
-    assert config["host"] == "generic"
-    assert config["host_mode"] == "install"
+    assert config["host"] == host
+    assert config["host_mode"] == host_mode
     assert config["cloud"]["tier"] == "free"
 
     result = runner.invoke(cli, ["install", "hello-module", "--source", str(module_source)])
     assert result.exit_code == 0, result.output
     assert (sz_dir / "hello-module" / "install.txt").read_text().strip() == "installed"
+    assert (sz_dir / "hello-module" / "install-llm-bin.txt").read_text().strip()
 
     result = runner.invoke(cli, ["list"])
     assert result.exit_code == 0, result.output
@@ -92,6 +111,7 @@ def test_cli_smoke(tmp_path: Path, monkeypatch) -> None:
     result = runner.invoke(cli, ["tick", "--reason", "smoke"])
     assert result.exit_code == 0, result.output
     assert (repo_root / "tick-ran.txt").read_text().strip() == "tick-ran"
+    assert (repo_root / "llm-bin.txt").read_text().strip()
 
     result = runner.invoke(cli, ["doctor"])
     assert result.exit_code == 0, result.output
@@ -131,3 +151,13 @@ def test_cli_smoke(tmp_path: Path, monkeypatch) -> None:
         "tick",
         "module.uninstalled",
     ]
+    assert events[0]["payload"]["host"] == host
+    assert events[0]["payload"]["host_mode"] == host_mode
+
+
+def test_cli_smoke_static_repo(tmp_path: Path, monkeypatch) -> None:
+    _run_cli_smoke(tmp_path, monkeypatch, host="generic", host_mode="install")
+
+
+def test_cli_smoke_dynamic_adopt_repo(tmp_path: Path, monkeypatch) -> None:
+    _run_cli_smoke(tmp_path, monkeypatch, host="openclaw", host_mode="adopt")

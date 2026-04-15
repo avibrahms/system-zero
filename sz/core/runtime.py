@@ -2,12 +2,26 @@
 from __future__ import annotations
 
 import os
+import shutil
 import subprocess
 import sys
 from pathlib import Path
 from typing import Any
 
 from sz.core import bus, paths
+
+
+def _resolve_llm_bin() -> str:
+    configured = os.environ.get("SZ_LLM_BIN")
+    if configured:
+        return configured
+
+    for candidate in ("sz", "s0"):
+        resolved = shutil.which(candidate)
+        if resolved:
+            return resolved
+
+    return sys.executable
 
 
 def module_environment(root: Path, module_id: str, module_dir: Path) -> dict[str, str]:
@@ -21,6 +35,7 @@ def module_environment(root: Path, module_id: str, module_dir: Path) -> dict[str
             "SZ_MEMORY_DIR": str(paths.memory_dir(root)),
             "SZ_REGISTRY_PATH": str(paths.registry_path(root)),
             "SZ_PROFILE_PATH": str(paths.profile_path(root)),
+            "SZ_LLM_BIN": _resolve_llm_bin(),
         }
     )
     return env
