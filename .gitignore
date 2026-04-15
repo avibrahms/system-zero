@@ -12,5 +12,7 @@ __pycache__/
 node_modules/
 dist/
 build/
+*.egg-info/
+.pytest_cache/
 BLOCKERS.md
 .s0-release.json

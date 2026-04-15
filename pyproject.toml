@@ -1,0 +1,27 @@
+[project]
+name = "system-zero"
+version = "0.1.0"
+description = "One-click autonomy and self-improvement for any repository."
+requires-python = ">=3.10"
+dependencies = [
+  "pyyaml>=6.0",
+  "jsonschema>=4.20",
+  "click>=8.1",
+  "rich>=13.7",
+  "platformdirs>=4.2",
+]
+
+[project.scripts]
+sz = "sz.commands.cli:main"
+s0 = "sz.commands.cli:main"
+
+[project.urls]
+Homepage = "https://systemzero.dev"
+Source = "https://github.com/systemzero-dev/system-zero"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["sz*"]
