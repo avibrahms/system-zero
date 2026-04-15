@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://systemzero.dev/spec/v0.1.0/manifest.schema.json",
+  "title": "S0 Module Manifest",
+  "type": "object",
+  "required": ["id", "version", "category", "description", "entry"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,40}$" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+(-[A-Za-z0-9.-]+)?$" },
+    "category": { "type": "string", "minLength": 1, "maxLength": 50 },
+    "description": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "entry": {
+      "type": "object", "required": ["type", "command"], "additionalProperties": false,
+      "properties": {
+        "type": { "enum": ["python", "bash", "node", "binary"] },
+        "command": { "type": "string", "minLength": 1 },
+        "args": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "triggers": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          { "type": "object", "required": ["on"], "additionalProperties": false,
+            "properties": { "on": { "const": "tick" } } },
+          { "type": "object", "required": ["on", "match"], "additionalProperties": false,
+            "properties": { "on": { "const": "event" }, "match": { "type": "string" } } },
+          { "type": "object", "required": ["cron"], "additionalProperties": false,
+            "properties": { "cron": { "type": "string" } } }
+        ]
+      }
+    },
+    "provides": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["name"], "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "pattern": "^[a-z][a-z0-9.-]*[a-z0-9]$" },
+          "address": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "requires": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          { "type": "object", "required": ["name"], "additionalProperties": false,
+            "properties": {
+              "name": { "type": "string", "pattern": "^[a-z][a-z0-9.-]*[a-z0-9]$" },
+              "optional": { "type": "boolean", "default": false },
+              "on_missing": { "enum": ["warn", "error"], "default": "warn" }
+            }
+          },
+          { "type": "object", "required": ["providers"], "additionalProperties": false,
+            "properties": { "providers": { "type": "array", "items": { "enum": ["llm", "vector", "memory", "bus", "storage", "schedule", "discovery"] } } }
+          }
+        ]
+      }
+    },
+    "setpoints": {
+      "type": "object",
+      "patternProperties": {
+        "^[a-z][a-z0-9_]*$": {
+          "type": "object", "required": ["default"], "additionalProperties": false,
+          "properties": {
+            "default": {},
+            "range": { "type": "array", "minItems": 2, "maxItems": 2 },
+            "enum": { "type": "array", "minItems": 1 },
+            "description": { "type": "string" },
+            "mode": { "enum": ["simple", "advanced"], "default": "simple" }
+          },
+          "oneOf": [{ "required": ["range"] }, { "required": ["enum"] }]
+        }
+      },
+      "additionalProperties": false
+    },
+    "hooks": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "install": { "type": "string" },
+        "start": { "type": "string" },
+        "stop": { "type": "string" },
+        "uninstall": { "type": "string" },
+        "reconcile": { "type": "string" },
+        "doctor": { "type": "string" }
+      }
+    },
+    "requires_host": { "type": "array", "items": { "type": "string" } },
+    "conflicts": { "type": "array", "items": { "type": "string" } },
+    "limits": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "max_runtime_seconds": { "type": "integer", "minimum": 1, "maximum": 3600 },
+        "max_memory_mb": { "type": "integer", "minimum": 1, "maximum": 65536 }
+      }
+    },
+    "personas": { "type": "array", "items": { "enum": ["static", "dynamic"] } },
+    "sz": { "type": "string" }
+  }
+}

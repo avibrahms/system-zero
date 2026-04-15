@@ -1,0 +1,54 @@
+id: immune-router
+version: 0.1.0
+category: cognition
+description: Full manifest fixture for protocol validation.
+entry:
+  type: python
+  command: bin/entry.py
+  args:
+    - --once
+triggers:
+  - "on": tick
+  - "on": event
+    match: host.*
+  - cron: "0 * * * *"
+provides:
+  - name: immune.routing
+    address: sockets/router.sock
+    description: Route capability checks.
+requires:
+  - name: memory.read
+    optional: false
+    on_missing: error
+  - providers:
+      - llm
+      - memory
+      - discovery
+setpoints:
+  batch_size:
+    default: 10
+    range: [1, 100]
+    description: Max items per reconcile pass.
+    mode: simple
+  strategy:
+    default: balanced
+    enum: [balanced, strict]
+    description: Conflict resolution strategy.
+    mode: advanced
+hooks:
+  install: install.sh
+  start: start.sh
+  stop: stop.sh
+  uninstall: uninstall.sh
+  reconcile: reconcile.sh
+  doctor: doctor.sh
+requires_host:
+  - session_lifecycle
+  - command_palette
+conflicts:
+  - legacy-router
+limits:
+  max_runtime_seconds: 60
+  max_memory_mb: 256
+personas: [static, dynamic]
+sz: "0.1.0"

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://systemzero.dev/spec/v0.1.0/registry.schema.json",
+  "title": "S0 Capability Registry",
+  "type": "object",
+  "required": ["generated_at", "modules", "bindings", "unsatisfied"],
+  "additionalProperties": false,
+  "properties": {
+    "generated_at": { "type": "string" },
+    "modules": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["version", "status", "manifest_path"],
+        "properties": {
+          "version": { "type": "string" },
+          "status": { "enum": ["healthy", "degraded", "unsatisfied", "disabled"] },
+          "manifest_path": { "type": "string" },
+          "provides": { "type": "array", "items": { "type": "string" } },
+          "requires": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "bindings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["requirer", "capability", "provider", "address"],
+        "properties": {
+          "requirer": { "type": "string" },
+          "capability": { "type": "string" },
+          "provider": { "type": "string" },
+          "address": { "type": "string" }
+        }
+      }
+    },
+    "unsatisfied": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["requirer", "capability"],
+        "properties": {
+          "requirer": { "type": "string" },
+          "capability": { "type": "string" },
+          "severity": { "enum": ["warn", "error"] }
+        }
+      }
+    }
+  }
+}

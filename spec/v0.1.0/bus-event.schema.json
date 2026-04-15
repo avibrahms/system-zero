@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://systemzero.dev/spec/v0.1.0/bus-event.schema.json",
+  "title": "S0 Bus Event",
+  "type": "object",
+  "required": ["ts", "module", "type", "payload"],
+  "additionalProperties": false,
+  "properties": {
+    "ts": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?Z$" },
+    "module": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,40}$|^s0$" },
+    "type": { "type": "string", "pattern": "^[a-z][a-z0-9._-]*[a-z0-9]$" },
+    "payload": { "type": "object" },
+    "correlation_id": { "type": "string", "pattern": "^[a-f0-9-]{8,64}$" }
+  }
+}

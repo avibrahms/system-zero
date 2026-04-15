@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://systemzero.dev/spec/v0.1.0/llm-responses/absorb-draft.schema.json",
+  "title": "S0 Absorb Draft",
+  "type": "object",
+  "required": ["module_id", "description", "category", "entry", "triggers", "provides", "requires", "setpoints", "files_to_copy", "entry_script", "reconcile_script"],
+  "additionalProperties": false,
+  "properties": {
+    "module_id": { "type": "string", "pattern": "^[a-z][a-z0-9-]{2,40}$" },
+    "description": { "type": "string", "minLength": 1, "maxLength": 200 },
+    "category": { "type": "string", "minLength": 1, "maxLength": 50 },
+    "entry": {
+      "type": "object", "required": ["type", "command"], "additionalProperties": false,
+      "properties": {
+        "type": { "enum": ["python", "bash", "node", "binary"] },
+        "command": { "type": "string" },
+        "args": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "triggers": { "type": "array", "minItems": 1 },
+    "provides": { "type": "array" },
+    "requires": { "type": "array" },
+    "setpoints": { "type": "object" },
+    "files_to_copy": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["from", "to"], "additionalProperties": false,
+        "properties": {
+          "from": { "type": "string" },
+          "to": { "type": "string" }
+        }
+      }
+    },
+    "entry_script": { "type": "string", "minLength": 1 },
+    "reconcile_script": { "type": "string", "minLength": 1 },
+    "notes": { "type": "string" }
+  }
+}

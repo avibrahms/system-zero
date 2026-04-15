@@ -1,0 +1,34 @@
+{
+  "generated_at": "2026-04-15T03:07:59Z",
+  "modules": {
+    "pulse-core": {
+      "version": "0.1.0",
+      "status": "healthy",
+      "manifest_path": ".sz/modules/pulse-core/module.yaml",
+      "provides": ["pulse.tick"],
+      "requires": []
+    },
+    "immune-router": {
+      "version": "0.1.0",
+      "status": "degraded",
+      "manifest_path": ".sz/modules/immune-router/module.yaml",
+      "provides": ["immune.routing"],
+      "requires": ["memory.read"]
+    }
+  },
+  "bindings": [
+    {
+      "requirer": "immune-router",
+      "capability": "memory.read",
+      "provider": "pulse-core",
+      "address": ".sz/shared/memory/socket"
+    }
+  ],
+  "unsatisfied": [
+    {
+      "requirer": "immune-router",
+      "capability": "vector.search",
+      "severity": "warn"
+    }
+  ]
+}
