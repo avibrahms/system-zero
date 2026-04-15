@@ -3,11 +3,15 @@ set -euo pipefail
 ROOT="$PWD"
 export PYTHONPATH="$ROOT:${PYTHONPATH:-}"
 REPORT="$ROOT/.test-reports/phase-12.json"
+source "$ROOT/tests/e2e/absorb/fixtures.sh"
+source "$ROOT/tests/e2e/sz-shim.sh"
 mkdir -p "$(dirname "$REPORT")"
 results='[]'
 record() { results=$(echo "$results" | jq --arg n "$1" --arg s "$2" --arg d "$3" '. + [{name:$n,status:$s,detail:$d}]'); }
 
 WORK=$(mktemp -d)
+install_local_sz_shim "$ROOT" "$WORK/bin"
+export PATH="$WORK/bin:$PATH"
 cp -R tests/templates/static-weatherbot "$WORK/repo"
 find "$WORK/repo/posts" -type f ! -name ".gitkeep" -delete
 cd "$WORK/repo"
@@ -39,7 +43,7 @@ PROFILE_JSON='{
 # Pre-absorb the open-source feature so it is in the catalog before genesis.
 # (In production the user would do `sz absorb` after init; the test front-loads.)
 CACHE="$HOME/.sz/cache/test-fixtures/absorb"
-[ -d "$CACHE/p-limit" ] || git clone --depth 1 https://github.com/sindresorhus/p-limit "$CACHE/p-limit"
+ensure_absorb_fixture_cache "$CACHE"
 python3 - <<PY
 # monkeypatch the mock provider inside a child sz process via an env var that
 # conftest-style bootstrap uses. Tests-only.

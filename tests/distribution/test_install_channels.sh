@@ -5,15 +5,23 @@ mkdir -p "$(dirname "$REPORT")"
 results='[]'
 
 record() { results=$(echo "$results" | jq --arg n "$1" --arg s "$2" --arg d "$3" '. + [{name:$n,status:$s,detail:$d}]'); }
+seed_pipx_shared() {
+  local home="$1"
+  if [ ! -x "$home/shared/bin/python" ]; then
+    python3 -m venv "$home/shared"
+  fi
+}
 
 # 1) PyPI-equivalent: install from local wheel via pipx
 TMP=$(mktemp -d)
 WHEEL=$(ls "$PWD/dist"/*-0.1.0-py3-none-any.whl | head -n1)
-PIPX_HOME="$TMP/pipx" PIPX_BIN_DIR="$TMP/bin" pipx install "$WHEEL" --force
+seed_pipx_shared "$TMP/pipx"
+PIPX_HOME="$TMP/pipx" PIPX_BIN_DIR="$TMP/bin" pipx install --system-site-packages "$WHEEL" --force
 "$TMP/bin/sz" --version | grep -q "0.1.0" && record "channel: pip wheel" pass "$WHEEL" || record "channel: pip wheel" fail ""
 
 # 2) curl bootstrap
-PIPX_HOME="$TMP/pipx2" PIPX_BIN_DIR="$TMP/bin2" SYSTEM_ZERO_WHEEL="$WHEEL" bash install.sh
+seed_pipx_shared "$TMP/pipx2"
+PIPX_HOME="$TMP/pipx2" PIPX_BIN_DIR="$TMP/bin2" SYSTEM_ZERO_WHEEL="$WHEEL" SYSTEM_ZERO_PIPX_SYSTEM_SITE=1 bash install.sh
 "$TMP/bin2/sz" --version | grep -q "0.1.0" && record "channel: install.sh" pass "" || record "channel: install.sh" fail ""
 
 # 3) npm wrapper
@@ -22,7 +30,8 @@ TGZ=$(ls "$PWD/npm-wrapper"/system-zero-0.1.0.tgz)
 trap 'rm -f "$TGZ"' EXIT
 NPM_PREFIX="$TMP/npm"
 mkdir -p "$NPM_PREFIX"
-PIPX_HOME="$TMP/pipx3" PIPX_BIN_DIR="$TMP/bin3" PATH="$TMP/bin3:$PATH" SYSTEM_ZERO_WHEEL="$WHEEL" npm i -g --prefix "$NPM_PREFIX" "$TGZ"
+seed_pipx_shared "$TMP/pipx3"
+PIPX_HOME="$TMP/pipx3" PIPX_BIN_DIR="$TMP/bin3" PATH="$TMP/bin3:$PATH" SYSTEM_ZERO_WHEEL="$WHEEL" SYSTEM_ZERO_PIPX_SYSTEM_SITE=1 npm i -g --prefix "$NPM_PREFIX" "$TGZ"
 NPM_CONFIG="$(npm root -g --prefix "$NPM_PREFIX")/system-zero/.system-zero-cli.json"
 CLI_REAL=$(python3 -c 'import os, sys; print(os.path.realpath(sys.argv[1]))' "$TMP/bin3/sz")
 jq -e --arg cli "$CLI_REAL" '.cliPath == $cli' "$NPM_CONFIG" >/dev/null && record "channel: npm cli path" pass "$NPM_CONFIG" || record "channel: npm cli path" fail "$NPM_CONFIG"

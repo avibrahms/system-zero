@@ -3,11 +3,15 @@ set -euo pipefail
 ROOT="$PWD"
 export PYTHONPATH="$ROOT:${PYTHONPATH:-}"
 REPORT="$ROOT/.test-reports/phase-13.json"
+source "$ROOT/tests/e2e/absorb/fixtures.sh"
+source "$ROOT/tests/e2e/sz-shim.sh"
 mkdir -p "$(dirname "$REPORT")"
 results='[]'
 record() { results=$(echo "$results" | jq --arg n "$1" --arg s "$2" --arg d "$3" '. + [{name:$n,status:$s,detail:$d}]'); }
 
 WORK=$(mktemp -d)
+install_local_sz_shim "$ROOT" "$WORK/bin"
+export PATH="$WORK/bin:$PATH"
 cp -R tests/templates/mini-hermes "$WORK/repo"
 cd "$WORK/repo"
 git init -q
@@ -33,7 +37,7 @@ PROFILE_JSON='{
 
 # Pre-absorb the OS feature (changed-file-detector) before genesis so the catalog contains it.
 CACHE="$HOME/.sz/cache/test-fixtures/absorb"
-[ -d "$CACHE/changed-files" ] || git clone --depth 1 https://github.com/tj-actions/changed-files "$CACHE/changed-files"
+ensure_absorb_fixture_cache "$CACHE"
 
 # Run genesis in Adopt mode (default) via the tests/-only canned helper (no SZ_FORCE_* in shipping code).
 sz init --host hermes --no-genesis --yes

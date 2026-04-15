@@ -3,6 +3,8 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 REPORT="$REPO_ROOT/.test-reports/phase-14.json"
+source "$SCRIPT_DIR/fixtures.sh"
+source "$REPO_ROOT/tests/e2e/sz-shim.sh"
 mkdir -p "$(dirname "$REPORT")"
 results='[]'
 record() { results=$(echo "$results" | jq --arg n "$1" --arg s "$2" --arg d "$3" '. + [{name:$n,status:$s,detail:$d}]'); }
@@ -10,13 +12,16 @@ record() { results=$(echo "$results" | jq --arg n "$1" --arg s "$2" --arg d "$3"
 MOD="$REPO_ROOT/modules"
 SOURCE_HOME="$HOME"
 CACHE="${SZ_ABSORB_SOURCE_CACHE:-$SOURCE_HOME/.sz/cache/test-fixtures/absorb}"
-for source_name in p-limit changed-files llm; do
-  [ -d "$CACHE/$source_name" ] || { echo "missing absorb source fixture: $CACHE/$source_name" >&2; exit 1; }
-done
+ensure_absorb_fixture_cache "$CACHE"
 
 WORK_ROOT=$(mktemp -d)
 WORK="$WORK_ROOT/repo"
+HOST_PYTHONUSERBASE="$(python3 -m site --user-base 2>/dev/null || true)"
 export HOME="$WORK_ROOT/home"
+export PYTHONUSERBASE="$HOST_PYTHONUSERBASE"
+install_local_sz_shim "$REPO_ROOT" "$WORK_ROOT/bin"
+export PATH="$WORK_ROOT/bin:$PATH"
+export PYTHONPATH="$REPO_ROOT:${PYTHONPATH:-}"
 mkdir -p "$HOME" "$WORK"
 cd "$WORK"
 git init -q

@@ -32,7 +32,7 @@
   {
     "name": "static: ticks landed",
     "status": "pass",
-    "detail": "7"
+    "detail": "6"
   },
   {
     "name": "static: goal acted upon",
@@ -52,11 +52,11 @@
   {
     "name": "static: prediction events landed",
     "status": "pass",
-    "detail": "6"
+    "detail": "5"
   },
   {
     "name": "static: reconcile idempotent",
     "status": "pass",
-    "detail": "863bfc41695d4b1f78fc67405fa12bc5d0ebb652630151cfd28b7c591e226453"
+    "detail": "54945ad6550d4ee0eea52fcd1510ccbc9b477fb604aa762e340b5b9bbc44abd3"
   }
 ]

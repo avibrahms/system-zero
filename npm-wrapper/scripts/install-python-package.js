@@ -56,10 +56,23 @@ function writeCliConfig(cliPath) {
   console.log(`system-zero npm wrapper will invoke ${cliPath}`);
 }
 
+function seedPipxSharedLibs() {
+  if (process.env.SYSTEM_ZERO_PIPX_SYSTEM_SITE !== '1' || !process.env.PIPX_HOME) return;
+  const sharedPython = path.join(process.env.PIPX_HOME, 'shared', 'bin', 'python');
+  if (isExecutable(sharedPython)) return;
+  const python = which('python3') || which('python');
+  if (!python) return;
+  run(python, ['-m', 'venv', path.join(process.env.PIPX_HOME, 'shared')]);
+}
+
 (async () => {
   const target = localWheel || 'sz-cli==0.1.0';
+  const pipxArgs = process.env.SYSTEM_ZERO_PIPX_SYSTEM_SITE === '1'
+    ? ['--system-site-packages']
+    : [];
   if (which('pipx')) {
-    if (!run('pipx', ['install', target, '--force'])) process.exit(1);
+    seedPipxSharedLibs();
+    if (!run('pipx', ['install', ...pipxArgs, target, '--force'])) process.exit(1);
     writeCliConfig(firstExecutable([path.join(pipxBinDir(), 'sz')]));
   } else if (which('pip3')) {
     if (!run('pip3', ['install', '--user', target])) process.exit(1);

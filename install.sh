@@ -10,10 +10,17 @@ if [ -z "$LOCAL_WHEEL" ] && [ -f "$SCRIPT_DIR/dist/system_zero-0.1.0-py3-none-an
   LOCAL_WHEEL="$SCRIPT_DIR/dist/system_zero-0.1.0-py3-none-any.whl"
 fi
 TARGET="${LOCAL_WHEEL:-git+https://github.com/avibrahms/system-zero@v0.1.0}"
+PIPX_EXTRA=()
+if [ "${SYSTEM_ZERO_PIPX_SYSTEM_SITE:-}" = "1" ]; then
+  PIPX_EXTRA+=(--system-site-packages)
+  if [ -n "${PIPX_HOME:-}" ] && [ ! -x "$PIPX_HOME/shared/bin/python" ]; then
+    $PYTHON -m venv "$PIPX_HOME/shared"
+  fi
+fi
 
 if command -v pipx >/dev/null; then
   echo "Using pipx."
-  pipx install --force "$TARGET"
+  pipx install "${PIPX_EXTRA[@]}" --force "$TARGET"
 elif $PYTHON -m pip --version >/dev/null 2>&1; then
   echo "Using pip --user."
   $PYTHON -m pip install --user --upgrade "$TARGET"

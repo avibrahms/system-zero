@@ -49,6 +49,36 @@ def find_module(module_id: str, index_url: str | None = None) -> dict[str, Any]:
     raise CatalogError(f"Module {module_id!r} was not found in the catalog.")
 
 
+def _local_index_path(index_url: str | None = None) -> Path | None:
+    url = _index_url(index_url)
+    parsed = urlparse(url)
+    if parsed.scheme == "file":
+        return Path(unquote(parsed.path))
+    if parsed.scheme in {"http", "https"}:
+        return None
+    return Path(url).expanduser()
+
+
+def _local_same_repo_source(source: dict[str, Any], index_url: str | None = None) -> Path | None:
+    """Resolve same-repo git catalog entries without touching the network.
+
+    Phase 15 publishes catalog entries as git sources, but local/offline test
+    runs often point SZ_CATALOG at this checkout's catalog/index.json. In that
+    case the source path can be copied directly from the checkout.
+    """
+    source_path = source.get("path")
+    if not source_path:
+        return None
+    index_path = _local_index_path(index_url)
+    if not index_path or not index_path.is_file():
+        return None
+    for base in (index_path.parent.parent, index_path.parent):
+        candidate = (base / str(source_path)).resolve()
+        if candidate.is_dir() and (candidate / "module.yaml").is_file():
+            return candidate
+    return None
+
+
 def _copy_module_dir(source_dir: Path, out: Path) -> None:
     if not source_dir.is_dir():
         raise CatalogError(f"Catalog source directory does not exist: {source_dir}")
@@ -103,7 +133,11 @@ def fetch_module(module_id: str, out: Path, index_url: str | None = None) -> Pat
     if source_type == "local":
         _copy_module_dir(Path(str(source.get("path", ""))).expanduser(), out)
     elif source_type == "git":
-        _fetch_git(source, out)
+        local_source = _local_same_repo_source(source, index_url)
+        if local_source is not None:
+            _copy_module_dir(local_source, out)
+        else:
+            _fetch_git(source, out)
     elif source_type == "tarball":
         _fetch_tarball(source, out)
     else:
