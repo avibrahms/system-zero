@@ -60,7 +60,7 @@ s0 = "sz.commands.cli:main"
 
 [project.urls]
 Homepage = "https://systemzero.dev"
-Source   = "https://github.com/systemzero-dev/system-zero"
+Source   = "https://github.com/avibrahms/system-zero"
 
 [build-system]
 requires = ["setuptools>=68"]

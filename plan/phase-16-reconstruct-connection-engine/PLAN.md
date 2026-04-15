@@ -8,7 +8,7 @@ The output is threefold:
 
 1. **One catalog entry per connection-engine module** (~30+ modules) in the public SZ catalog. Each has a manifest, a reconcile script, a doctor, and is installable by anyone via `sz install <id>`.
 2. **One generated standalone GitHub repo per module** — private by default during this run, release-ready for later public promotion. These repos are marketing/discovery surfaces and portability artifacts, not new sources of truth.
-3. **A public reference repo** — `systemzero-dev/connection-engine-reference` — that is an empty repo running `sz init --yes` against a pre-curated profile that recommends all of them. Anyone who clones and boots it gets a working connection-engine clone powered by SZ.
+3. **A public reference repo** — `$SZ_GITHUB_OWNER/connection-engine-reference` (default `avibrahms`) — that is an empty repo running `sz init --yes` against a pre-curated profile that recommends all of them. Anyone who clones and boots it gets a working connection-engine clone powered by SZ.
 
 This phase is the ultimate proof: the protocol is expressive enough to reconstruct its own intellectual ancestor.
 
@@ -31,7 +31,7 @@ Because it requires every earlier phase to work. The SZ protocol, the absorb com
   - Default visibility: private unless `SZ_MODULE_REPO_VISIBILITY=public` is set.
   - Name pattern: `sz-module-<id>-ce`.
   - Each repo contains the module files, a README, `.sz-module-origin.json`, `.env.example` if needed, and no private/operator-identifying data.
-- A new public GitHub repo `systemzero-dev/connection-engine-reference` containing:
+- A new public GitHub repo under `${SZ_GITHUB_OWNER:-avibrahms}` named `connection-engine-reference` containing:
   - `.sz.yaml` with the full profile.
   - `.sz/repo-profile.json` pre-seeded.
   - `README.md` explaining what it is.
@@ -44,7 +44,7 @@ Because it requires every earlier phase to work. The SZ protocol, the absorb com
 
 Every absorbed module must pass this filter before it ships:
 
-1. No literal reference to "avi", "Avi", operator email, personal phone, personal domains (except `systemzero.dev`).
+1. No literal reference to "avi", "Avi", operator email, personal phone, personal domains (except `systemzero.dev` and the configured public GitHub release owner, `${SZ_GITHUB_OWNER:-avibrahms}`, when it appears only inside repository URLs).
 2. No reference to `HOSTINGER_DOMAIN` from the source operator's `.env`.
 3. No hardcoded paths like `/Users/avi/...`, `/home/avi/...`.
 4. No reference to `.config/stealth-browser/...`, personal Stripe accounts, personal LinkedIn, personal Telegram chat IDs.
@@ -325,7 +325,7 @@ sz doctor
 - Catalog module: `catalog/modules/{module_id}`
 - Canonical module tree: `modules/{module_id}`
 - System Zero: https://systemzero.dev
-- Reference stack: https://github.com/systemzero-dev/connection-engine-reference
+- Reference stack: https://github.com/avibrahms/connection-engine-reference
 """
 
 
@@ -365,7 +365,7 @@ def export_one(module_dir):
 
         run(["git", "init", "-q"], cwd=work)
         run(["git", "config", "user.email", "ops@systemzero.dev"], cwd=work)
-        run(["git", "config", "user.name", "systemzero-dev"], cwd=work)
+        run(["git", "config", "user.name", "System Zero"], cwd=work)
         run(["git", "add", "."], cwd=work)
         run(["git", "commit", "-m", f"export {module_id} module"], cwd=work)
 
@@ -423,7 +423,8 @@ mkdir -p ../connection-engine-reference
 cd ../connection-engine-reference
 git init -q
 git config user.email "ops@systemzero.dev"
-git config user.name "systemzero-dev"
+git config user.name "System Zero"
+GITHUB_OWNER="${SZ_GITHUB_OWNER:-avibrahms}"
 
 cat > README.md <<'MD'
 # connection-engine-reference
@@ -439,7 +440,7 @@ Run:
 
     bash bootstrap.sh
 
-…and you get a working, autonomous, self-improving repo whose behavior approximates connection-engine's self-improvement loop. All modules are independently maintained in the [public catalog](https://github.com/systemzero-dev/catalog).
+…and you get a working, autonomous, self-improving repo whose behavior approximates connection-engine's self-improvement loop. All modules are independently maintained in the public System Zero catalog.
 MD
 
 cat > bootstrap.sh <<'SH'
@@ -459,7 +460,7 @@ Commit and publish:
 ```bash
 git add .
 git commit -m "initial reference stack"
-gh repo create systemzero-dev/connection-engine-reference --public --source . --push
+gh repo create "$GITHUB_OWNER/connection-engine-reference" --public --source . --push
 ```
 
 ### Step 16.7 — End-to-end validation
@@ -473,7 +474,7 @@ mkdir -p "$(dirname "$REPORT")"
 
 # Fresh clone of the reference repo.
 WORK=$(mktemp -d); cd "$WORK"
-gh repo clone systemzero-dev/connection-engine-reference
+gh repo clone "${SZ_GITHUB_OWNER:-avibrahms}/connection-engine-reference"
 cd connection-engine-reference
 bash bootstrap.sh
 
@@ -516,7 +517,7 @@ git commit -m "phase 16: reconstruct connection-engine (anonymized) via sz"
 3. The anonymization filter scans every absorbed module and finds zero HITs.
 4. Every absorbed module has a standalone repo export record in `.test-reports/phase-16-module-repos.json`.
 5. At least 80% of absorbed modules are pushed as private standalone repos when GitHub auth is available; failures are soft-blocked with retry commands.
-6. `systemzero-dev/connection-engine-reference` exists as a public repo.
+6. `${SZ_GITHUB_OWNER:-avibrahms}/connection-engine-reference` exists as a public repo.
 7. `bash bootstrap.sh` in that repo, on a fresh machine, ends with `sz list` showing the absorbed modules running.
 8. `tests/e2e/reconstruct/run.sh` ends with `PHASE 16 PASSED`.
 9. The reference repo and standalone module repos contain zero references to operator identity (verified by tools/anonymize.py).
@@ -529,13 +530,13 @@ git commit -m "phase 16: reconstruct connection-engine (anonymized) via sz"
 | Anonymization filter keeps hitting on the same token | the filter is too aggressive OR a module legitimately uses a sensitive name | adjust the specific pattern or rename the offending identifier in the absorbed copy |
 | `bootstrap.sh` fails because a module's entry needs a secret | module declared env requirements | the reference repo ships a `.env.example` listing what the user needs to provide; bootstrap.sh prints a clear message rather than failing silently |
 | Reference repo does not "behave like" connection-engine | semantic gap | document the gap in the reference repo's README; iterate via PRs after launch |
-| GH repo name taken | upstream conflict | use `systemzero-dev/ce-reference` and update README links |
+| GH repo name taken | upstream conflict | use `${SZ_GITHUB_OWNER:-avibrahms}/ce-reference` and update README links |
 | Standalone module repo creation fails | GitHub auth, rate limit, repo name conflict, or network failure | mark that module `soft_blocked` in `.test-reports/phase-16-module-repos.json`, append a retry command to `BLOCKERS.md`, and continue |
 | Standalone repos drift from catalog modules | manual edits happened in exported mirrors | regenerate mirrors from `modules/<id>-ce/`; if a mirror edit is valuable, port it back to the canonical module before regenerating |
 
 ## Rollback
 
-`gh repo delete systemzero-dev/connection-engine-reference --confirm`; delete generated `sz-module-*-ce` repos only if they were not intentionally kept as private discovery surfaces. Absorbed modules can be kept in the catalog independently — they are valuable even if the reference repo or mirrors are withdrawn.
+`gh repo delete "${SZ_GITHUB_OWNER:-avibrahms}/connection-engine-reference" --confirm`; delete generated `sz-module-*-ce` repos only if they were not intentionally kept as private discovery surfaces. Absorbed modules can be kept in the catalog independently — they are valuable even if the reference repo or mirrors are withdrawn.
 
 ## After phase 16 — the payoff
 

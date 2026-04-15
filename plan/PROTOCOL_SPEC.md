@@ -253,7 +253,7 @@ S0 guarantees that this file is sufficient to fully reconstruct an S0 installati
 
 ## 5. The catalog
 
-Public GitHub repository (`systemzero-dev/catalog`). Layout:
+Public GitHub repository (`avibrahms/catalog`). Layout:
 
 ```
 catalog/
@@ -454,7 +454,7 @@ S0 ships through five channels, each defined in phase 09:
 - pip: `system-zero` on PyPI.
 - npm: `system-zero` on npm registry (a thin wrapper that downloads + invokes the Python CLI).
 - curl: `https://systemzero.dev/i` returns an `install.sh` that auto-detects pipx vs pip.
-- brew: a tap at `systemzero-dev/homebrew-tap` (post-launch).
+- brew: a tap at `avibrahms/homebrew-tap` (post-launch).
 - Web: `systemzero.dev` "Install on this repo" produces a copy-pasteable command.
 
 All channels install the same `sz` CLI. The Python package is the canonical artifact; npm and brew wrap it.

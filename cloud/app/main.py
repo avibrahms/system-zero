@@ -41,7 +41,7 @@ EMAIL_OUTBOX_DIR = Path(os.environ.get("EMAIL_OUTBOX_DIR", "/data/outbox"))
 if resend is not None and os.environ.get("RESEND_API_KEY"):
     resend.api_key = os.environ["RESEND_API_KEY"]
 
-CATALOG_REMOTE = "https://raw.githubusercontent.com/systemzero-dev/catalog/main/index.json"
+CATALOG_REMOTE = "https://raw.githubusercontent.com/avibrahms/catalog/main/index.json"
 POSTHOG_KEY = os.environ.get("POSTHOG_KEY") or os.environ.get("NEXT_PUBLIC_POSTHOG_KEY", "")
 POSTHOG_HOST = (
     os.environ.get("POSTHOG_HOST")

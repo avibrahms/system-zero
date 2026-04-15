@@ -11,7 +11,7 @@
   "homepage": "https://systemzero.dev",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/systemzero-dev/system-zero.git",
+    "url": "git+https://github.com/avibrahms/system-zero.git",
     "directory": "npm-wrapper"
   },
   "license": "Apache-2.0"

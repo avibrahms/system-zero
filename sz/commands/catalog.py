@@ -15,7 +15,7 @@ from urllib.request import urlopen
 import click
 
 
-DEFAULT_INDEX_URL = "https://raw.githubusercontent.com/systemzero-dev/catalog/main/index.json"
+DEFAULT_INDEX_URL = "https://raw.githubusercontent.com/avibrahms/catalog/main/index.json"
 
 
 class CatalogError(Exception):

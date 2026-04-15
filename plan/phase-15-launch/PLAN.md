@@ -15,7 +15,7 @@ This phase introduces no new code beyond minor configuration; it executes the pu
 ## Outputs
 
 - The current branch containing every phase's checkpoint commit history.
-- Public GitHub repos `systemzero-dev/system-zero`, `systemzero-dev/catalog`, `systemzero-dev/homebrew-tap`.
+- Public GitHub repos `avibrahms/system-zero`, `avibrahms/catalog`, `avibrahms/homebrew-tap`.
 - `system-zero==0.1.0` on PyPI.
 - `system-zero@0.1.0` on npm.
 - `$(jq -r '.endpoints.web' .s0-release.json)/i` returns the install bootstrap.
@@ -53,11 +53,18 @@ Recovery: do not patch over failures. `git revert` the offending checkpoint comm
 ```bash
 . ./.env
 gh auth status
+GITHUB_OWNER="${SZ_GITHUB_OWNER:-avibrahms}"
+python3 - <<PY
+import json, pathlib, os
+p = pathlib.Path(".s0-release.json"); s = json.loads(p.read_text())
+s["github_owner"] = os.environ.get("SZ_GITHUB_OWNER", "avibrahms")
+p.write_text(json.dumps(s, indent=2) + "\n")
+PY
 
 # Helper: create a public GitHub repo; auto-append suffix on name collision (per Appendix A in plan/EXECUTION_RULES.md).
 create_repo_with_rename() {
   local org="$1" desired="$2" src_dir="$3"
-  local chosen="$desired"
+  local chosen=""
   for suffix in "" -protocol -dev-2 -dev-3; do
     local cand="$desired$suffix"
     if gh repo create "$org/$cand" --public --source "$src_dir" --push 2>/tmp/gh.log; then
@@ -69,24 +76,29 @@ create_repo_with_rename() {
       echo "gh repo create: unexpected error; trying next suffix"
     fi
   done
+  if [ -z "$chosen" ]; then
+    echo "github repo creation failed for owner=$org desired=$desired" >&2
+    return 1
+  fi
   echo "$chosen"
 }
 
-CORE_REPO=$(create_repo_with_rename systemzero-dev system-zero .)
-CATALOG_REPO=$(cd catalog && create_repo_with_rename systemzero-dev catalog . && cd ..)
+CORE_REPO=$(create_repo_with_rename "$GITHUB_OWNER" system-zero .)
+CATALOG_REPO=$(cd catalog && create_repo_with_rename "$GITHUB_OWNER" catalog . && cd ..)
 mkdir -p ../homebrew-tap/Formula
 cp brew/system-zero.rb ../homebrew-tap/Formula/
 ( cd ../homebrew-tap && git init -q && git add -A && git commit -qm "tap v0.1.0" )
-TAP_REPO=$(cd ../homebrew-tap && create_repo_with_rename systemzero-dev homebrew-tap . && cd -)
+TAP_REPO=$(cd ../homebrew-tap && create_repo_with_rename "$GITHUB_OWNER" homebrew-tap . && cd -)
 
 python3 - <<PY
 import json, pathlib
 p = pathlib.Path(".s0-release.json"); s = json.loads(p.read_text())
+s["github_owner"] = "$GITHUB_OWNER"
 s["github_repos"] = {"core": "$CORE_REPO", "catalog": "$CATALOG_REPO", "tap": "$TAP_REPO"}
 for name, desired in [("$CORE_REPO","system-zero"), ("$CATALOG_REPO","catalog"), ("$TAP_REPO","homebrew-tap")]:
     if name != desired:
         s["degraded"].append(f"phase-15: github repo renamed: {desired} -> {name}")
-p.write_text(json.dumps(s, indent=2))
+p.write_text(json.dumps(s, indent=2) + "\n")
 PY
 ```
 
@@ -127,7 +139,7 @@ if [ -z "$PUBLISHED_NAME" ]; then
     echo ""
     echo "- **Category**: deferred"
     echo "- **What failed**: All PyPI candidates unavailable"
-    echo "- **Bypass applied**: install.sh falls back to \`pip install git+https://github.com/systemzero-dev/system-zero@v0.1.0\`"
+    echo "- **Bypass applied**: install.sh falls back to \`pip install git+https://github.com/avibrahms/system-zero@v0.1.0\`"
     echo "- **Downstream effect**: slower install for users; no visible PyPI entry"
     echo "- **Action to resolve**: free up the name or rotate token; re-run tooling/retry-pypi.sh"
     echo "- **Run command to retry only this bypass**: bash tooling/retry-pypi.sh"
@@ -157,7 +169,7 @@ sed -i.bak "s/REPLACE_AFTER_PYPI_PUBLISH/$SHA/" ../homebrew-tap/Formula/system-z
 ( cd ../homebrew-tap && git add -A && git commit -qm "set sha256 for v0.1.0" && git push )
 ```
 
-Verify: `brew install systemzero-dev/tap/system-zero` (on a Mac) installs and `sz --version` prints `0.1.0`.
+Verify: `brew install avibrahms/tap/system-zero` (on a Mac) installs and `sz --version` prints `0.1.0`.
 
 ### Step 15.7 — Publish to npm (with auto-rename cascade)
 
@@ -277,9 +289,9 @@ When you absorb a feature from any GitHub repo (`sz absorb https://github.com/<x
 The protocol is open-source forever. Cloud features (hosted catalog, Pro absorb, cloud backup, telemetry opt-in, team library) are $19/mo Pro, $49/seat Team. Stripe.
 
 → install: https://systemzero.dev
-→ source: https://github.com/systemzero-dev/system-zero
-→ catalog: https://github.com/systemzero-dev/catalog
-→ spec: https://github.com/systemzero-dev/system-zero/blob/main/plan/PROTOCOL_SPEC.md
+→ source: https://github.com/avibrahms/system-zero
+→ catalog: https://github.com/avibrahms/catalog
+→ spec: https://github.com/avibrahms/system-zero/blob/main/plan/PROTOCOL_SPEC.md
 
 Apache 2.0. PRs welcome.
 ```
@@ -310,7 +322,7 @@ If all 8 hold, set `.s0-release.json.overall_status` to `green` when `degraded` 
 
 | Symptom | Cause | Action |
 |---|---|---|
-| `gh repo create` name taken | upstream conflict | use `system-zero-dev/...`; update README links and re-run downstream steps |
+| `gh repo create` name taken | upstream conflict | use the auto-suffixed repo recorded in `.s0-release.json.github_repos`; update README links and re-run downstream steps |
 | GitHub Pages 404 | not configured (we use Fly for the website here) | confirm CNAME at Hostinger; `fly certs check` |
 | PyPI upload 403 | wrong token or scope | regenerate token at pypi.org with project scope |
 | npm publish 403 | wrong token, missing 2FA on automation token | regenerate token with `Automation` type |

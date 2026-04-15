@@ -225,7 +225,7 @@ EMAIL_OUTBOX_DIR = Path(os.environ.get("EMAIL_OUTBOX_DIR", "/data/outbox"))
 if resend is not None and os.environ.get("RESEND_API_KEY"):
     resend.api_key = os.environ["RESEND_API_KEY"]
 
-CATALOG_REMOTE = "https://raw.githubusercontent.com/systemzero-dev/catalog/main/index.json"
+CATALOG_REMOTE = "https://raw.githubusercontent.com/avibrahms/catalog/main/index.json"
 
 app = FastAPI(title="sz-cloud", version="0.1.0")
 

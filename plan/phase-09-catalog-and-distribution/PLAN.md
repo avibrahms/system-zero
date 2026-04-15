@@ -7,7 +7,7 @@ Stand up the public catalog (a GitHub repo S0 fetches from) AND ship S0 through 
 1. **PyPI** — `pipx install system-zero`.
 2. **npm** — `npm i -g system-zero` (Node wrapper installs and invokes the Python CLI).
 3. **curl bootstrap** — `curl -sSL https://systemzero.dev/i | sh`.
-4. **Brew tap** — `brew install systemzero-dev/tap/system-zero` (formula scaffolded; tap repo created in phase 15).
+4. **Brew tap** — `brew install avibrahms/tap/system-zero` (formula scaffolded; tap repo created in phase 15).
 5. **Web one-click** — `systemzero.dev` "Install on this repo" page (the page itself is in phase 11; here we ship the install command generator).
 
 The Python package is the canonical artifact; npm and brew wrap it.
@@ -50,7 +50,7 @@ For each of `heartbeat, immune, subconscious, dreaming, metabolism, endocrine, p
 `catalog/modules/<id>/source.yaml`:
 ```yaml
 type: git
-url: https://github.com/systemzero-dev/system-zero
+url: https://github.com/avibrahms/system-zero
 ref: v0.1.0
 path: modules/<id>
 ```
@@ -114,7 +114,7 @@ Verify: `cat catalog/index.json | jq '.items | length'` returns `7`.
 
 ### Step 9.4 — Replace `sz/commands/catalog.py`
 
-Same shape as the sz version: `list`, `show`, `fetch`. `DEFAULT_INDEX_URL` is `https://raw.githubusercontent.com/systemzero-dev/catalog/main/index.json`. Override via env `SZ_CATALOG`.
+Same shape as the sz version: `list`, `show`, `fetch`. `DEFAULT_INDEX_URL` is `https://raw.githubusercontent.com/avibrahms/catalog/main/index.json`. Override via env `SZ_CATALOG`.
 
 ### Step 9.5 — `sz install` fetches from catalog by default
 
@@ -147,7 +147,7 @@ Verify: `dist/system_zero-0.1.0-py3-none-any.whl` and `dist/system_zero-0.1.0.ta
   "homepage": "https://systemzero.dev",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/systemzero-dev/system-zero.git",
+    "url": "git+https://github.com/avibrahms/system-zero.git",
     "directory": "npm-wrapper"
   },
   "license": "Apache-2.0"

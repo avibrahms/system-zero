@@ -106,7 +106,7 @@ The framework prefers algorithms over LLMs whenever both can do the job. LLMs ar
 
 ## Catalog
 
-A public GitHub repository (`systemzero-dev/catalog`). Layout:
+A public GitHub repository (`avibrahms/catalog`). Layout:
 
 ```
 catalog/
