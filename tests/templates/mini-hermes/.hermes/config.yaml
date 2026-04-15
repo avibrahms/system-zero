@@ -1,0 +1,3 @@
+name: mini-hermes
+hooks:
+  on_tick: []

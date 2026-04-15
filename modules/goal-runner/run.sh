@@ -18,6 +18,13 @@ if [ -z "$CMD" ]; then
       ;;
     javascript) CMD="node ." ;;
     typescript) CMD="npm start" ;;
+    shell)
+      if [ -f "$SZ_REPO_ROOT/pulse.log" ]; then
+        CMD="test -s pulse.log"
+      else
+        CMD=""
+      fi
+      ;;
     *)          CMD="" ;;
   esac
 fi

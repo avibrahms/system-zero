@@ -1,0 +1,72 @@
+[
+  {
+    "name": "dynamic: host=hermes adopt mode",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "name": "dynamic: heartbeat correctly excluded",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "name": "dynamic: >=3 CE modules installed",
+    "status": "pass",
+    "detail": "count=3"
+  },
+  {
+    "name": "dynamic: >=1 OS module absorbed",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "name": "dynamic: hermes hook patched",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "name": "dynamic: no double pulse (adopt)",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "name": "dynamic: pulse.log grew",
+    "status": "pass",
+    "detail": "5"
+  },
+  {
+    "name": "dynamic: ticks via adopted pulse",
+    "status": "pass",
+    "detail": "6"
+  },
+  {
+    "name": "dynamic: subconscious ran",
+    "status": "pass",
+    "detail": "5"
+  },
+  {
+    "name": "dynamic: prediction ran",
+    "status": "pass",
+    "detail": "6"
+  },
+  {
+    "name": "dynamic: goal-runner ran",
+    "status": "pass",
+    "detail": "6"
+  },
+  {
+    "name": "dynamic: merge mode set",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "name": "dynamic: merge dedup works",
+    "status": "pass",
+    "detail": "0"
+  },
+  {
+    "name": "dynamic: reconcile idempotent",
+    "status": "pass",
+    "detail": "61e145e397f0ee62d8292700827e9a104690d2f264a7de590b920871a7016e2f"
+  }
+]
