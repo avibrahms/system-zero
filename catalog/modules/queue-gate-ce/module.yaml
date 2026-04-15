@@ -1,0 +1,19 @@
+id: queue-gate-ce
+version: 0.1.0
+category: absorbed
+description: Mock absorbed module for queue-gate.
+entry:
+  type: python
+  command: entry.py
+  args: []
+triggers:
+- 'on': tick
+provides:
+- name: absorbed.queue.gate
+  address: events:absorbed.queue-gate.ran
+  description: Emits events for queue-gate.
+requires: []
+setpoints: {}
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh

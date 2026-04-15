@@ -1,0 +1,19 @@
+id: action-card-cleanup-ce
+version: 0.1.0
+category: absorbed
+description: Mock absorbed module for action-card-cleanup.
+entry:
+  type: python
+  command: entry.py
+  args: []
+triggers:
+- 'on': tick
+provides:
+- name: absorbed.action.card.cleanup
+  address: events:absorbed.action-card-cleanup.ran
+  description: Emits events for action-card-cleanup.
+requires: []
+setpoints: {}
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh

@@ -1,0 +1,19 @@
+id: agent-dashboard-ce
+version: 0.1.0
+category: absorbed
+description: Mock absorbed module for agent-dashboard.
+entry:
+  type: python
+  command: entry.py
+  args: []
+triggers:
+- 'on': tick
+provides:
+- name: absorbed.agent.dashboard
+  address: events:absorbed.agent-dashboard.ran
+  description: Emits events for agent-dashboard.
+requires: []
+setpoints: {}
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh

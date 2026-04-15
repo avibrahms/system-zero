@@ -28,9 +28,19 @@ def acquire(source: str, ref: str | None) -> Path:
         if ref:
             subprocess.run(["git", "-C", str(dest), "checkout", ref], check=True)
     elif source.startswith("file://"):
-        shutil.copytree(Path(source[len("file://"):]), dest)
+        source_path = Path(source[len("file://"):])
+        if source_path.is_file():
+            dest.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source_path, dest / source_path.name)
+        else:
+            shutil.copytree(source_path, dest)
     else:
-        shutil.copytree(Path(source), dest)
+        source_path = Path(source)
+        if source_path.is_file():
+            dest.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source_path, dest / source_path.name)
+        else:
+            shutil.copytree(source_path, dest)
     return dest
 
 

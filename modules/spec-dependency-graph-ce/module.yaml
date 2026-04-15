@@ -1,0 +1,19 @@
+id: spec-dependency-graph-ce
+version: 0.1.0
+category: absorbed
+description: Mock absorbed module for spec-dependency-graph.
+entry:
+  type: python
+  command: entry.py
+  args: []
+triggers:
+- 'on': tick
+provides:
+- name: absorbed.spec.dependency.graph
+  address: events:absorbed.spec-dependency-graph.ran
+  description: Emits events for spec-dependency-graph.
+requires: []
+setpoints: {}
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh

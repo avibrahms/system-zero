@@ -1,0 +1,1113 @@
+[
+  {
+    "kind": "module-dir",
+    "id": "agent-dashboard",
+    "path": "/Users/avi/Documents/Misc/connection-engine/modules/agent-dashboard",
+    "category": "keep",
+    "absorbed_id": "agent-dashboard-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "module-dir",
+    "id": "argentina",
+    "path": "/Users/avi/Documents/Misc/connection-engine/modules/argentina",
+    "category": "keep",
+    "absorbed_id": "argentina-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "module-dir",
+    "id": "business",
+    "path": "/Users/avi/Documents/Misc/connection-engine/modules/business",
+    "category": "keep",
+    "absorbed_id": "business-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "module-dir",
+    "id": "chronicle",
+    "path": "/Users/avi/Documents/Misc/connection-engine/modules/chronicle",
+    "category": "keep",
+    "absorbed_id": "chronicle-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "module-dir",
+    "id": "eidetic",
+    "path": "/Users/avi/Documents/Misc/connection-engine/modules/eidetic",
+    "category": "keep",
+    "absorbed_id": "eidetic-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "module-dir",
+    "id": "google-ads",
+    "path": "/Users/avi/Documents/Misc/connection-engine/modules/google-ads",
+    "category": "keep",
+    "absorbed_id": "google-ads-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "module-dir",
+    "id": "identity",
+    "path": "/Users/avi/Documents/Misc/connection-engine/modules/identity",
+    "category": "keep",
+    "absorbed_id": "identity-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "module-dir",
+    "id": "linkedin-content-pipeline",
+    "path": "/Users/avi/Documents/Misc/connection-engine/modules/linkedin-content-pipeline",
+    "category": "keep",
+    "absorbed_id": "linkedin-content-pipeline-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "module-dir",
+    "id": "linkedin-messaging",
+    "path": "/Users/avi/Documents/Misc/connection-engine/modules/linkedin-messaging",
+    "category": "keep",
+    "absorbed_id": "linkedin-messaging-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "module-dir",
+    "id": "mass-market",
+    "path": "/Users/avi/Documents/Misc/connection-engine/modules/mass-market",
+    "category": "keep",
+    "absorbed_id": "mass-market-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "module-dir",
+    "id": "moonshot-ventures",
+    "path": "/Users/avi/Documents/Misc/connection-engine/modules/moonshot-ventures",
+    "category": "keep",
+    "absorbed_id": "moonshot-ventures-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "module-dir",
+    "id": "sentinel",
+    "path": "/Users/avi/Documents/Misc/connection-engine/modules/sentinel",
+    "category": "keep",
+    "absorbed_id": "sentinel-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "module-dir",
+    "id": "solo-venture",
+    "path": "/Users/avi/Documents/Misc/connection-engine/modules/solo-venture",
+    "category": "keep",
+    "absorbed_id": "solo-venture-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "module-dir",
+    "id": "system-zero",
+    "path": "/Users/avi/Documents/Misc/connection-engine/modules/system-zero",
+    "category": "keep",
+    "absorbed_id": "system-zero-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "module-dir",
+    "id": "viralepic",
+    "path": "/Users/avi/Documents/Misc/connection-engine/modules/viralepic",
+    "category": "skip",
+    "phase16_note": "not processed in automated keep loop because category is skip"
+  },
+  {
+    "kind": "script",
+    "id": "action-card-cleanup",
+    "path": "/Users/avi/Documents/Misc/connection-engine/core/system/scripts/action-card-cleanup.py",
+    "category": "keep",
+    "absorbed_id": "action-card-cleanup-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "script",
+    "id": "check-linkedin-autopost-policy",
+    "path": "/Users/avi/Documents/Misc/connection-engine/core/system/scripts/check_linkedin_autopost_policy.py",
+    "category": "keep",
+    "absorbed_id": "check-linkedin-autopost-policy-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "script",
+    "id": "context-assembler",
+    "path": "/Users/avi/Documents/Misc/connection-engine/core/system/scripts/context_assembler.py",
+    "category": "keep",
+    "absorbed_id": "context-assembler-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "script",
+    "id": "mcp-server-launcher",
+    "path": "/Users/avi/Documents/Misc/connection-engine/core/system/scripts/mcp_server_launcher.py",
+    "category": "keep",
+    "absorbed_id": "mcp-server-launcher-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "script",
+    "id": "moonshot-init-tracking-files",
+    "path": "/Users/avi/Documents/Misc/connection-engine/core/system/scripts/moonshot-init-tracking-files.py",
+    "category": "keep",
+    "absorbed_id": "moonshot-init-tracking-files-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "script",
+    "id": "queue-gate",
+    "path": "/Users/avi/Documents/Misc/connection-engine/core/system/scripts/queue-gate.py",
+    "category": "keep",
+    "absorbed_id": "queue-gate-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "script",
+    "id": "registry-validator",
+    "path": "/Users/avi/Documents/Misc/connection-engine/core/system/scripts/registry_validator.py",
+    "category": "keep",
+    "absorbed_id": "registry-validator-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "script",
+    "id": "rollback-email-verification",
+    "path": "/Users/avi/Documents/Misc/connection-engine/core/system/scripts/rollback-email-verification.py",
+    "category": "keep",
+    "absorbed_id": "rollback-email-verification-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "script",
+    "id": "session-bootstrap",
+    "path": "/Users/avi/Documents/Misc/connection-engine/core/system/scripts/session_bootstrap.py",
+    "category": "keep",
+    "absorbed_id": "session-bootstrap-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "script",
+    "id": "spec-dependency-graph",
+    "path": "/Users/avi/Documents/Misc/connection-engine/core/system/scripts/spec_dependency_graph.py",
+    "category": "keep",
+    "absorbed_id": "spec-dependency-graph-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "script",
+    "id": "spec-lint",
+    "path": "/Users/avi/Documents/Misc/connection-engine/core/system/scripts/spec_lint.py",
+    "category": "keep",
+    "absorbed_id": "spec-lint-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "script",
+    "id": "start-preamble",
+    "path": "/Users/avi/Documents/Misc/connection-engine/core/system/scripts/start-preamble.py",
+    "category": "keep",
+    "absorbed_id": "start-preamble-ce",
+    "phase16_note": "absorbed, anonymized, scratch-installed, and copied to catalog"
+  },
+  {
+    "kind": "skill",
+    "id": "absorb",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/absorb",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "actualize",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/actualize",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "add-to-memory",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/add-to-memory",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "agent-advisor",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/agent-advisor",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "agent-o",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/agent-o",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "analyze",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/analyze",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "anticipate",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/anticipate",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "architect",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/architect",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "architectural-integrity",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/architectural-integrity",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "audience",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/audience",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "avi-voice",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/avi-voice",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "best-solution",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/best-solution",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "blind-spot",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/blind-spot",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "bootload",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/bootload",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "bulletproof",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/bulletproof",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "calibrate",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/calibrate",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "chain",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/chain",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "check",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/check",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "cohere",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/cohere",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "coherence",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/coherence",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "completion-drift",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/completion-drift",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "comply",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/comply",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "conductor",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/conductor",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "confront",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/confront",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "connect",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/connect",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "constraint",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/constraint",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "contain",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/contain",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "cost",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/cost",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "counsel",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/counsel",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "create-and-run",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/create-and-run",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "crispy-juicy",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/crispy-juicy",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "debug",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/debug",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "defend",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/defend",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "diagnose",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/diagnose",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "did-i",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/did-i",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "discovery",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/discovery",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "distill",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/distill",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "dm-converter",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/dm-converter",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "do-it",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/do-it",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "drive",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/drive",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "efficiency",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/efficiency",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "emerge",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/emerge",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "evolve",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/evolve",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "excise",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/excise",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "execute",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/execute",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "expand",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/expand",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "finish",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/finish",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "flow-forge",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/flow-forge",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "foresee",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/foresee",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "forge-and-act",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/forge-and-act",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "fortify",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/fortify",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "fresh-eyes",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/fresh-eyes",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "future-proof",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/future-proof",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "generalize",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/generalize",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "genesis",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/genesis",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "hook-optimizer",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/hook-optimizer",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "humanize-text",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/humanize-text",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "implement",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/implement",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "improve",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/improve",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "incentives",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/incentives",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "info-clarity",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/info-clarity",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "info-density",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/info-density",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "inoculate",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/inoculate",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "institutionalize",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/institutionalize",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "learn",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/learn",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "lens",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/lens",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "lessons",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/lessons",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "level-up",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/level-up",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "leverage",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/leverage",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "link-integrity",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/link-integrity",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "linkedin-golden-hour",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/linkedin-golden-hour",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "linkedin-virality",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/linkedin-virality",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "live-patch",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/live-patch",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "look-into",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/look-into",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "maintain",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/maintain",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "mass-appeal",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/mass-appeal",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "master",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/master",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "measure",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/measure",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "metabolize",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/metabolize",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "mint",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/mint",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "natural-inspiration",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/natural-inspiration",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "new-angle",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/new-angle",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "next",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/next",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "no-fluff-post",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/no-fluff-post",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "operationalize",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/operationalize",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "orchestrate",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/orchestrate",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "patternify",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/patternify",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "pdf-generation",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/pdf-generation",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "peak-intent-interrogation",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/peak-intent-interrogation",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "pressure-test",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/pressure-test",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "prime",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/prime",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "prioritize",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/prioritize",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "product-seeder",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/product-seeder",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "production-loop",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/production-loop",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "project-pulse",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/project-pulse",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "propagate-fix",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/propagate-fix",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "prospect",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/prospect",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "prune",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/prune",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "purpose",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/purpose",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "push",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/push",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "question-forge",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/question-forge",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "reach-amplification",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/reach-amplification",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "recompose",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/recompose",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "recursify",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/recursify",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "reframe",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/reframe",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "resonate",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/resonate",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "revenue-blind-spots",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/revenue-blind-spots",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "reversibility",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/reversibility",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "ripple",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/ripple",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "robustness",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/robustness",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "scrutinize",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/scrutinize",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "second-order",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/second-order",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "security",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/security",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "self-heal",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/self-heal",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "ship",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/ship",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "silent-corruption",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/silent-corruption",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "simplicity",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/simplicity",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "skill-architect",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/skill-architect",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "skill-assembler",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/skill-assembler",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "stat-impact",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/stat-impact",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "symbiosis",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/symbiosis",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "timing",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/timing",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "tweak",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/tweak",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "underutilized",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/underutilized",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "unhardcode",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/unhardcode",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "verbatim-feedback-provenance",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/verbatim-feedback-provenance",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "winning-formula",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/winning-formula",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  },
+  {
+    "kind": "skill",
+    "id": "wish",
+    "path": "/Users/avi/Documents/Misc/connection-engine/home-templates/agent-dashboard/skills/wish",
+    "category": "rewrite",
+    "phase16_note": "not processed in automated keep loop because category is rewrite"
+  }
+]

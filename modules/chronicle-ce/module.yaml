@@ -1,0 +1,19 @@
+id: chronicle-ce
+version: 0.1.0
+category: absorbed
+description: Mock absorbed module for chronicle.
+entry:
+  type: python
+  command: entry.py
+  args: []
+triggers:
+- 'on': tick
+provides:
+- name: absorbed.chronicle
+  address: events:absorbed.chronicle.ran
+  description: Emits events for chronicle.
+requires: []
+setpoints: {}
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh

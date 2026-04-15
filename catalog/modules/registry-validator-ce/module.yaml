@@ -1,0 +1,19 @@
+id: registry-validator-ce
+version: 0.1.0
+category: absorbed
+description: Mock absorbed module for registry-validator.
+entry:
+  type: python
+  command: entry.py
+  args: []
+triggers:
+- 'on': tick
+provides:
+- name: absorbed.registry.validator
+  address: events:absorbed.registry-validator.ran
+  description: Emits events for registry-validator.
+requires: []
+setpoints: {}
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh

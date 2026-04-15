@@ -1,0 +1,19 @@
+id: eidetic-ce
+version: 0.1.0
+category: absorbed
+description: Mock absorbed module for eidetic.
+entry:
+  type: python
+  command: entry.py
+  args: []
+triggers:
+- 'on': tick
+provides:
+- name: absorbed.eidetic
+  address: events:absorbed.eidetic.ran
+  description: Emits events for eidetic.
+requires: []
+setpoints: {}
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh

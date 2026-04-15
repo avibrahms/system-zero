@@ -1,0 +1,19 @@
+id: rollback-email-verification-ce
+version: 0.1.0
+category: absorbed
+description: Mock absorbed module for rollback-email-verification.
+entry:
+  type: python
+  command: entry.py
+  args: []
+triggers:
+- 'on': tick
+provides:
+- name: absorbed.rollback.email.verification
+  address: events:absorbed.rollback-email-verification.ran
+  description: Emits events for rollback-email-verification.
+requires: []
+setpoints: {}
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh

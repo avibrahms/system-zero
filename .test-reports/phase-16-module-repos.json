@@ -1,0 +1,132 @@
+[
+  {
+    "id": "action-card-cleanup-ce",
+    "repo": "https://github.com/avibrahms/sz-module-action-card-cleanup-ce",
+    "status": "exported"
+  },
+  {
+    "id": "agent-dashboard-ce",
+    "repo": "https://github.com/avibrahms/sz-module-agent-dashboard-ce",
+    "status": "exported"
+  },
+  {
+    "id": "argentina-ce",
+    "repo": "https://github.com/avibrahms/sz-module-argentina-ce",
+    "status": "exported"
+  },
+  {
+    "id": "business-ce",
+    "repo": "https://github.com/avibrahms/sz-module-business-ce",
+    "status": "exported"
+  },
+  {
+    "id": "check-linkedin-autopost-policy-ce",
+    "repo": "https://github.com/avibrahms/sz-module-check-linkedin-autopost-policy-ce",
+    "status": "exported"
+  },
+  {
+    "id": "chronicle-ce",
+    "repo": "https://github.com/avibrahms/sz-module-chronicle-ce",
+    "status": "exported"
+  },
+  {
+    "id": "context-assembler-ce",
+    "repo": "https://github.com/avibrahms/sz-module-context-assembler-ce",
+    "status": "exported"
+  },
+  {
+    "id": "eidetic-ce",
+    "repo": "https://github.com/avibrahms/sz-module-eidetic-ce",
+    "status": "exported"
+  },
+  {
+    "id": "google-ads-ce",
+    "repo": "https://github.com/avibrahms/sz-module-google-ads-ce",
+    "status": "exported"
+  },
+  {
+    "id": "identity-ce",
+    "repo": "https://github.com/avibrahms/sz-module-identity-ce",
+    "status": "exported"
+  },
+  {
+    "id": "linkedin-content-pipeline-ce",
+    "repo": "https://github.com/avibrahms/sz-module-linkedin-content-pipeline-ce",
+    "status": "exported"
+  },
+  {
+    "id": "linkedin-messaging-ce",
+    "repo": "https://github.com/avibrahms/sz-module-linkedin-messaging-ce",
+    "status": "exported"
+  },
+  {
+    "id": "mass-market-ce",
+    "repo": "https://github.com/avibrahms/sz-module-mass-market-ce",
+    "status": "exported"
+  },
+  {
+    "id": "mcp-server-launcher-ce",
+    "repo": "https://github.com/avibrahms/sz-module-mcp-server-launcher-ce",
+    "status": "exported"
+  },
+  {
+    "id": "moonshot-init-tracking-files-ce",
+    "repo": "https://github.com/avibrahms/sz-module-moonshot-init-tracking-files-ce",
+    "status": "exported"
+  },
+  {
+    "id": "moonshot-ventures-ce",
+    "repo": "https://github.com/avibrahms/sz-module-moonshot-ventures-ce",
+    "status": "exported"
+  },
+  {
+    "id": "queue-gate-ce",
+    "repo": "https://github.com/avibrahms/sz-module-queue-gate-ce",
+    "status": "exported"
+  },
+  {
+    "id": "registry-validator-ce",
+    "repo": "https://github.com/avibrahms/sz-module-registry-validator-ce",
+    "status": "exported"
+  },
+  {
+    "id": "rollback-email-verification-ce",
+    "repo": "https://github.com/avibrahms/sz-module-rollback-email-verification-ce",
+    "status": "exported"
+  },
+  {
+    "id": "sentinel-ce",
+    "repo": "https://github.com/avibrahms/sz-module-sentinel-ce",
+    "status": "exported"
+  },
+  {
+    "id": "session-bootstrap-ce",
+    "repo": "https://github.com/avibrahms/sz-module-session-bootstrap-ce",
+    "status": "exported"
+  },
+  {
+    "id": "solo-venture-ce",
+    "repo": "https://github.com/avibrahms/sz-module-solo-venture-ce",
+    "status": "exported"
+  },
+  {
+    "id": "spec-dependency-graph-ce",
+    "repo": "https://github.com/avibrahms/sz-module-spec-dependency-graph-ce",
+    "status": "exported"
+  },
+  {
+    "id": "spec-lint-ce",
+    "repo": "https://github.com/avibrahms/sz-module-spec-lint-ce",
+    "status": "exported"
+  },
+  {
+    "id": "start-preamble-ce",
+    "repo": "https://github.com/avibrahms/sz-module-start-preamble-ce",
+    "status": "exported"
+  },
+  {
+    "id": "system-zero-ce",
+    "repo": "https://github.com/avibrahms/sz-module-system-zero-ce",
+    "status": "exported"
+  }
+]

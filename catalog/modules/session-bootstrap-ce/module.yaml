@@ -1,0 +1,19 @@
+id: session-bootstrap-ce
+version: 0.1.0
+category: absorbed
+description: Mock absorbed module for session-bootstrap.
+entry:
+  type: python
+  command: entry.py
+  args: []
+triggers:
+- 'on': tick
+provides:
+- name: absorbed.session.bootstrap
+  address: events:absorbed.session-bootstrap.ran
+  description: Emits events for session-bootstrap.
+requires: []
+setpoints: {}
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh

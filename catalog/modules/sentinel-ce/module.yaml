@@ -1,0 +1,19 @@
+id: sentinel-ce
+version: 0.1.0
+category: absorbed
+description: Mock absorbed module for sentinel.
+entry:
+  type: python
+  command: entry.py
+  args: []
+triggers:
+- 'on': tick
+provides:
+- name: absorbed.sentinel
+  address: events:absorbed.sentinel.ran
+  description: Emits events for sentinel.
+requires: []
+setpoints: {}
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh

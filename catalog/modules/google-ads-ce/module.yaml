@@ -1,0 +1,19 @@
+id: google-ads-ce
+version: 0.1.0
+category: absorbed
+description: Mock absorbed module for google-ads.
+entry:
+  type: python
+  command: entry.py
+  args: []
+triggers:
+- 'on': tick
+provides:
+- name: absorbed.google.ads
+  address: events:absorbed.google-ads.ran
+  description: Emits events for google-ads.
+requires: []
+setpoints: {}
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh

@@ -1,0 +1,19 @@
+id: start-preamble-ce
+version: 0.1.0
+category: absorbed
+description: Mock absorbed module for start-preamble.
+entry:
+  type: python
+  command: entry.py
+  args: []
+triggers:
+- 'on': tick
+provides:
+- name: absorbed.start.preamble
+  address: events:absorbed.start-preamble.ran
+  description: Emits events for start-preamble.
+requires: []
+setpoints: {}
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh

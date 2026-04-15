@@ -1,0 +1,19 @@
+id: moonshot-init-tracking-files-ce
+version: 0.1.0
+category: absorbed
+description: Mock absorbed module for moonshot-init-tracking-files.
+entry:
+  type: python
+  command: entry.py
+  args: []
+triggers:
+- 'on': tick
+provides:
+- name: absorbed.moonshot.init.tracking.files
+  address: events:absorbed.moonshot-init-tracking-files.ran
+  description: Emits events for moonshot-init-tracking-files.
+requires: []
+setpoints: {}
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh

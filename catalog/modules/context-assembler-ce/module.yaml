@@ -1,0 +1,19 @@
+id: context-assembler-ce
+version: 0.1.0
+category: absorbed
+description: Mock absorbed module for context-assembler.
+entry:
+  type: python
+  command: entry.py
+  args: []
+triggers:
+- 'on': tick
+provides:
+- name: absorbed.context.assembler
+  address: events:absorbed.context-assembler.ran
+  description: Emits events for context-assembler.
+requires: []
+setpoints: {}
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh

@@ -1,0 +1,19 @@
+id: mcp-server-launcher-ce
+version: 0.1.0
+category: absorbed
+description: Mock absorbed module for mcp-server-launcher.
+entry:
+  type: python
+  command: entry.py
+  args: []
+triggers:
+- 'on': tick
+provides:
+- name: absorbed.mcp.server.launcher
+  address: events:absorbed.mcp-server-launcher.ran
+  description: Emits events for mcp-server-launcher.
+requires: []
+setpoints: {}
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh

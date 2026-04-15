@@ -2,6 +2,160 @@
   "version": "0.1.0",
   "items": [
     {
+      "id": "action-card-cleanup-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for action-card-cleanup.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.action.card.cleanup"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/action-card-cleanup-ce"
+      },
+      "readme": "action-card-cleanup-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for action-card-cleanup.\n\nInstall with `sz install action-card-cleanup-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+    },
+    {
+      "id": "agent-dashboard-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for agent-dashboard.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.agent.dashboard"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/agent-dashboard-ce"
+      },
+      "readme": "agent-dashboard-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for agent-dashboard.\n\nInstall with `sz install agent-dashboard-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+    },
+    {
+      "id": "argentina-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for argentina.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.argentina"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/argentina-ce"
+      },
+      "readme": "argentina-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for argentina.\n\nInstall with `sz install argentina-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+    },
+    {
+      "id": "business-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for business.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.business"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/business-ce"
+      },
+      "readme": "business-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for business.\n\nInstall with `sz install business-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+    },
+    {
+      "id": "check-linkedin-autopost-policy-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for check-linkedin-autopost-policy.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.check.linkedin.autopost.policy"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/check-linkedin-autopost-policy-ce"
+      },
+      "readme": "check-linkedin-autopost-policy-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for check-linkedin-autopost-policy.\n\nInstall with `sz install check-linkedin-autopost-policy-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+    },
+    {
+      "id": "chronicle-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for chronicle.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.chronicle"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/chronicle-ce"
+      },
+      "readme": "chronicle-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for chronicle.\n\nInstall with `sz install chronicle-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+    },
+    {
+      "id": "context-assembler-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for context-assembler.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.context.assembler"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/context-assembler-ce"
+      },
+      "readme": "context-assembler-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for context-assembler.\n\nInstall with `sz install context-assembler-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+    },
+    {
       "id": "dreaming",
       "version": "0.1.0",
       "category": "cognition",
@@ -39,6 +193,28 @@
         "path": "modules/dreaming"
       },
       "readme": "Dreaming reviews recent bus history during quiet periods and drafts structured hypotheses through the protocol's constrained LLM path. It is the repo's low-frequency ideation loop, gated by novelty and schema validation.\n"
+    },
+    {
+      "id": "eidetic-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for eidetic.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.eidetic"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/eidetic-ce"
+      },
+      "readme": "eidetic-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for eidetic.\n\nInstall with `sz install eidetic-ce` and run `sz doctor` from an initialized System Zero repo.\n"
     },
     {
       "id": "endocrine",
@@ -100,6 +276,28 @@
       "readme": "Goal Runner is the bridge between Repo Genesis and repository action. It reads the S0 repo profile, derives a simple per-language run command, and invokes it on tick only when today's expected output is missing.\n"
     },
     {
+      "id": "google-ads-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for google-ads.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.google.ads"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/google-ads-ce"
+      },
+      "readme": "google-ads-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for google-ads.\n\nInstall with `sz install google-ads-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+    },
+    {
       "id": "heartbeat",
       "version": "0.1.0",
       "category": "physiology",
@@ -128,6 +326,28 @@
         "path": "modules/heartbeat"
       },
       "readme": "Heartbeat is the minimum living signal for a static System Zero repository. It emits a pulse event on each tick and records a lightweight memory trace so other modules can tell that the repo is active.\n"
+    },
+    {
+      "id": "identity-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for identity.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.identity"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/identity-ce"
+      },
+      "readme": "identity-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for identity.\n\nInstall with `sz install identity-ce` and run `sz doctor` from an initialized System Zero repo.\n"
     },
     {
       "id": "immune",
@@ -160,6 +380,94 @@
         "path": "modules/immune"
       },
       "readme": "Immune watches the repository's event stream for simple anomaly signals and emits normalized anomaly events. It gives downstream modules a shared first layer of passive health detection without coupling them to the host.\n"
+    },
+    {
+      "id": "linkedin-content-pipeline-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for linkedin-content-pipeline.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.linkedin.content.pipeline"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/linkedin-content-pipeline-ce"
+      },
+      "readme": "linkedin-content-pipeline-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for linkedin-content-pipeline.\n\nInstall with `sz install linkedin-content-pipeline-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+    },
+    {
+      "id": "linkedin-messaging-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for linkedin-messaging.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.linkedin.messaging"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/linkedin-messaging-ce"
+      },
+      "readme": "linkedin-messaging-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for linkedin-messaging.\n\nInstall with `sz install linkedin-messaging-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+    },
+    {
+      "id": "mass-market-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for mass-market.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.mass.market"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/mass-market-ce"
+      },
+      "readme": "mass-market-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for mass-market.\n\nInstall with `sz install mass-market-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+    },
+    {
+      "id": "mcp-server-launcher-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for mcp-server-launcher.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.mcp.server.launcher"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/mcp-server-launcher-ce"
+      },
+      "readme": "mcp-server-launcher-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for mcp-server-launcher.\n\nInstall with `sz install mcp-server-launcher-ce` and run `sz doctor` from an initialized System Zero repo.\n"
     },
     {
       "id": "metabolism",
@@ -197,6 +505,50 @@
         "path": "modules/metabolism"
       },
       "readme": "Metabolism keeps the append-only bus usable over time by rotating and archiving old event logs. It preserves the protocol's JSONL discipline while preventing long-running repositories from accumulating unbounded operational weight.\n"
+    },
+    {
+      "id": "moonshot-init-tracking-files-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for moonshot-init-tracking-files.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.moonshot.init.tracking.files"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/moonshot-init-tracking-files-ce"
+      },
+      "readme": "moonshot-init-tracking-files-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for moonshot-init-tracking-files.\n\nInstall with `sz install moonshot-init-tracking-files-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+    },
+    {
+      "id": "moonshot-ventures-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for moonshot-ventures.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.moonshot.ventures"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/moonshot-ventures-ce"
+      },
+      "readme": "moonshot-ventures-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for moonshot-ventures.\n\nInstall with `sz install moonshot-ventures-ce` and run `sz doctor` from an initialized System Zero repo.\n"
     },
     {
       "id": "prediction",
@@ -238,6 +590,204 @@
       "readme": "Prediction reads recent bus history and emits the next likely event types. It gives other modules a simple forecast signal they can use to prepare before repeated patterns turn into failures.\n"
     },
     {
+      "id": "queue-gate-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for queue-gate.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.queue.gate"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/queue-gate-ce"
+      },
+      "readme": "queue-gate-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for queue-gate.\n\nInstall with `sz install queue-gate-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+    },
+    {
+      "id": "registry-validator-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for registry-validator.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.registry.validator"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/registry-validator-ce"
+      },
+      "readme": "registry-validator-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for registry-validator.\n\nInstall with `sz install registry-validator-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+    },
+    {
+      "id": "rollback-email-verification-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for rollback-email-verification.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.rollback.email.verification"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/rollback-email-verification-ce"
+      },
+      "readme": "rollback-email-verification-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for rollback-email-verification.\n\nInstall with `sz install rollback-email-verification-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+    },
+    {
+      "id": "sentinel-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for sentinel.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.sentinel"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/sentinel-ce"
+      },
+      "readme": "sentinel-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for sentinel.\n\nInstall with `sz install sentinel-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+    },
+    {
+      "id": "session-bootstrap-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for session-bootstrap.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.session.bootstrap"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/session-bootstrap-ce"
+      },
+      "readme": "session-bootstrap-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for session-bootstrap.\n\nInstall with `sz install session-bootstrap-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+    },
+    {
+      "id": "solo-venture-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for solo-venture.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.solo.venture"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/solo-venture-ce"
+      },
+      "readme": "solo-venture-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for solo-venture.\n\nInstall with `sz install solo-venture-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+    },
+    {
+      "id": "spec-dependency-graph-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for spec-dependency-graph.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.spec.dependency.graph"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/spec-dependency-graph-ce"
+      },
+      "readme": "spec-dependency-graph-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for spec-dependency-graph.\n\nInstall with `sz install spec-dependency-graph-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+    },
+    {
+      "id": "spec-lint-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for spec-lint.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.spec.lint"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/spec-lint-ce"
+      },
+      "readme": "spec-lint-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for spec-lint.\n\nInstall with `sz install spec-lint-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+    },
+    {
+      "id": "start-preamble-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for start-preamble.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.start.preamble"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/start-preamble-ce"
+      },
+      "readme": "start-preamble-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for start-preamble.\n\nInstall with `sz install start-preamble-ce` and run `sz doctor` from an initialized System Zero repo.\n"
+    },
+    {
       "id": "subconscious",
       "version": "0.1.0",
       "category": "cognition",
@@ -277,6 +827,28 @@
         "path": "modules/subconscious"
       },
       "readme": "Subconscious turns anomaly events into a compact health snapshot. It aggregates recent signals into green, amber, or red state so regulators and operators can react to repo health through one stable capability.\n"
+    },
+    {
+      "id": "system-zero-ce",
+      "version": "0.1.0",
+      "category": "absorbed",
+      "description": "Mock absorbed module for system-zero.",
+      "personas": [
+        "static",
+        "dynamic"
+      ],
+      "provides": [
+        "absorbed.system.zero"
+      ],
+      "requires": [],
+      "setpoints": {},
+      "source": {
+        "type": "git",
+        "url": "https://github.com/avibrahms/system-zero.git",
+        "ref": "v0.1.0",
+        "path": "modules/system-zero-ce"
+      },
+      "readme": "system-zero-ce is an anonymized System Zero reconstruction module.\n\nMock absorbed module for system-zero.\n\nInstall with `sz install system-zero-ce` and run `sz doctor` from an initialized System Zero repo.\n"
     }
   ]
 }
