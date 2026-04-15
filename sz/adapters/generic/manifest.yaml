@@ -1,0 +1,4 @@
+id: generic
+mode: install
+provides: [clock_only, commit_events]
+description: Works anywhere. Uses git post-commit hook + a user-level cron entry.

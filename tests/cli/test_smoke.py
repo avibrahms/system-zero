@@ -136,6 +136,11 @@ def _run_cli_smoke(tmp_path: Path, monkeypatch, host: str, host_mode: str) -> No
     monkeypatch.chdir(repo_root)
     monkeypatch.setenv("PATH", f"{shim_dir}:{os.environ.get('PATH', '')}")
     monkeypatch.setenv("SZ_INTERVAL", "1")
+    monkeypatch.setenv("SZ_DEDUP_WINDOW_SECONDS", "0")
+    monkeypatch.setenv("SZ_CRONTAB_FILE", str(repo_root / "cron.txt"))
+    if host == "openclaw":
+        (repo_root / ".openclaw").mkdir()
+        (repo_root / ".openclaw/config.yaml").write_text("hooks:\n  on_tick: []\n")
 
     result = runner.invoke(cli, ["init", "--host", host, "--host-mode", host_mode, "--yes"])
     assert result.exit_code == 0, result.output
@@ -202,7 +207,6 @@ def _run_cli_smoke(tmp_path: Path, monkeypatch, host: str, host_mode: str) -> No
         "absorb": "Absorb is implemented in phase 06.",
         "genesis": "Repo Genesis is implemented in phase 07.",
         "catalog": "Catalog is implemented in phase 09.",
-        "host": "Host management is implemented in phase 05.",
     }
     for command, expected in stub_expectations.items():
         result = runner.invoke(cli, [command])

@@ -15,7 +15,14 @@ CAPABILITY = "feature.alpha"
 def _init_repo(tmp_path: Path, monkeypatch, *, host: str = "generic", host_mode: str = "install") -> tuple[Path, CliRunner]:
     repo_root = tmp_path / f"{host}-{host_mode}-repo"
     repo_root.mkdir()
+    if host == "hermes":
+        (repo_root / ".hermes").mkdir()
+        (repo_root / ".hermes/config.yaml").write_text("hooks:\n  on_tick: []\n", encoding="utf-8")
+    if host == "openclaw":
+        (repo_root / ".openclaw").mkdir()
+        (repo_root / ".openclaw/config.yaml").write_text("hooks:\n  on_tick: []\n", encoding="utf-8")
     monkeypatch.chdir(repo_root)
+    monkeypatch.setenv("SZ_CRONTAB_FILE", str(repo_root / "cron.txt"))
     runner = CliRunner()
     result = runner.invoke(cli, ["init", "--host", host, "--host-mode", host_mode, "--yes"])
     assert result.exit_code == 0, result.output

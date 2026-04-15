@@ -1,9 +1,13 @@
 from __future__ import annotations
 
+import os
+from datetime import datetime, timezone
+
 import click
 
 from sz.core import bus, manifest, paths, registry, runtime
 from sz.interfaces import bus as bus_interface
+from sz.interfaces import memory
 from sz.interfaces import schedule
 
 
@@ -11,6 +15,18 @@ from sz.interfaces import schedule
 @click.option("--reason", default="manual", show_default=True)
 def cmd(reason: str) -> None:
     root = paths.repo_root()
+    last_tick = memory.get(root, "last_tick_ts")
+    window = int(os.environ.get("SZ_DEDUP_WINDOW_SECONDS", "30"))
+    now = datetime.now(timezone.utc)
+    if last_tick:
+        previous = datetime.fromisoformat(str(last_tick).rstrip("Z")).replace(tzinfo=timezone.utc)
+        delta = (now - previous).total_seconds()
+        if delta < window:
+            if os.environ.get("SZ_DEBUG") == "1":
+                bus.emit(paths.bus_path(root), "sz", "tick.deduped", {"delta": delta})
+            return
+    memory.set(root, "last_tick_ts", now.isoformat().replace("+00:00", "Z"))
+
     current = registry.rebuild(root)
     bus.emit(paths.bus_path(root), "s0", "tick", {"reason": reason})
 

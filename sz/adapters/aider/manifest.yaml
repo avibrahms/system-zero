@@ -1,0 +1,4 @@
+id: aider
+mode: install
+provides: [clock_only, commit_events, session_lifecycle]
+description: Aider creates frequent commits; we hook post-commit to fire ticks.

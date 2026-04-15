@@ -25,3 +25,6 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 include = ["sz*"]
+
+[tool.setuptools.package-data]
+sz = ["adapters/*/*.sh", "adapters/*/*.yaml"]

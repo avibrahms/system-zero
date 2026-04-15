@@ -1,0 +1,4 @@
+id: unknown
+mode: adopt
+provides: [external_heartbeat]
+description: Detected a heartbeat-like marker but the framework is not recognized. User picks the mode.

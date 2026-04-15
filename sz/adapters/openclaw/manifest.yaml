@@ -1,0 +1,4 @@
+id: openclaw
+mode: adopt
+provides: [external_heartbeat, session_lifecycle]
+description: Adopts OpenClaw's existing autonomous loop; does not install a second daemon.

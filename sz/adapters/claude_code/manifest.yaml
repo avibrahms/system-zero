@@ -1,0 +1,4 @@
+id: claude_code
+mode: install
+provides: [clock_only, commit_events, session_lifecycle, command_palette]
+description: Hooks into Claude Code's UserPromptSubmit and Stop events.
