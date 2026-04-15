@@ -1,14 +1,28 @@
 #!/usr/bin/env bash
 set -euo pipefail
-REPORT="$PWD/.test-reports/phase-14.json"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
+REPORT="$REPO_ROOT/.test-reports/phase-14.json"
 mkdir -p "$(dirname "$REPORT")"
 results='[]'
 record() { results=$(echo "$results" | jq --arg n "$1" --arg s "$2" --arg d "$3" '. + [{name:$n,status:$s,detail:$d}]'); }
 
-MOD=/Users/avi/Documents/Projects/system0-natural/modules
-CACHE="$HOME/.sz/cache/test-fixtures/absorb"
-WORK=$(mktemp -d); cd "$WORK"
-git init -q; git config user.email "t@t"; git config user.name "t"
+MOD="$REPO_ROOT/modules"
+SOURCE_HOME="$HOME"
+CACHE="${SZ_ABSORB_SOURCE_CACHE:-$SOURCE_HOME/.sz/cache/test-fixtures/absorb}"
+for source_name in p-limit changed-files llm; do
+  [ -d "$CACHE/$source_name" ] || { echo "missing absorb source fixture: $CACHE/$source_name" >&2; exit 1; }
+done
+
+WORK_ROOT=$(mktemp -d)
+WORK="$WORK_ROOT/repo"
+export HOME="$WORK_ROOT/home"
+mkdir -p "$HOME" "$WORK"
+cd "$WORK"
+git init -q
+git config user.email "t@t"
+git config user.name "t"
+git config commit.gpgsign false
 echo init > README.md; git add -A; git commit -qm "init"
 
 # Init in adopt-skip mode (just for the test; real users do `sz init`).
@@ -17,60 +31,44 @@ for m in heartbeat immune subconscious metabolism; do sz install "$m" --source "
 
 # Use canned mock for absorb.
 export SZ_LLM_PROVIDER=mock
-export SZ_ABSORB_CANNED=$(realpath /Users/avi/Documents/Projects/system0-natural/tests/e2e/absorb/canned)
+export SZ_ABSORB_CANNED="$REPO_ROOT/tests/e2e/absorb/canned"
 
-absorb_local() {
-  local src="$1" feature="$2"
-  python3 - <<PY > .draft.json
-import json, os, pathlib
-src = "$src"
-canned = pathlib.Path(os.environ["SZ_ABSORB_CANNED"])
-if "p-limit" in src:        f = canned / "p-limit.json"
-elif "changed-files" in src: f = canned / "changed-files.json"
-elif "/llm" in src:         f = canned / "llm.json"
-else: print('{"error":"no_match"}'); raise SystemExit(2)
-print(f.read_text())
-PY
-  module_id=$(jq -r '.module_id' .draft.json)
-  staging="$WORK/.staging-$module_id"
-  rm -rf "$staging"; mkdir -p "$staging"
-  python3 - <<PY
-import json, pathlib, shutil, yaml
-draft = json.load(open(".draft.json"))
-src = pathlib.Path("$src")
-target = pathlib.Path("$staging")
-manifest = {
-  "id": draft["module_id"], "version": "0.1.0",
-  "category": draft.get("category","absorbed"),
-  "description": draft.get("description",""),
-  "entry": draft["entry"], "triggers": draft.get("triggers",[{"on":"tick"}]),
-  "provides": draft.get("provides",[]), "requires": draft.get("requires",[]),
-  "setpoints": draft.get("setpoints",{}),
-  "hooks": {"reconcile":"reconcile.sh"},
+bus_count() { sz bus tail | jq 'length'; }
+pulse_count() { sz bus tail --filter pulse.tick | jq 'length'; }
+snapshot_anomaly_count() { sz memory get subconscious.snapshot | jq -r '.anomaly_count // 0'; }
+
+record_reaction() {
+  local name="$1" before_bus="$2" before_pulse="$3" before_snapshot="$4"
+  local after_bus after_pulse after_snapshot detail
+  after_bus=$(bus_count)
+  after_pulse=$(pulse_count)
+  after_snapshot=$(snapshot_anomaly_count)
+  detail="bus:$before_bus->$after_bus pulse:$before_pulse->$after_pulse subconscious.anomaly_count:$before_snapshot->$after_snapshot"
+  if [ "$after_bus" -gt "$before_bus" ] && [ "$after_pulse" -gt "$before_pulse" ] && [ "$after_snapshot" -gt "$before_snapshot" ]; then
+    record "$name" pass "$detail"
+  else
+    record "$name" fail "$detail"
+  fi
 }
-(target/"module.yaml").write_text(yaml.safe_dump(manifest, sort_keys=False))
-for s in draft.get("files_to_copy",[]):
-    src_p = (src / s["from"]).resolve()
-    dst_p = (target / s["to"]).resolve()
-    dst_p.parent.mkdir(parents=True, exist_ok=True)
-    if src_p.exists(): shutil.copy2(src_p, dst_p)
-e = target / draft["entry"]["command"]
-e.parent.mkdir(parents=True, exist_ok=True)
-e.write_text(draft["entry_script"]); e.chmod(0o755)
-r = target / "reconcile.sh"
-r.write_text(draft["reconcile_script"]); r.chmod(0o755)
-PY
-  sz install "$module_id" --source "$staging"
-}
+
+initial_bus=$(bus_count)
+initial_snapshot=$(snapshot_anomaly_count)
 
 # Absorption 1: p-limit.
-absorb_local "$CACHE/p-limit" "concurrency limiter"
+before_bus=$(bus_count); before_pulse=$(pulse_count); before_snapshot=$(snapshot_anomaly_count)
+installed=$(sz absorb "$CACHE/p-limit" --feature "concurrency limiter" | jq -r '.installed')
+[ "$installed" = "concurrency-limiter" ] && record "absorb1: real sz absorb installed concurrency-limiter" pass "$installed" || record "absorb1: real sz absorb installed concurrency-limiter" fail "$installed"
+echo "FIXME absorb one reaction" > anomaly-1.md
 sz tick --reason post-absorb-1
 peak=$(sz bus tail --last 50 --filter limiter.metric | jq -r '.[-1].payload.peak // 99')
 [ "$peak" -le 4 ] && record "absorb1: limiter caps at 4" pass "peak=$peak" || record "absorb1: limiter caps at 4" fail "peak=$peak"
+record_reaction "absorb1: installed modules react after p-limit" "$before_bus" "$before_pulse" "$before_snapshot"
 
 # Absorption 2: changed-files. Make a commit, fire the event, verify the payload.
-absorb_local "$CACHE/changed-files" "changed file detector"
+before_bus=$(bus_count); before_pulse=$(pulse_count); before_snapshot=$(snapshot_anomaly_count)
+installed=$(sz absorb "$CACHE/changed-files" --feature "changed file detector" | jq -r '.installed')
+[ "$installed" = "changed-file-detector" ] && record "absorb2: real sz absorb installed changed-file-detector" pass "$installed" || record "absorb2: real sz absorb installed changed-file-detector" fail "$installed"
+echo "FIXME absorb two reaction" > anomaly-2.md
 git add -A; git commit -qm "baseline before changed-files check" || true
 echo x > a.txt; echo y > b.txt; git add a.txt b.txt; git commit -qm "two"
 sz bus emit host.commit.made "$(jq -nc --arg sha "$(git rev-parse HEAD)" '{sha:$sha}')"
@@ -78,16 +76,38 @@ sz tick --reason post-absorb-2
 sleep 1
 files=$(sz bus tail --last 50 --filter changed.files | jq -r '.[-1].payload.files | sort | join(",")')
 [ "$files" = "a.txt,b.txt" ] && record "absorb2: changed.files exact match" pass "$files" || record "absorb2: changed.files exact match" fail "$files"
+record_reaction "absorb2: installed modules react after changed-files" "$before_bus" "$before_pulse" "$before_snapshot"
 
 # Absorption 3: llm-bridge. Ask, expect a response.
-absorb_local "$CACHE/llm" "llm provider bridge"
+before_bus=$(bus_count); before_pulse=$(pulse_count); before_snapshot=$(snapshot_anomaly_count)
+installed=$(sz absorb "$CACHE/llm" --feature "llm provider bridge" | jq -r '.installed')
+[ "$installed" = "llm-provider-bridge" ] && record "absorb3: real sz absorb installed llm-provider-bridge" pass "$installed" || record "absorb3: real sz absorb installed llm-provider-bridge" fail "$installed"
+echo "FIXME absorb three reaction" > anomaly-3.md
 sz bus emit ask.llm '{"prompt":"hi"}'
 sz tick --reason post-absorb-3
 got=$(sz bus tail --last 50 --filter llm.invoked | jq -r '.[-1].payload.text // empty')
 [ -n "$got" ] && record "absorb3: llm bridge responds" pass "" || record "absorb3: llm bridge responds" fail ""
+record_reaction "absorb3: installed modules react after llm bridge" "$before_bus" "$before_pulse" "$before_snapshot"
 
-# Cross-module reaction: subconscious snapshot exists.
-sz memory get subconscious.snapshot | jq . > /dev/null && record "cross: subconscious snapshot well-formed" pass "" || record "cross: subconscious snapshot well-formed" fail ""
+registry_modules=$(jq -r '.modules | keys | sort | join(",")' .sz/registry.json)
+if [[ ",$registry_modules," == *",concurrency-limiter,"* ]] && [[ ",$registry_modules," == *",changed-file-detector,"* ]] && [[ ",$registry_modules," == *",llm-provider-bridge,"* ]]; then
+  record "absorb: registry contains all three absorbed modules" pass "$registry_modules"
+else
+  record "absorb: registry contains all three absorbed modules" fail "$registry_modules"
+fi
+
+# Cross-module reaction: subconscious snapshot exists and reflects increased event volume.
+if sz memory get subconscious.snapshot | jq . > /dev/null; then
+  final_bus=$(bus_count)
+  final_snapshot=$(snapshot_anomaly_count)
+  if [ "$final_bus" -gt "$initial_bus" ] && [ "$final_snapshot" -gt "$initial_snapshot" ]; then
+    record "cross: subconscious snapshot reflects event-volume increase" pass "bus:$initial_bus->$final_bus anomaly_count:$initial_snapshot->$final_snapshot"
+  else
+    record "cross: subconscious snapshot reflects event-volume increase" fail "bus:$initial_bus->$final_bus anomaly_count:$initial_snapshot->$final_snapshot"
+  fi
+else
+  record "cross: subconscious snapshot reflects event-volume increase" fail "snapshot not well-formed"
+fi
 
 # Reconcile idempotent across all 3 absorptions.
 sz reconcile --reason check-1
