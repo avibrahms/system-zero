@@ -1,7 +1,0 @@
-id: pulse-core
-version: 0.1.0
-category: physiology
-description: Minimal heartbeat fixture.
-entry:
-  type: python
-  command: entry.py

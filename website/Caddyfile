@@ -1,7 +1,0 @@
-:80 {
-  root * /srv
-  encode gzip
-  redir /i __SZ_API_ENDPOINT__/i 302
-  try_files {path} {path}.html /index.html
-  file_server
-}

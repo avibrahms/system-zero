@@ -1,1 +1,0 @@
-Subconscious turns anomaly events into a compact health snapshot. It aggregates recent signals into green, amber, or red state so regulators and operators can react to repo health through one stable capability.

@@ -1,6 +1,0 @@
-[project]
-name = "s0-test-mini-hermes"
-version = "0.1.0"
-description = "Tiny Hermes-style dynamic repo fixture for System Zero"
-requires-python = ">=3.10"
-dependencies = ["pyyaml"]

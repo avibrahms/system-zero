@@ -17,3 +17,16 @@ build/
 .test-reports/
 BLOCKERS.md
 .s0-release.json
+
+# Internal build, launch, and verification machinery.
+# These stay in the private system0-natural workspace, not the public user repo.
+plan/
+tests/
+cloud/
+website/
+tooling/
+tools/
+launch/
+core/
+brew/
+modules-inventory.json
