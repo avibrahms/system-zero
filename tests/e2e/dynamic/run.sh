@@ -68,15 +68,24 @@ yq_check=$(python3 -c "import yaml; d=yaml.safe_load(open('.hermes/config.yaml')
 # In Adopt mode SZ must NOT have started its own heartbeat.
 [ ! -f .sz/heartbeat.pid ] && record "dynamic: no double pulse (adopt)" pass "" || record "dynamic: no double pulse (adopt)" fail "heartbeat.pid exists"
 
-# Start the existing daemon, watch for 30 seconds.
-( cd "$WORK/repo" && bash bin/mini-hermes.sh ) &
+# Start the existing daemon and wait until the observed host pulse threshold is met.
+# Each pulse also runs the adopted `sz tick` hook, so a fixed sleep can undercount
+# on slower machines even when the daemon is healthy.
+( cd "$WORK/repo" && MINI_HERMES_INTERVAL=2 bash bin/mini-hermes.sh ) &
 DAEMON=$!
-sleep 30
+PULSES=0
+DEADLINE=$((SECONDS + 45))
+while [ "$SECONDS" -lt "$DEADLINE" ]; do
+  if [ -f pulse.log ]; then
+    PULSES=$(wc -l < pulse.log | tr -d ' ')
+    [ "$PULSES" -ge 5 ] && break
+  fi
+  sleep 1
+done
 kill $DAEMON 2>/dev/null || true
 wait $DAEMON 2>/dev/null || true
 
 # pulse.log grew normally
-PULSES=$(wc -l < pulse.log | tr -d ' ')
 [ "$PULSES" -ge 5 ] && record "dynamic: pulse.log grew" pass "$PULSES" || record "dynamic: pulse.log grew" fail "$PULSES"
 
 # bus has events that came from the adopted pulse
