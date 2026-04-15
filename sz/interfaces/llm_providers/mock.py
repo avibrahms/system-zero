@@ -2,7 +2,9 @@
 from __future__ import annotations
 
 import json
+import os
 import re
+from pathlib import Path
 from types import SimpleNamespace
 
 
@@ -12,6 +14,10 @@ def _slug(value: str) -> str:
 
 
 def _absorb_response(prompt: str) -> dict:
+    canned = _canned_absorb_response(prompt)
+    if canned is not None:
+        return canned
+
     feature_match = re.search(r"called:\s+\*\*(.*?)\*\*", prompt, flags=re.DOTALL)
     feature = feature_match.group(1).strip() if feature_match else "absorbed feature"
     files = re.findall(r"\n--- ([^\n]+) ---\n", prompt)
@@ -62,6 +68,29 @@ def _absorb_response(prompt: str) -> dict:
         ),
         "notes": "Mock provider generated a deterministic dry-run absorb draft.",
     }
+
+
+def _canned_absorb_response(prompt: str) -> dict | None:
+    canned_dir = os.environ.get("SZ_ABSORB_CANNED")
+    if not canned_dir:
+        return None
+
+    source_match = re.search(r"^URL:\s*(.*?)\s*$", prompt, flags=re.MULTILINE)
+    source = source_match.group(1) if source_match else ""
+    source_name = Path(source).name
+    if "p-limit" in source or source_name == "p-limit":
+        filename = "p-limit.json"
+    elif "changed-files" in source or source_name == "changed-files":
+        filename = "changed-files.json"
+    elif "simonw/llm" in source or source_name == "llm":
+        filename = "llm.json"
+    else:
+        return None
+
+    path = Path(canned_dir) / filename
+    if not path.exists():
+        return None
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def _repo_genesis_response(prompt: str) -> dict:

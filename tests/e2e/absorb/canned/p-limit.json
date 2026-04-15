@@ -1,14 +1,14 @@
 {
   "module_id": "concurrency-limiter",
   "description": "Concurrency limiter (port of p-limit).",
-  "category": "absorbed",
-  "entry": {"type": "node", "command": "entry.js"},
+  "category": "util",
+  "entry": {"type": "node", "command": "main.js"},
   "triggers": [{"on": "tick"}],
-  "provides": [{"name": "concurrency.limiter", "address": "events:limiter.metric", "description": "Limit concurrent function invocations."}],
-  "requires": [{"providers": ["bus"]}],
-  "setpoints": {"max_concurrent": {"default": 4, "range": [1, 32], "description": "Maximum concurrent tasks."}},
-  "files_to_copy": [],
-  "entry_script": "#!/usr/bin/env node\nconst { execSync } = require('child_process');\nconst max = parseInt(process.env.SZ_SETPOINT_max_concurrent || '4', 10);\nexecSync(`sz bus emit limiter.metric '{\"peak\":1,\"max\":${max}}'`, {stdio: 'ignore'});\n",
+  "provides": [{"name": "concurrency.limiter", "address": "scripts/p-limit.mjs", "description": "Limit concurrent function invocations."}],
+  "requires": [],
+  "setpoints": {"max_concurrent": {"default": 4, "range": [1, 64], "description": "Max simultaneous tasks."}},
+  "files_to_copy": [{"from": "index.js", "to": "scripts/p-limit.mjs"}],
+  "entry_script": "#!/usr/bin/env node\nconst fs = require('fs');\nconst path = require('path');\nconst {execFileSync} = require('child_process');\n\nconst moduleDir = __dirname;\nconst depDir = path.join(moduleDir, 'node_modules', 'yocto-queue');\nfs.mkdirSync(depDir, {recursive: true});\nfs.writeFileSync(path.join(depDir, 'package.json'), JSON.stringify({type: 'module', exports: './index.js'}));\nfs.writeFileSync(path.join(depDir, 'index.js'), `export default class Queue {\\n  #items = [];\\n  enqueue(value) { this.#items.push(value); }\\n  dequeue() { return this.#items.shift(); }\\n  clear() { this.#items = []; }\\n  get size() { return this.#items.length; }\\n}\\n`);\n\n(async () => {\n  const {default: pLimit} = await import('./scripts/p-limit.mjs');\n  const max = parseInt(process.env.SZ_SETPOINT_max_concurrent || '4', 10);\n  const limit = pLimit(max);\n  let inflight = 0;\n  let peak = 0;\n  const tasks = Array.from({length: 10}, () => limit(async () => {\n    inflight += 1;\n    peak = Math.max(peak, inflight);\n    await new Promise(resolve => setTimeout(resolve, 10));\n    inflight -= 1;\n  }));\n  await Promise.all(tasks);\n  execFileSync('sz', ['bus', 'emit', 'limiter.metric', JSON.stringify({peak, max}), '--module', 'concurrency-limiter'], {stdio: 'ignore'});\n})().catch(error => {\n  console.error(error);\n  process.exit(1);\n});\n",
   "reconcile_script": "#!/usr/bin/env bash\nset -euo pipefail\necho '{}' > \"$SZ_MODULE_DIR/runtime.json\"\n",
-  "notes": "Test-only canned module for static template absorption."
+  "notes": "Wraps p-limit's index.js; exercises with 10 fake tasks per tick."
 }

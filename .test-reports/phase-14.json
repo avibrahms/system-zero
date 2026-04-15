@@ -1,0 +1,32 @@
+[
+  {
+    "name": "absorb1: limiter caps at 4",
+    "status": "pass",
+    "detail": "peak=4"
+  },
+  {
+    "name": "absorb2: changed.files exact match",
+    "status": "pass",
+    "detail": "a.txt,b.txt"
+  },
+  {
+    "name": "absorb3: llm bridge responds",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "name": "cross: subconscious snapshot well-formed",
+    "status": "pass",
+    "detail": ""
+  },
+  {
+    "name": "absorb: reconcile idempotent",
+    "status": "pass",
+    "detail": "5e6e7547bdc0730d7eec467a953799936e09adb1fbf931fab90a6c08977bed66"
+  },
+  {
+    "name": "absorb: zero unsatisfied",
+    "status": "pass",
+    "detail": "0"
+  }
+]

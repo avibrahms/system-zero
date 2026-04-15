@@ -1,14 +1,14 @@
 {
   "module_id": "changed-file-detector",
-  "description": "Changed-files detector (port of tj-actions/changed-files).",
-  "category": "absorbed",
-  "entry": {"type": "bash", "command": "entry.sh"},
-  "triggers": [{"on": "tick"}],
-  "provides": [{"name": "git.changed.files", "address": "events:changed.files", "description": "Reports changed files from git status."}],
-  "requires": [{"providers": ["bus"]}],
+  "description": "Detect files changed in HEAD relative to HEAD~1.",
+  "category": "util",
+  "entry": {"type": "bash", "command": "main.sh"},
+  "triggers": [{"on": "event", "match": "host.commit.made"}],
+  "provides": [{"name": "changed.files", "address": "events:changed.files", "description": "List of files changed in latest commit."}],
+  "requires": [],
   "setpoints": {},
   "files_to_copy": [],
-  "entry_script": "#!/usr/bin/env bash\nset -euo pipefail\nchanged=$(git status --short | wc -l | tr -d ' ')\nsz bus emit changed.files \"{\\\"count\\\":$changed}\" --module \"${SZ_MODULE_ID:-changed-file-detector}\" >/dev/null\n",
+  "entry_script": "#!/usr/bin/env bash\nset -euo pipefail\nfiles=$(git diff --name-only HEAD~1 HEAD 2>/dev/null || true)\njson=$(echo \"$files\" | jq -R -s -c 'split(\"\\n\")|map(select(length>0))')\nsz bus emit changed.files \"{\\\"files\\\": $json}\" --module \"${SZ_MODULE_ID:-changed-file-detector}\" >/dev/null\n",
   "reconcile_script": "#!/usr/bin/env bash\nset -euo pipefail\necho '{}' > \"$SZ_MODULE_DIR/runtime.json\"\n",
-  "notes": "Test-only canned module for dynamic template absorption."
+  "notes": "Self-contained shell; uses no source files."
 }
