@@ -5,7 +5,7 @@ from pathlib import Path
 
 import click
 
-from sz.core import bus, manifest, paths, reconcile as engine, repo_config, runtime
+from sz.core import bus, host_capabilities, manifest, paths, reconcile as engine, repo_config, runtime
 
 
 @click.command(help="Install a module into the current repo.")
@@ -22,6 +22,15 @@ def cmd(module_id: str | None, source: Path, force: bool) -> None:
     resolved_module_id = module_id or data["id"]
     if resolved_module_id != data["id"]:
         raise click.ClickException(f"Requested module id {resolved_module_id!r} does not match manifest id {data['id']!r}.")
+
+    missing_host_capabilities = host_capabilities.missing(root, data.get("requires_host", []))
+    if missing_host_capabilities:
+        cfg = repo_config.read(root)
+        raise click.ClickException(
+            f"Module {resolved_module_id} requires host capabilities not exposed by "
+            f"{cfg.get('host', 'generic')} ({cfg.get('host_mode', 'install')}): "
+            f"{', '.join(missing_host_capabilities)}."
+        )
 
     destination = paths.module_dir(root, resolved_module_id)
     if destination.exists():

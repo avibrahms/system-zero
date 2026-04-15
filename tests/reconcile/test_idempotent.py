@@ -28,6 +28,7 @@ def _write_module(
     *,
     provides: list[dict[str, str]] | None = None,
     requires: list[dict[str, object]] | None = None,
+    requires_host: list[str] | None = None,
 ) -> Path:
     source = root / module_id
     source.mkdir()
@@ -65,6 +66,8 @@ def _write_module(
         manifest["provides"] = provides
     if requires is not None:
         manifest["requires"] = requires
+    if requires_host is not None:
+        manifest["requires_host"] = requires_host
     (source / "module.yaml").write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
     return source
 
@@ -201,4 +204,65 @@ def test_pinned_binding_wins(tmp_path, monkeypatch) -> None:
         "capability": CAPABILITY,
         "provider": "provider-ccc",
         "address": "events:provider-ccc",
+    } in _registry(repo_root)["bindings"]
+
+
+def test_versioned_capability_requires_compatible_provider(tmp_path, monkeypatch) -> None:
+    repo_root, runner = _init_repo(tmp_path, monkeypatch)
+    consumer = _write_module(
+        repo_root,
+        "consumer-mod",
+        requires=[{"name": "feature.versioned@^1.0", "optional": False, "on_missing": "warn"}],
+    )
+    old_provider = _write_module(
+        repo_root,
+        "provider-aaa",
+        provides=[{"name": "feature.versioned@^0.9", "address": "events:old", "description": "old provider"}],
+    )
+    new_provider = _write_module(
+        repo_root,
+        "provider-zzz",
+        provides=[{"name": "feature.versioned@^1.2", "address": "events:new", "description": "new provider"}],
+    )
+
+    _install(runner, "consumer-mod", consumer)
+    _install(runner, "provider-aaa", old_provider)
+    assert {
+        "requirer": "consumer-mod",
+        "capability": "feature.versioned@^1.0",
+        "severity": "warn",
+    } in _registry(repo_root)["unsatisfied"]
+
+    _install(runner, "provider-zzz", new_provider)
+
+    assert {
+        "requirer": "consumer-mod",
+        "capability": "feature.versioned@^1.0",
+        "provider": "provider-zzz",
+        "address": "events:new",
+    } in _registry(repo_root)["bindings"]
+    assert not _registry(repo_root)["unsatisfied"]
+
+
+def test_unversioned_requirement_accepts_versioned_provider(tmp_path, monkeypatch) -> None:
+    repo_root, runner = _init_repo(tmp_path, monkeypatch)
+    consumer = _write_module(
+        repo_root,
+        "consumer-mod",
+        requires=[{"name": "feature.versioned", "optional": False, "on_missing": "warn"}],
+    )
+    provider = _write_module(
+        repo_root,
+        "provider-mod",
+        provides=[{"name": "feature.versioned@^1.0", "address": "events:versioned", "description": "versioned provider"}],
+    )
+
+    _install(runner, "consumer-mod", consumer)
+    _install(runner, "provider-mod", provider)
+
+    assert {
+        "requirer": "consumer-mod",
+        "capability": "feature.versioned",
+        "provider": "provider-mod",
+        "address": "events:versioned",
     } in _registry(repo_root)["bindings"]
