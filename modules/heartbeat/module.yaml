@@ -1,0 +1,22 @@
+id: heartbeat
+version: 0.1.0
+category: physiology
+description: Periodic pulse marker. The minimum living signal.
+entry:
+  type: bash
+  command: pulse.sh
+triggers:
+  - "on": tick
+provides:
+  - name: pulse
+    address: events:pulse.tick
+    description: Emitted on every heartbeat tick.
+setpoints:
+  log_state:
+    default: true
+    enum: [true, false]
+    description: Whether to log to memory.
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh
+personas: [static]

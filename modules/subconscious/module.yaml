@@ -1,0 +1,27 @@
+id: subconscious
+version: 0.1.0
+category: cognition
+description: Aggregates anomalies into colored health snapshots.
+entry:
+  type: python
+  command: evaluate.py
+triggers:
+  - "on": tick
+  - "on": event
+    match: "anomaly.*"
+requires:
+  - name: anomaly.detection
+    optional: false
+    on_missing: warn
+  - providers: [memory, bus]
+provides:
+  - name: health.snapshot
+    address: memory:subconscious.snapshot
+    description: Latest health snapshot.
+setpoints:
+  red_threshold: {default: 5, range: [1, 100], description: "Anomaly count to go RED."}
+  amber_threshold: {default: 2, range: [1, 50], description: "Anomaly count to go AMBER."}
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh
+personas: [static, dynamic]

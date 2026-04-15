@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 
 import click
 
-from sz.core import bus, manifest, paths, registry, runtime
+from sz.core import bus, manifest, paths, registry, repo_config, runtime
 from sz.interfaces import bus as bus_interface
 from sz.interfaces import memory
 from sz.interfaces import schedule
@@ -18,7 +18,8 @@ def cmd(reason: str) -> None:
     last_tick = memory.get(root, "last_tick_ts")
     window = int(os.environ.get("SZ_DEDUP_WINDOW_SECONDS", "30"))
     now = datetime.now(timezone.utc)
-    if last_tick:
+    config = repo_config.read(root)
+    if config.get("host_mode") == "merge" and last_tick:
         previous = datetime.fromisoformat(str(last_tick).rstrip("Z")).replace(tzinfo=timezone.utc)
         delta = (now - previous).total_seconds()
         if delta < window:
@@ -30,7 +31,10 @@ def cmd(reason: str) -> None:
     current = registry.rebuild(root)
     bus.emit(paths.bus_path(root), "s0", "tick", {"reason": reason})
 
-    for module_id in sorted(current["modules"]):
+    ran_modules: set[str] = set()
+    module_ids = sorted(current["modules"])
+
+    for module_id in module_ids:
         module_dir = paths.module_dir(root, module_id)
         data = manifest.load(module_dir / "module.yaml")
         triggers = data.get("triggers", [])
@@ -48,14 +52,35 @@ def cmd(reason: str) -> None:
             should_run = should_run or bool(bus_interface.subscribe(root, module_id, event_patterns))
         if not should_run:
             continue
-        timeout = data.get("limits", {}).get("max_runtime_seconds", 300)
-        result = runtime.run_entry(root, module_id, module_dir, data["entry"], timeout)
-        if result.returncode != 0:
-            bus.emit(
-                paths.bus_path(root),
-                "s0",
-                "module.errored",
-                {"module_id": module_id, "returncode": result.returncode},
-            )
-            raise click.ClickException(f"Module {module_id} failed during tick.")
+        _run_module(root, module_id, module_dir, data)
+        ran_modules.add(module_id)
+
+    for module_id in module_ids:
+        if module_id in ran_modules:
+            continue
+        module_dir = paths.module_dir(root, module_id)
+        data = manifest.load(module_dir / "module.yaml")
+        event_patterns = [
+            trigger["match"]
+            for trigger in data.get("triggers", [])
+            if trigger.get("on") == "event" and trigger.get("match")
+        ]
+        if not event_patterns:
+            continue
+        if not bus_interface.subscribe(root, module_id, event_patterns):
+            continue
+        _run_module(root, module_id, module_dir, data)
     click.echo(f"Tick completed ({reason})")
+
+
+def _run_module(root, module_id, module_dir, data) -> None:
+    timeout = data.get("limits", {}).get("max_runtime_seconds", 300)
+    result = runtime.run_entry(root, module_id, module_dir, data["entry"], timeout)
+    if result.returncode != 0:
+        bus.emit(
+            paths.bus_path(root),
+            "s0",
+            "module.errored",
+            {"module_id": module_id, "returncode": result.returncode},
+        )
+        raise click.ClickException(f"Module {module_id} failed during tick.")

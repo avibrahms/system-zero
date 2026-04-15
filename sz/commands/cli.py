@@ -19,6 +19,7 @@ from sz.commands import (
     memory,
     reconcile,
     schedule,
+    setpoint,
     start,
     stop,
     storage,
@@ -51,6 +52,7 @@ cli.add_command(memory.group, name="memory")
 cli.add_command(bus.group, name="bus")
 cli.add_command(llm.group, name="llm")
 cli.add_command(schedule.group, name="schedule")
+cli.add_command(setpoint.group, name="setpoint")
 cli.add_command(discovery.group, name="discovery")
 cli.add_command(storage.group, name="storage")
 cli.add_command(lifecycle.group, name="lifecycle")

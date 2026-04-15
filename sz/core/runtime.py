@@ -8,7 +8,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from sz.core import bus, paths
+from sz.core import bus, manifest, paths, repo_config
 
 
 def _resolve_llm_bin() -> str:
@@ -26,6 +26,13 @@ def _resolve_llm_bin() -> str:
 
 def module_environment(root: Path, module_id: str, module_dir: Path) -> dict[str, str]:
     env = os.environ.copy()
+    data = manifest.load(module_dir / "module.yaml")
+    cfg = repo_config.read(root)
+    module_cfg = cfg.get("modules", {}).get(module_id, {})
+    configured_setpoints = module_cfg.get("setpoints", {}) or {}
+    for key, definition in (data.get("setpoints", {}) or {}).items():
+        value = configured_setpoints.get(key, definition.get("default"))
+        env[f"SZ_SETPOINT_{key}"] = _stringify_env_value(value)
     env.update(
         {
             "SZ_REPO_ROOT": str(root),
@@ -39,6 +46,16 @@ def module_environment(root: Path, module_id: str, module_dir: Path) -> dict[str
         }
     )
     return env
+
+
+def _stringify_env_value(value: Any) -> str:
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    if isinstance(value, (dict, list)):
+        import json
+
+        return json.dumps(value, separators=(",", ":"))
+    return str(value)
 
 
 def _command_for_entry(module_dir: Path, entry: dict[str, Any]) -> list[str]:

@@ -1,0 +1,19 @@
+id: metabolism
+version: 0.1.0
+category: physiology
+description: Rotates the bus log; archives older files.
+entry:
+  type: bash
+  command: compact.sh
+triggers:
+  - cron: "30 4 * * 0"
+  - "on": tick
+requires:
+  - providers: [bus, memory, storage]
+setpoints:
+  rotate_after_days: {default: 14, range: [1, 365], description: "Rotate when older than N days."}
+  rotate_after_mb: {default: 50, range: [1, 1024], description: "Rotate when larger than N MB."}
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh
+personas: [static, dynamic]

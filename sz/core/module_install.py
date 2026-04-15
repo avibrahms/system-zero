@@ -23,9 +23,16 @@ def install_from_source(root: Path, source: Path, module_id: str | None = None, 
             f"Requested module id {resolved_module_id!r} does not match manifest id {data['id']!r}."
         )
 
+    cfg = repo_config.read(root)
+    repo_persona = "dynamic" if cfg.get("host_mode") in {"adopt", "merge"} else "static"
+    personas = data.get("personas") or ["static", "dynamic"]
+    if repo_persona not in personas:
+        raise ModuleInstallError(
+            f"Module {resolved_module_id} is not compatible with the {repo_persona} persona."
+        )
+
     missing_host_capabilities = host_capabilities.missing(root, data.get("requires_host", []))
     if missing_host_capabilities:
-        cfg = repo_config.read(root)
         raise ModuleInstallError(
             f"Module {resolved_module_id} requires host capabilities not exposed by "
             f"{cfg.get('host', 'generic')} ({cfg.get('host_mode', 'install')}): "
@@ -50,7 +57,6 @@ def install_from_source(root: Path, source: Path, module_id: str | None = None, 
                 or f"Install hook failed for {resolved_module_id}."
             )
 
-    cfg = repo_config.read(root)
     cfg["modules"][resolved_module_id] = {"version": data["version"], "enabled": True}
     repo_config.write(root, cfg)
     bus.emit(

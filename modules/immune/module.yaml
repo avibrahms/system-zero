@@ -1,0 +1,24 @@
+id: immune
+version: 0.1.0
+category: physiology
+description: Passive anomaly detector.
+entry:
+  type: python
+  command: scan.py
+triggers:
+  - "on": tick
+  - "on": event
+    match: "host.commit.made"
+provides:
+  - name: anomaly.detection
+    address: events:anomaly.detected
+    description: Anomaly events with severity and location.
+setpoints:
+  severity_threshold:
+    default: medium
+    enum: [low, medium, high]
+    description: Minimum severity to emit.
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh
+personas: [static, dynamic]
