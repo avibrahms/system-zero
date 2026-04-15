@@ -4,10 +4,11 @@
 
 Use the fully-launched SZ protocol to re-derive every module of `connection-engine` as an independent, pluggable, anonymized module, then assemble them all into a public reference repo that demonstrates the complete self-improvement stack running on the SZ protocol alone — no hand-coded glue, no private paths, no user-identifying data, no custom runtime.
 
-The output is twofold:
+The output is threefold:
 
 1. **One catalog entry per connection-engine module** (~30+ modules) in the public SZ catalog. Each has a manifest, a reconcile script, a doctor, and is installable by anyone via `sz install <id>`.
-2. **A public reference repo** — `systemzero-dev/connection-engine-reference` — that is an empty repo running `sz init --yes` against a pre-curated profile that recommends all of them. Anyone who clones and boots it gets a working connection-engine clone powered by SZ.
+2. **One generated standalone GitHub repo per module** — private by default during this run, release-ready for later public promotion. These repos are marketing/discovery surfaces and portability artifacts, not new sources of truth.
+3. **A public reference repo** — `systemzero-dev/connection-engine-reference` — that is an empty repo running `sz init --yes` against a pre-curated profile that recommends all of them. Anyone who clones and boots it gets a working connection-engine clone powered by SZ.
 
 This phase is the ultimate proof: the protocol is expressive enough to reconstruct its own intellectual ancestor.
 
@@ -25,6 +26,11 @@ Because it requires every earlier phase to work. The SZ protocol, the absorb com
 
 - `modules/<id>/` for every connection-engine module that can be wrapped (one per module, not grouped).
 - `catalog/modules/<id>/` catalog entries for each.
+- Generated standalone module repos for every absorbed module:
+  - Default owner: `avibrahms` unless `SZ_MODULE_REPO_OWNER` is set.
+  - Default visibility: private unless `SZ_MODULE_REPO_VISIBILITY=public` is set.
+  - Name pattern: `sz-module-<id>-ce`.
+  - Each repo contains the module files, a README, `.sz-module-origin.json`, `.env.example` if needed, and no private/operator-identifying data.
 - A new public GitHub repo `systemzero-dev/connection-engine-reference` containing:
   - `.sz.yaml` with the full profile.
   - `.sz/repo-profile.json` pre-seeded.
@@ -47,6 +53,19 @@ Every absorbed module must pass this filter before it ships:
 7. Every env var the module requires gets a documented name + example value in the module's README.
 
 The anonymization filter is a script (`tools/anonymize.py`) that scans every module's contents before publish; any hit blocks the module.
+
+## Standalone repo strategy (NORMATIVE)
+
+Standalone module repos exist to multiply the surface area for discovery, trust, demos, and future product packaging. They let each organ be promoted as its own small, understandable object while still belonging to System Zero.
+
+The efficient version is a generated mirror model:
+
+1. **Canonical source of truth remains here**: `modules/<id>-ce/` plus the catalog entry. Standalone repos are exported artifacts, not hand-maintained forks.
+2. **Every repo is independently useful**: README explains the organ, its use case, installation command, inputs, outputs, required env vars, and a minimal smoke test.
+3. **Every repo points back to System Zero**: README links to `systemzero.dev`, the catalog entry, and the reference repo.
+4. **Every repo can be promoted independently**: topics, concise positioning, and examples are generated so each organ can become a landing/discovery surface later.
+5. **GitHub export is soft-blocked**: if repo creation, push, naming, auth, or rate limits fail, phase 16 records the failure in `BLOCKERS.md` and `.test-reports/phase-16.json`, then continues. Catalog installability is the hard requirement; GitHub mirrors are amplification, not core protocol validity.
+6. **No copy-paste maintenance**: future edits regenerate and push mirrors from the canonical module tree. Manual edits in mirror repos are overwritten unless promoted back into `modules/<id>-ce/`.
 
 ## Source module inventory (from connection-engine, survey first)
 
@@ -245,7 +264,159 @@ jq '.items | length' catalog/index.json
 
 Verify: the new count is old + the number of absorbed-ce modules.
 
-### Step 16.5 — Create the reference repo
+### Step 16.5 — Export standalone module repos
+
+Create `tools/export_module_repos.py`:
+
+```python
+#!/usr/bin/env python3
+"""Export absorbed System Zero modules to standalone GitHub repos.
+
+The canonical source stays in this repo. Exported repos are generated mirrors for
+discovery, demos, and independent promotion.
+"""
+import json
+import os
+import pathlib
+import shutil
+import subprocess
+import sys
+import tempfile
+
+ROOT = pathlib.Path("/Users/avi/Documents/Projects/system0-natural")
+OWNER = os.environ.get("SZ_MODULE_REPO_OWNER", "avibrahms")
+VISIBILITY = os.environ.get("SZ_MODULE_REPO_VISIBILITY", "private")
+DRY_RUN = os.environ.get("SZ_MODULE_REPO_DRY_RUN", "0") == "1"
+
+
+def run(cmd, cwd=None, check=True):
+    if DRY_RUN:
+        print("+", " ".join(cmd))
+        return subprocess.CompletedProcess(cmd, 0, "", "")
+    return subprocess.run(cmd, cwd=cwd, text=True, capture_output=True, check=check)
+
+
+def module_readme(module_id, manifest):
+    title = manifest.get("name") or module_id
+    desc = manifest.get("description") or "A standalone System Zero organ exported from the connection-engine reconstruction."
+    env = manifest.get("env", []) or manifest.get("environment", [])
+    env_block = "\n".join(f"- `{e}`" for e in env) if env else "- None required by default."
+    return f"""# {title}
+
+{desc}
+
+This repo is a generated standalone mirror of the `{module_id}` System Zero module.
+The canonical source lives in the System Zero catalog; this repo exists so the organ
+can be discovered, demonstrated, and promoted independently.
+
+## Install
+
+```bash
+sz install {module_id}
+sz doctor
+```
+
+## Required environment
+
+{env_block}
+
+## Source of truth
+
+- Catalog module: `catalog/modules/{module_id}`
+- Canonical module tree: `modules/{module_id}`
+- System Zero: https://systemzero.dev
+- Reference stack: https://github.com/systemzero-dev/connection-engine-reference
+"""
+
+
+def load_manifest(module_dir):
+    for name in ("module.yaml", "module.yml", "manifest.yaml", "manifest.json"):
+        p = module_dir / name
+        if p.exists():
+            if p.suffix == ".json":
+                return json.loads(p.read_text())
+            try:
+                import yaml
+                return yaml.safe_load(p.read_text()) or {}
+            except Exception:
+                return {}
+    return {}
+
+
+def export_one(module_dir):
+    module_id = module_dir.name
+    repo_name = f"sz-module-{module_id}"
+    full_name = f"{OWNER}/{repo_name}"
+    manifest = load_manifest(module_dir)
+    work = pathlib.Path(tempfile.mkdtemp(prefix=f"{repo_name}-"))
+    try:
+        shutil.copytree(module_dir, work / module_id)
+        (work / "README.md").write_text(module_readme(module_id, manifest))
+        (work / ".sz-module-origin.json").write_text(json.dumps({
+            "module_id": module_id,
+            "canonical_path": f"modules/{module_id}",
+            "catalog_path": f"catalog/modules/{module_id}",
+            "generated": True,
+            "source_of_truth": "system0-natural",
+        }, indent=2) + "\n")
+        env_example = work / ".env.example"
+        if not env_example.exists():
+            env_example.write_text("# Add module-specific environment values here.\n")
+
+        run(["git", "init", "-q"], cwd=work)
+        run(["git", "config", "user.email", "ops@systemzero.dev"], cwd=work)
+        run(["git", "config", "user.name", "systemzero-dev"], cwd=work)
+        run(["git", "add", "."], cwd=work)
+        run(["git", "commit", "-m", f"export {module_id} module"], cwd=work)
+
+        exists = run(["gh", "repo", "view", full_name], check=False).returncode == 0
+        if not exists:
+            run(["gh", "repo", "create", full_name, f"--{VISIBILITY}", "--source", str(work), "--push"])
+        else:
+            run(["git", "remote", "add", "origin", f"https://github.com/{full_name}.git"], cwd=work, check=False)
+            run(["git", "push", "-u", "origin", "HEAD:main", "--force"], cwd=work)
+        run(["gh", "repo", "edit", full_name, "--add-topic", "system-zero", "--add-topic", "agentic-ai", "--add-topic", "self-improvement"], check=False)
+        return {"id": module_id, "repo": f"https://github.com/{full_name}", "status": "exported"}
+    except Exception as exc:
+        return {"id": module_id, "repo": full_name, "status": "soft_blocked", "error": str(exc)[:500]}
+    finally:
+        shutil.rmtree(work, ignore_errors=True)
+
+
+def main():
+    modules = sorted((ROOT / "modules").glob("*-ce"))
+    results = [export_one(m) for m in modules if m.is_dir()]
+    out = ROOT / ".test-reports" / "phase-16-module-repos.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(results, indent=2) + "\n")
+    print(json.dumps(results, indent=2))
+    if not modules:
+        sys.exit("no absorbed *-ce modules found")
+
+
+if __name__ == "__main__":
+    main()
+```
+
+Run:
+
+```bash
+chmod +x tools/export_module_repos.py
+SZ_MODULE_REPO_OWNER="${SZ_MODULE_REPO_OWNER:-avibrahms}" \
+SZ_MODULE_REPO_VISIBILITY="${SZ_MODULE_REPO_VISIBILITY:-private}" \
+tools/export_module_repos.py
+```
+
+Verify:
+
+```bash
+jq '[.[] | select(.status=="exported")] | length' .test-reports/phase-16-module-repos.json
+jq '[.[] | select(.status=="soft_blocked")] | length' .test-reports/phase-16-module-repos.json
+```
+
+Required: every absorbed module has either `status: exported` or `status: soft_blocked` with a concrete error. At least 80% should export successfully when GitHub auth is available. Soft-blocked exports are copied into `BLOCKERS.md` with a one-line retry command.
+
+### Step 16.6 — Create the reference repo
 
 ```bash
 mkdir -p ../connection-engine-reference
@@ -291,7 +462,7 @@ git commit -m "initial reference stack"
 gh repo create systemzero-dev/connection-engine-reference --public --source . --push
 ```
 
-### Step 16.6 — End-to-end validation
+### Step 16.7 — End-to-end validation
 
 `tests/e2e/reconstruct/run.sh`:
 ```bash
@@ -330,11 +501,11 @@ bash tests/e2e/reconstruct/run.sh
 
 Verify: prints `PHASE 16 PASSED`. The reference repo boots, ticks, emits health snapshots, and passes anonymization.
 
-### Step 16.7 — Commit
+### Step 16.8 — Commit
 
 ```bash
 cd /Users/avi/Documents/Projects/system0-natural
-git add tools/anonymize.py tools/connection_engine_survey.py modules-inventory.json modules catalog tests/e2e/reconstruct .test-reports/phase-16.json plan/phase-16-reconstruct-connection-engine
+git add tools/anonymize.py tools/connection_engine_survey.py tools/export_module_repos.py modules-inventory.json modules catalog tests/e2e/reconstruct .test-reports/phase-16.json .test-reports/phase-16-module-repos.json plan/phase-16-reconstruct-connection-engine
 git commit -m "phase 16: reconstruct connection-engine (anonymized) via sz"
 ```
 
@@ -343,10 +514,12 @@ git commit -m "phase 16: reconstruct connection-engine (anonymized) via sz"
 1. `modules-inventory.json` lists ≥25 candidates with categories assigned.
 2. ≥15 modules absorbed into `modules/<id>-ce/` and validated against the manifest schema.
 3. The anonymization filter scans every absorbed module and finds zero HITs.
-4. `systemzero-dev/connection-engine-reference` exists as a public repo.
-5. `bash bootstrap.sh` in that repo, on a fresh machine, ends with `sz list` showing the absorbed modules running.
-6. `tests/e2e/reconstruct/run.sh` ends with `PHASE 16 PASSED`.
-7. The reference repo contains zero references to operator identity (verified by tools/anonymize.py).
+4. Every absorbed module has a standalone repo export record in `.test-reports/phase-16-module-repos.json`.
+5. At least 80% of absorbed modules are pushed as private standalone repos when GitHub auth is available; failures are soft-blocked with retry commands.
+6. `systemzero-dev/connection-engine-reference` exists as a public repo.
+7. `bash bootstrap.sh` in that repo, on a fresh machine, ends with `sz list` showing the absorbed modules running.
+8. `tests/e2e/reconstruct/run.sh` ends with `PHASE 16 PASSED`.
+9. The reference repo and standalone module repos contain zero references to operator identity (verified by tools/anonymize.py).
 
 ## Failure modes and recovery
 
@@ -357,10 +530,12 @@ git commit -m "phase 16: reconstruct connection-engine (anonymized) via sz"
 | `bootstrap.sh` fails because a module's entry needs a secret | module declared env requirements | the reference repo ships a `.env.example` listing what the user needs to provide; bootstrap.sh prints a clear message rather than failing silently |
 | Reference repo does not "behave like" connection-engine | semantic gap | document the gap in the reference repo's README; iterate via PRs after launch |
 | GH repo name taken | upstream conflict | use `systemzero-dev/ce-reference` and update README links |
+| Standalone module repo creation fails | GitHub auth, rate limit, repo name conflict, or network failure | mark that module `soft_blocked` in `.test-reports/phase-16-module-repos.json`, append a retry command to `BLOCKERS.md`, and continue |
+| Standalone repos drift from catalog modules | manual edits happened in exported mirrors | regenerate mirrors from `modules/<id>-ce/`; if a mirror edit is valuable, port it back to the canonical module before regenerating |
 
 ## Rollback
 
-`gh repo delete systemzero-dev/connection-engine-reference --confirm`; `git checkout main && git branch -D phase-16-reconstruct-connection-engine`. Absorbed modules can be kept in the catalog independently — they are valuable even if the reference repo is withdrawn.
+`gh repo delete systemzero-dev/connection-engine-reference --confirm`; delete generated `sz-module-*-ce` repos only if they were not intentionally kept as private discovery surfaces. Absorbed modules can be kept in the catalog independently — they are valuable even if the reference repo or mirrors are withdrawn.
 
 ## After phase 16 — the payoff
 
