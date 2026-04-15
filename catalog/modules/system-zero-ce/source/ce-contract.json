@@ -1,19 +1,24 @@
 {
+  "absorb_workflow": {
+    "source": "sz absorb draft plus deterministic protocol adapter",
+    "status": "materialized_with_functional_hardening"
+  },
   "behaviors": [
-    "observe installed modules through the registry",
-    "publish a deterministic reconstruction snapshot",
-    "record reconstruction state in memory for downstream modules"
+    "check .sz.yaml, .sz/registry.json, bus, memory, and installed modules",
+    "summarize protocol readiness without calling external services",
+    "emit concrete remediation hints for missing runtime pieces"
   ],
-  "capability": "ce.system.zero",
-  "event_type": "ce.system.zero.snapshot",
+  "capability": "ce.system.zero.audit",
+  "event_type": "ce.system.zero.audit.snapshot",
   "interfaces": [
     "bus",
     "memory",
-    "discovery"
+    "discovery",
+    "storage"
   ],
   "module_id": "system-zero-ce",
-  "public_purpose": "An autonomous AI operating system. One system. Full solution.",
-  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "public_purpose": "Audits the local System Zero installation and reconstructed stack readiness.",
+  "reconstruction": "Protocol-native behavior was re-derived from the source candidate and hardened into an anonymized System Zero module.",
   "source_kind": "module-dir",
   "source_label": "modules/system-zero",
   "source_metrics": {
@@ -28,5 +33,6 @@
     "file_count": 11,
     "function_count": 8,
     "line_count": 1277
-  }
+  },
+  "source_summary": "An autonomous AI operating system. One system. Full solution."
 }

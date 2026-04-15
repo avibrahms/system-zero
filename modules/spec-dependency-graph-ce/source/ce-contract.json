@@ -1,19 +1,24 @@
 {
+  "absorb_workflow": {
+    "source": "sz absorb draft plus deterministic protocol adapter",
+    "status": "materialized_with_functional_hardening"
+  },
   "behaviors": [
-    "observe installed modules through the registry",
-    "publish a deterministic reconstruction snapshot",
-    "record reconstruction state in memory for downstream modules"
+    "discover phase plan and workflow specification files",
+    "extract references between phases, specs, and protocol documents",
+    "detect broken references and cycles in the extracted graph"
   ],
   "capability": "ce.spec.dependency.graph",
   "event_type": "ce.spec.dependency.graph.snapshot",
   "interfaces": [
     "bus",
     "memory",
-    "discovery"
+    "discovery",
+    "storage"
   ],
   "module_id": "spec-dependency-graph-ce",
-  "public_purpose": "Build, validate, and visualize workflow-spec dependencies.",
-  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "public_purpose": "Builds a dependency graph from phase and workflow specification documents.",
+  "reconstruction": "Protocol-native behavior was re-derived from the source candidate and hardened into an anonymized System Zero module.",
   "source_kind": "script",
   "source_label": "core/system/scripts/spec_dependency_graph.py",
   "source_metrics": {
@@ -23,5 +28,6 @@
     "file_count": 1,
     "function_count": 2,
     "line_count": 46
-  }
+  },
+  "source_summary": "Build, validate, and visualize workflow-spec dependencies."
 }

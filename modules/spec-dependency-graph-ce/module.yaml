@@ -1,8 +1,7 @@
 id: spec-dependency-graph-ce
 version: 0.1.0
 category: connection-engine
-description: Spec Dependency Graph reconstructed as a protocol-native self-improvement
-  organ.
+description: Builds a dependency graph from phase and workflow specification documents.
 entry:
   type: python
   command: entry.py
@@ -12,12 +11,13 @@ triggers:
 provides:
 - name: ce.spec.dependency.graph
   address: events:ce.spec.dependency.graph.snapshot
-  description: Publishes Spec Dependency Graph reconstruction snapshots.
+  description: Builds a dependency graph from phase and workflow specification documents.
 requires:
 - providers:
   - bus
   - memory
   - discovery
+  - storage
 setpoints: {}
 hooks:
   reconcile: reconcile.sh

@@ -1,19 +1,24 @@
 {
+  "absorb_workflow": {
+    "source": "sz absorb draft plus deterministic protocol adapter",
+    "status": "materialized_with_functional_hardening"
+  },
   "behaviors": [
-    "observe installed modules through the registry",
-    "publish a deterministic reconstruction snapshot",
-    "record reconstruction state in memory for downstream modules"
+    "read repo profile and installed module registry",
+    "capture current branch and dirty-file counts when git is available",
+    "write a module-private session bootstrap payload"
   ],
   "capability": "ce.session.bootstrap",
   "event_type": "ce.session.bootstrap.snapshot",
   "interfaces": [
     "bus",
     "memory",
-    "discovery"
+    "discovery",
+    "storage"
   ],
   "module_id": "session-bootstrap-ce",
-  "public_purpose": "Task: Bootstrap START-PROTOCOL session context into one deterministic JSON payload.",
-  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "public_purpose": "Builds a deterministic session-start payload from repo profile, git state, and module health.",
+  "reconstruction": "Protocol-native behavior was re-derived from the source candidate and hardened into an anonymized System Zero module.",
   "source_kind": "script",
   "source_label": "core/system/scripts/session_bootstrap.py",
   "source_metrics": {
@@ -23,5 +28,6 @@
     "file_count": 1,
     "function_count": 2,
     "line_count": 63
-  }
+  },
+  "source_summary": "Task: Bootstrap START-PROTOCOL session context into one deterministic JSON payload."
 }

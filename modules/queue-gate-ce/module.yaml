@@ -1,7 +1,8 @@
 id: queue-gate-ce
 version: 0.1.0
 category: connection-engine
-description: Queue Gate reconstructed as a protocol-native self-improvement organ.
+description: Counts active ready-queue entries and opens or closes a content-production
+  gate.
 entry:
   type: python
   command: entry.py
@@ -11,13 +12,22 @@ triggers:
 provides:
 - name: ce.queue.gate
   address: events:ce.queue.gate.snapshot
-  description: Publishes Queue Gate reconstruction snapshots.
+  description: Counts active ready-queue entries and opens or closes a content-production
+    gate.
 requires:
 - providers:
   - bus
   - memory
   - discovery
-setpoints: {}
+  - storage
+setpoints:
+  max_depth:
+    default: 15
+    range:
+    - 0
+    - 500
+    description: Maximum active queue entries before the gate closes.
+    mode: simple
 hooks:
   reconcile: reconcile.sh
   doctor: doctor.sh

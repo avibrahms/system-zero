@@ -1,14 +1,18 @@
 # skill-library-ce
 
-Sanitized recursive-question skill library reconstructed as a protocol module.
+Exposes the sanitized recursive-question skill catalog as a queryable module.
 
 ## Behavior
 
-On every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.skill.library.snapshot`, and appends a record to the `ce.reconstruction` memory stream.
+- load sanitized skill contracts from source/skills.json
+- count skills and match them against the current query
+- publish a digest so downstream modules can detect library changes
+
+On every tick this module emits `ce.skill.library.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.
 
 ## Source discipline
 
-The original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
+The source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
 
 ## Install
 

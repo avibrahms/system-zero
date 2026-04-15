@@ -1,8 +1,8 @@
 id: check-linkedin-autopost-policy-ce
 version: 0.1.0
 category: connection-engine
-description: Check Linkedin Autopost Policy reconstructed as a protocol-native self-improvement
-  organ.
+description: Checks generic content auto-post policy files for stale eligibility and
+  cadence language.
 entry:
   type: python
   command: entry.py
@@ -10,14 +10,16 @@ entry:
 triggers:
 - 'on': tick
 provides:
-- name: ce.check.linkedin.autopost.policy
-  address: events:ce.check.linkedin.autopost.policy.snapshot
-  description: Publishes Check Linkedin Autopost Policy reconstruction snapshots.
+- name: ce.content.autopost.policy
+  address: events:ce.content.autopost.policy.snapshot
+  description: Checks generic content auto-post policy files for stale eligibility
+    and cadence language.
 requires:
 - providers:
   - bus
   - memory
   - discovery
+  - storage
 setpoints: {}
 hooks:
   reconcile: reconcile.sh

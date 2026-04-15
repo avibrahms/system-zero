@@ -1,19 +1,24 @@
 {
+  "absorb_workflow": {
+    "source": "sz absorb draft plus deterministic protocol adapter",
+    "status": "materialized_with_functional_hardening"
+  },
   "behaviors": [
-    "observe installed modules through the registry",
-    "publish a deterministic reconstruction snapshot",
-    "record reconstruction state in memory for downstream modules"
+    "parse .sz/registry.json and .sz.yaml",
+    "verify every installed module has a manifest, entrypoint, and declared version",
+    "report unsatisfied capabilities and missing configured modules"
   ],
-  "capability": "ce.registry.validator",
-  "event_type": "ce.registry.validator.snapshot",
+  "capability": "ce.registry.validation",
+  "event_type": "ce.registry.validation.snapshot",
   "interfaces": [
     "bus",
     "memory",
-    "discovery"
+    "discovery",
+    "storage"
   ],
   "module_id": "registry-validator-ce",
-  "public_purpose": "Import-safe alias for the hyphenated registry-validator script.",
-  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "public_purpose": "Validates the installed System Zero registry, manifests, capabilities, and config.",
+  "reconstruction": "Protocol-native behavior was re-derived from the source candidate and hardened into an anonymized System Zero module.",
   "source_kind": "script",
   "source_label": "core/system/scripts/registry_validator.py",
   "source_metrics": {
@@ -23,5 +28,6 @@
     "file_count": 1,
     "function_count": 0,
     "line_count": 20
-  }
+  },
+  "source_summary": "Import-safe alias for the hyphenated registry-validator script."
 }

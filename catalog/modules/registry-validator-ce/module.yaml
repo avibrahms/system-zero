@@ -1,8 +1,8 @@
 id: registry-validator-ce
 version: 0.1.0
 category: connection-engine
-description: Registry Validator reconstructed as a protocol-native self-improvement
-  organ.
+description: Validates the installed System Zero registry, manifests, capabilities,
+  and config.
 entry:
   type: python
   command: entry.py
@@ -10,14 +10,16 @@ entry:
 triggers:
 - 'on': tick
 provides:
-- name: ce.registry.validator
-  address: events:ce.registry.validator.snapshot
-  description: Publishes Registry Validator reconstruction snapshots.
+- name: ce.registry.validation
+  address: events:ce.registry.validation.snapshot
+  description: Validates the installed System Zero registry, manifests, capabilities,
+    and config.
 requires:
 - providers:
   - bus
   - memory
   - discovery
+  - storage
 setpoints: {}
 hooks:
   reconcile: reconcile.sh

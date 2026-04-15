@@ -1,14 +1,18 @@
 # action-card-cleanup-ce
 
-Action Card Cleanup reconstructed as a protocol-native self-improvement organ.
+Archives completed action-card items from shared storage and removes them from the active card.
 
 ## Behavior
 
-On every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.action.card.cleanup.snapshot`, and appends a record to the `ce.reconstruction` memory stream.
+- read shared action-card, completion-state, and archive JSON files
+- append completed active items to the permanent archive idempotently
+- remove archived items from the active card and clear completion state
+
+On every tick this module emits `ce.action.card.cleanup.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.
 
 ## Source discipline
 
-The original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
+The source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
 
 ## Install
 

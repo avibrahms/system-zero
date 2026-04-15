@@ -1,19 +1,24 @@
 {
+  "absorb_workflow": {
+    "source": "sz absorb draft plus deterministic protocol adapter",
+    "status": "materialized_with_functional_hardening"
+  },
   "behaviors": [
-    "observe installed modules through the registry",
-    "publish a deterministic reconstruction snapshot",
-    "record reconstruction state in memory for downstream modules"
+    "read shared dashboard/session JSON if present",
+    "summarize active tasks, sessions, and installed module health",
+    "write a module-private dashboard summary for UI adapters"
   ],
   "capability": "ce.agent.dashboard",
   "event_type": "ce.agent.dashboard.snapshot",
   "interfaces": [
     "bus",
     "memory",
-    "discovery"
+    "discovery",
+    "storage"
   ],
   "module_id": "agent-dashboard-ce",
-  "public_purpose": "keywords: agent, autonomous, maintenance, dashboard, monitor, launchd, 24/7",
-  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "public_purpose": "Builds a dashboard health snapshot from generic session, action-card, and module state files.",
+  "reconstruction": "Protocol-native behavior was re-derived from the source candidate and hardened into an anonymized System Zero module.",
   "source_kind": "module-dir",
   "source_label": "modules/agent-dashboard",
   "source_metrics": {
@@ -31,6 +36,7 @@
     },
     "file_count": 48,
     "function_count": 836,
-    "line_count": 44523
-  }
+    "line_count": 44529
+  },
+  "source_summary": "keywords: agent, autonomous, maintenance, dashboard, monitor, launchd, 24/7"
 }

@@ -1,14 +1,18 @@
 # spec-lint-ce
 
-Spec Lint reconstructed as a protocol-native self-improvement organ.
+Lints System Zero plan and protocol specs for required sections and stale placeholders.
 
 ## Behavior
 
-On every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.spec.lint.snapshot`, and appends a record to the `ce.reconstruction` memory stream.
+- read phase plans, protocol docs, and shared spec fixtures
+- check required headings, acceptance criteria, and unresolved placeholders
+- emit lint errors and warnings with file-level counts
+
+On every tick this module emits `ce.spec.lint.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.
 
 ## Source discipline
 
-The original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
+The source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
 
 ## Install
 

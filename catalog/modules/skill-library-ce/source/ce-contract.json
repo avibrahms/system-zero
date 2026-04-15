@@ -1,23 +1,29 @@
 {
+  "absorb_workflow": {
+    "source": "sz absorb draft plus deterministic protocol adapter",
+    "status": "materialized_with_functional_hardening"
+  },
   "behaviors": [
-    "index sanitized recursive-question contracts",
-    "publish the available skill count and contract digest",
-    "record skill-library state in memory for discovery"
+    "load sanitized skill contracts from source/skills.json",
+    "count skills and match them against the current query",
+    "publish a digest so downstream modules can detect library changes"
   ],
   "capability": "ce.skill.library",
   "event_type": "ce.skill.library.snapshot",
   "interfaces": [
     "bus",
     "memory",
-    "discovery"
+    "discovery",
+    "storage"
   ],
   "module_id": "skill-library-ce",
-  "public_purpose": "Expose the reusable recursive-question skill set as an anonymized System Zero module.",
-  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "public_purpose": "Exposes the sanitized recursive-question skill catalog as a queryable module.",
+  "reconstruction": "Protocol-native behavior was re-derived from the source candidate and hardened into an anonymized System Zero module.",
   "source_kind": "skill-library",
   "source_label": "home-templates/agent-dashboard/skills/*",
   "source_metrics": {
     "contract_digest": "5875a0537d4ac0ce",
     "skill_count": 128
-  }
+  },
+  "source_summary": "Expose the reusable recursive-question skill set as an anonymized System Zero module."
 }

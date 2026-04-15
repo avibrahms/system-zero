@@ -1,0 +1,162 @@
+[
+  {
+    "id": "agent-dashboard-ce",
+    "source_kind": "module-dir",
+    "status": "ok",
+    "draft_module_id": "agent-dashboard-ce",
+    "draft_entry": "entry.py",
+    "draft_files_copied": 1,
+    "staging_created": true,
+    "notes": "Mock provider generated a deterministic source-backed absorb draft."
+  },
+  {
+    "id": "chronicle-ce",
+    "source_kind": "module-dir",
+    "status": "ok",
+    "draft_module_id": "chronicle-ce",
+    "draft_entry": "entry.py",
+    "draft_files_copied": 1,
+    "staging_created": true,
+    "notes": "Mock provider generated a deterministic source-backed absorb draft."
+  },
+  {
+    "id": "eidetic-ce",
+    "source_kind": "module-dir",
+    "status": "ok",
+    "draft_module_id": "eidetic-ce",
+    "draft_entry": "entry.py",
+    "draft_files_copied": 1,
+    "staging_created": true,
+    "notes": "Mock provider generated a deterministic source-backed absorb draft."
+  },
+  {
+    "id": "sentinel-ce",
+    "source_kind": "module-dir",
+    "status": "ok",
+    "draft_module_id": "sentinel-ce",
+    "draft_entry": "entry.py",
+    "draft_files_copied": 1,
+    "staging_created": true,
+    "notes": "Mock provider generated a deterministic source-backed absorb draft."
+  },
+  {
+    "id": "system-zero-ce",
+    "source_kind": "module-dir",
+    "status": "ok",
+    "draft_module_id": "system-zero-ce",
+    "draft_entry": "entry.py",
+    "draft_files_copied": 1,
+    "staging_created": true,
+    "notes": "Mock provider generated a deterministic source-backed absorb draft."
+  },
+  {
+    "id": "action-card-cleanup-ce",
+    "source_kind": "script",
+    "status": "ok",
+    "draft_module_id": "action-card-cleanup-ce",
+    "draft_entry": "entry.py",
+    "draft_files_copied": 1,
+    "staging_created": true,
+    "notes": "Mock provider generated a deterministic source-backed absorb draft."
+  },
+  {
+    "id": "check-linkedin-autopost-policy-ce",
+    "source_kind": "script",
+    "status": "ok",
+    "draft_module_id": "check-linkedin-autopost-policy-ce",
+    "draft_entry": "entry.py",
+    "draft_files_copied": 1,
+    "staging_created": true,
+    "notes": "Mock provider generated a deterministic source-backed absorb draft."
+  },
+  {
+    "id": "context-assembler-ce",
+    "source_kind": "script",
+    "status": "ok",
+    "draft_module_id": "context-assembler-ce",
+    "draft_entry": "entry.py",
+    "draft_files_copied": 1,
+    "staging_created": true,
+    "notes": "Mock provider generated a deterministic source-backed absorb draft."
+  },
+  {
+    "id": "mcp-server-launcher-ce",
+    "source_kind": "script",
+    "status": "ok",
+    "draft_module_id": "mcp-server-launcher-ce",
+    "draft_entry": "entry.py",
+    "draft_files_copied": 1,
+    "staging_created": true,
+    "notes": "Mock provider generated a deterministic source-backed absorb draft."
+  },
+  {
+    "id": "queue-gate-ce",
+    "source_kind": "script",
+    "status": "ok",
+    "draft_module_id": "queue-gate-ce",
+    "draft_entry": "entry.py",
+    "draft_files_copied": 1,
+    "staging_created": true,
+    "notes": "Mock provider generated a deterministic source-backed absorb draft."
+  },
+  {
+    "id": "registry-validator-ce",
+    "source_kind": "script",
+    "status": "ok",
+    "draft_module_id": "registry-validator-ce",
+    "draft_entry": "entry.py",
+    "draft_files_copied": 1,
+    "staging_created": true,
+    "notes": "Mock provider generated a deterministic source-backed absorb draft."
+  },
+  {
+    "id": "rollback-email-verification-ce",
+    "source_kind": "script",
+    "status": "ok",
+    "draft_module_id": "rollback-email-verification-ce",
+    "draft_entry": "entry.py",
+    "draft_files_copied": 1,
+    "staging_created": true,
+    "notes": "Mock provider generated a deterministic source-backed absorb draft."
+  },
+  {
+    "id": "session-bootstrap-ce",
+    "source_kind": "script",
+    "status": "ok",
+    "draft_module_id": "session-bootstrap-ce",
+    "draft_entry": "entry.py",
+    "draft_files_copied": 1,
+    "staging_created": true,
+    "notes": "Mock provider generated a deterministic source-backed absorb draft."
+  },
+  {
+    "id": "spec-dependency-graph-ce",
+    "source_kind": "script",
+    "status": "ok",
+    "draft_module_id": "spec-dependency-graph-ce",
+    "draft_entry": "entry.py",
+    "draft_files_copied": 1,
+    "staging_created": true,
+    "notes": "Mock provider generated a deterministic source-backed absorb draft."
+  },
+  {
+    "id": "spec-lint-ce",
+    "source_kind": "script",
+    "status": "ok",
+    "draft_module_id": "spec-lint-ce",
+    "draft_entry": "entry.py",
+    "draft_files_copied": 1,
+    "staging_created": true,
+    "notes": "Mock provider generated a deterministic source-backed absorb draft."
+  },
+  {
+    "id": "start-preamble-ce",
+    "source_kind": "script",
+    "status": "ok",
+    "draft_module_id": "start-preamble-ce",
+    "draft_entry": "entry.py",
+    "draft_files_copied": 1,
+    "staging_created": true,
+    "notes": "Mock provider generated a deterministic source-backed absorb draft."
+  }
+]

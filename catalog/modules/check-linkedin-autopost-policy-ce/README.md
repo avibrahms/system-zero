@@ -1,14 +1,18 @@
 # check-linkedin-autopost-policy-ce
 
-Check Linkedin Autopost Policy reconstructed as a protocol-native self-improvement organ.
+Checks generic content auto-post policy files for stale eligibility and cadence language.
 
 ## Behavior
 
-On every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.check.linkedin.autopost.policy.snapshot`, and appends a record to the `ce.reconstruction` memory stream.
+- read shared content policy and posting markdown files
+- verify only approved content is eligible for automated posting
+- emit precise policy drift findings without touching account data
+
+On every tick this module emits `ce.content.autopost.policy.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.
 
 ## Source discipline
 
-The original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
+The source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
 
 ## Install
 

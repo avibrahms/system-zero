@@ -1,14 +1,18 @@
 # queue-gate-ce
 
-Queue Gate reconstructed as a protocol-native self-improvement organ.
+Counts active ready-queue entries and opens or closes a content-production gate.
 
 ## Behavior
 
-On every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.queue.gate.snapshot`, and appends a record to the `ce.reconstruction` memory stream.
+- parse markdown queue cards from shared content storage
+- ignore posted and rejected entries
+- compare active queue depth to the configured maximum
+
+On every tick this module emits `ce.queue.gate.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.
 
 ## Source discipline
 
-The original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
+The source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
 
 ## Install
 

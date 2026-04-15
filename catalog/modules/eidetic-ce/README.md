@@ -1,14 +1,18 @@
 # eidetic-ce
 
-Eidetic reconstructed as a protocol-native self-improvement organ.
+Indexes evidence-like repository documents into a compact memory map.
 
 ## Behavior
 
-On every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.eidetic.snapshot`, and appends a record to the `ce.reconstruction` memory stream.
+- scan public markdown and document filenames for evidence concepts
+- group evidence surfaces by purpose and file type
+- write a searchable memory index without copying private document text
+
+On every tick this module emits `ce.eidetic.index.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.
 
 ## Source discipline
 
-The original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
+The source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
 
 ## Install
 

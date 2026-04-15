@@ -1,7 +1,7 @@
 id: system-zero-ce
 version: 0.1.0
 category: connection-engine
-description: System Zero reconstructed as a protocol-native self-improvement organ.
+description: Audits the local System Zero installation and reconstructed stack readiness.
 entry:
   type: python
   command: entry.py
@@ -9,14 +9,15 @@ entry:
 triggers:
 - 'on': tick
 provides:
-- name: ce.system.zero
-  address: events:ce.system.zero.snapshot
-  description: Publishes System Zero reconstruction snapshots.
+- name: ce.system.zero.audit
+  address: events:ce.system.zero.audit.snapshot
+  description: Audits the local System Zero installation and reconstructed stack readiness.
 requires:
 - providers:
   - bus
   - memory
   - discovery
+  - storage
 setpoints: {}
 hooks:
   reconcile: reconcile.sh

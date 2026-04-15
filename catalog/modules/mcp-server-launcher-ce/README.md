@@ -1,14 +1,18 @@
 # mcp-server-launcher-ce
 
-Mcp Server Launcher reconstructed as a protocol-native self-improvement organ.
+Discovers MCP server definitions and produces a launch readiness plan.
 
 ## Behavior
 
-On every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.mcp.server.launcher.snapshot`, and appends a record to the `ce.reconstruction` memory stream.
+- find MCP config files and server scripts in the repository
+- classify servers as launchable, missing command, or config-only
+- emit a deterministic launch plan instead of starting long-running processes
+
+On every tick this module emits `ce.mcp.launch.plan.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.
 
 ## Source discipline
 
-The original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
+The source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
 
 ## Install
 

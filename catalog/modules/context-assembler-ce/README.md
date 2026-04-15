@@ -1,14 +1,18 @@
 # context-assembler-ce
 
-Context Assembler reconstructed as a protocol-native self-improvement organ.
+Selects the highest-signal repository files for a task or focus query.
 
 ## Behavior
 
-On every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.context.assembler.snapshot`, and appends a record to the `ce.reconstruction` memory stream.
+- derive a context query from setpoints, environment, or recent tick reasons
+- score repository files by keyword relevance and freshness
+- emit a token-bounded file list for downstream agents
+
+On every tick this module emits `ce.context.assembler.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.
 
 ## Source discipline
 
-The original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
+The source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
 
 ## Install
 

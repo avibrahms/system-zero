@@ -1,19 +1,24 @@
 {
+  "absorb_workflow": {
+    "source": "sz absorb draft plus deterministic protocol adapter",
+    "status": "materialized_with_functional_hardening"
+  },
   "behaviors": [
-    "observe installed modules through the registry",
-    "publish a deterministic reconstruction snapshot",
-    "record reconstruction state in memory for downstream modules"
+    "read phase plans, protocol docs, and shared spec fixtures",
+    "check required headings, acceptance criteria, and unresolved placeholders",
+    "emit lint errors and warnings with file-level counts"
   ],
   "capability": "ce.spec.lint",
   "event_type": "ce.spec.lint.snapshot",
   "interfaces": [
     "bus",
     "memory",
-    "discovery"
+    "discovery",
+    "storage"
   ],
   "module_id": "spec-lint-ce",
-  "public_purpose": "Validate workflow specs against the spec contract and import graph.",
-  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "public_purpose": "Lints System Zero plan and protocol specs for required sections and stale placeholders.",
+  "reconstruction": "Protocol-native behavior was re-derived from the source candidate and hardened into an anonymized System Zero module.",
   "source_kind": "script",
   "source_label": "core/system/scripts/spec_lint.py",
   "source_metrics": {
@@ -23,5 +28,6 @@
     "file_count": 1,
     "function_count": 2,
     "line_count": 60
-  }
+  },
+  "source_summary": "Validate workflow specs against the spec contract and import graph."
 }

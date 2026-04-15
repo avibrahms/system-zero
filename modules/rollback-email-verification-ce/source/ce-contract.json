@@ -1,19 +1,24 @@
 {
+  "absorb_workflow": {
+    "source": "sz absorb draft plus deterministic protocol adapter",
+    "status": "materialized_with_functional_hardening"
+  },
   "behaviors": [
-    "observe installed modules through the registry",
-    "publish a deterministic reconstruction snapshot",
-    "record reconstruction state in memory for downstream modules"
+    "delete verification outcome files created by draft checks",
+    "remove matching verifier entries from external output logs",
+    "remove matching intercepted email signal records idempotently"
   ],
-  "capability": "ce.rollback.email.verification",
-  "event_type": "ce.rollback.email.verification.snapshot",
+  "capability": "ce.email.verification.rollback",
+  "event_type": "ce.email.verification.rollback.snapshot",
   "interfaces": [
     "bus",
     "memory",
-    "discovery"
+    "discovery",
+    "storage"
   ],
   "module_id": "rollback-email-verification-ce",
-  "public_purpose": "rollback-email-verification.py \u2014 remove email draft verification artifacts.",
-  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "public_purpose": "Removes generic email verification artifacts from shared System Zero storage.",
+  "reconstruction": "Protocol-native behavior was re-derived from the source candidate and hardened into an anonymized System Zero module.",
   "source_kind": "script",
   "source_label": "core/system/scripts/rollback-email-verification.py",
   "source_metrics": {
@@ -23,5 +28,6 @@
     "file_count": 1,
     "function_count": 1,
     "line_count": 85
-  }
+  },
+  "source_summary": "rollback-email-verification.py \u2014 remove email draft verification artifacts."
 }

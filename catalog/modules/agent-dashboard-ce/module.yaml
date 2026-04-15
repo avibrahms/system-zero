@@ -1,7 +1,8 @@
 id: agent-dashboard-ce
 version: 0.1.0
 category: connection-engine
-description: Agent Dashboard reconstructed as a protocol-native self-improvement organ.
+description: Builds a dashboard health snapshot from generic session, action-card,
+  and module state files.
 entry:
   type: python
   command: entry.py
@@ -11,12 +12,14 @@ triggers:
 provides:
 - name: ce.agent.dashboard
   address: events:ce.agent.dashboard.snapshot
-  description: Publishes Agent Dashboard reconstruction snapshots.
+  description: Builds a dashboard health snapshot from generic session, action-card,
+    and module state files.
 requires:
 - providers:
   - bus
   - memory
   - discovery
+  - storage
 setpoints: {}
 hooks:
   reconcile: reconcile.sh

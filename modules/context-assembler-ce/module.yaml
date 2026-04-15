@@ -1,8 +1,7 @@
 id: context-assembler-ce
 version: 0.1.0
 category: connection-engine
-description: Context Assembler reconstructed as a protocol-native self-improvement
-  organ.
+description: Selects the highest-signal repository files for a task or focus query.
 entry:
   type: python
   command: entry.py
@@ -12,13 +11,28 @@ triggers:
 provides:
 - name: ce.context.assembler
   address: events:ce.context.assembler.snapshot
-  description: Publishes Context Assembler reconstruction snapshots.
+  description: Selects the highest-signal repository files for a task or focus query.
 requires:
 - providers:
   - bus
   - memory
   - discovery
-setpoints: {}
+  - storage
+setpoints:
+  max_tokens:
+    default: 2000
+    range:
+    - 100
+    - 20000
+    description: Approximate context budget for selected files.
+    mode: simple
+  top_n:
+    default: 10
+    range:
+    - 1
+    - 50
+    description: Maximum number of files to select.
+    mode: simple
 hooks:
   reconcile: reconcile.sh
   doctor: doctor.sh

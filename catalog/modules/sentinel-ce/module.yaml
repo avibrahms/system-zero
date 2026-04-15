@@ -1,7 +1,7 @@
 id: sentinel-ce
 version: 0.1.0
 category: connection-engine
-description: Sentinel reconstructed as a protocol-native self-improvement organ.
+description: Scans repository files for common secret, config, and safety findings.
 entry:
   type: python
   command: entry.py
@@ -9,14 +9,15 @@ entry:
 triggers:
 - 'on': tick
 provides:
-- name: ce.sentinel
-  address: events:ce.sentinel.snapshot
-  description: Publishes Sentinel reconstruction snapshots.
+- name: ce.sentinel.scan
+  address: events:ce.sentinel.scan.snapshot
+  description: Scans repository files for common secret, config, and safety findings.
 requires:
 - providers:
   - bus
   - memory
   - discovery
+  - storage
 setpoints: {}
 hooks:
   reconcile: reconcile.sh

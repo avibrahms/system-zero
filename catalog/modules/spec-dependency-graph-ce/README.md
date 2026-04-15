@@ -1,14 +1,18 @@
 # spec-dependency-graph-ce
 
-Spec Dependency Graph reconstructed as a protocol-native self-improvement organ.
+Builds a dependency graph from phase and workflow specification documents.
 
 ## Behavior
 
-On every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.spec.dependency.graph.snapshot`, and appends a record to the `ce.reconstruction` memory stream.
+- discover phase plan and workflow specification files
+- extract references between phases, specs, and protocol documents
+- detect broken references and cycles in the extracted graph
+
+On every tick this module emits `ce.spec.dependency.graph.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.
 
 ## Source discipline
 
-The original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
+The source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
 
 ## Install
 

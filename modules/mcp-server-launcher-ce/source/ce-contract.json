@@ -1,19 +1,24 @@
 {
+  "absorb_workflow": {
+    "source": "sz absorb draft plus deterministic protocol adapter",
+    "status": "materialized_with_functional_hardening"
+  },
   "behaviors": [
-    "observe installed modules through the registry",
-    "publish a deterministic reconstruction snapshot",
-    "record reconstruction state in memory for downstream modules"
+    "find MCP config files and server scripts in the repository",
+    "classify servers as launchable, missing command, or config-only",
+    "emit a deterministic launch plan instead of starting long-running processes"
   ],
-  "capability": "ce.mcp.server.launcher",
-  "event_type": "ce.mcp.server.launcher.snapshot",
+  "capability": "ce.mcp.launch.plan",
+  "event_type": "ce.mcp.launch.plan.snapshot",
   "interfaces": [
     "bus",
     "memory",
-    "discovery"
+    "discovery",
+    "storage"
   ],
   "module_id": "mcp-server-launcher-ce",
-  "public_purpose": "from __future__ import annotations",
-  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "public_purpose": "Discovers MCP server definitions and produces a launch readiness plan.",
+  "reconstruction": "Protocol-native behavior was re-derived from the source candidate and hardened into an anonymized System Zero module.",
   "source_kind": "script",
   "source_label": "core/system/scripts/mcp_server_launcher.py",
   "source_metrics": {
@@ -23,5 +28,6 @@
     "file_count": 1,
     "function_count": 4,
     "line_count": 57
-  }
+  },
+  "source_summary": "from __future__ import annotations"
 }

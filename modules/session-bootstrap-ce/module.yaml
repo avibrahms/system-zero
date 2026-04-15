@@ -1,8 +1,8 @@
 id: session-bootstrap-ce
 version: 0.1.0
 category: connection-engine
-description: Session Bootstrap reconstructed as a protocol-native self-improvement
-  organ.
+description: Builds a deterministic session-start payload from repo profile, git state,
+  and module health.
 entry:
   type: python
   command: entry.py
@@ -12,12 +12,14 @@ triggers:
 provides:
 - name: ce.session.bootstrap
   address: events:ce.session.bootstrap.snapshot
-  description: Publishes Session Bootstrap reconstruction snapshots.
+  description: Builds a deterministic session-start payload from repo profile, git
+    state, and module health.
 requires:
 - providers:
   - bus
   - memory
   - discovery
+  - storage
 setpoints: {}
 hooks:
   reconcile: reconcile.sh

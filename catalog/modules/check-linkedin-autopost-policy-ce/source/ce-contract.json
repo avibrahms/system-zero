@@ -1,19 +1,24 @@
 {
+  "absorb_workflow": {
+    "source": "sz absorb draft plus deterministic protocol adapter",
+    "status": "materialized_with_functional_hardening"
+  },
   "behaviors": [
-    "observe installed modules through the registry",
-    "publish a deterministic reconstruction snapshot",
-    "record reconstruction state in memory for downstream modules"
+    "read shared content policy and posting markdown files",
+    "verify only approved content is eligible for automated posting",
+    "emit precise policy drift findings without touching account data"
   ],
-  "capability": "ce.check.linkedin.autopost.policy",
-  "event_type": "ce.check.linkedin.autopost.policy.snapshot",
+  "capability": "ce.content.autopost.policy",
+  "event_type": "ce.content.autopost.policy.snapshot",
   "interfaces": [
     "bus",
     "memory",
-    "discovery"
+    "discovery",
+    "storage"
   ],
   "module_id": "check-linkedin-autopost-policy-ce",
-  "public_purpose": "Detect drift in LinkedIn auto-post eligibility and cadence copy.",
-  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "public_purpose": "Checks generic content auto-post policy files for stale eligibility and cadence language.",
+  "reconstruction": "Protocol-native behavior was re-derived from the source candidate and hardened into an anonymized System Zero module.",
   "source_kind": "script",
   "source_label": "core/system/scripts/check_linkedin_autopost_policy.py",
   "source_metrics": {
@@ -23,5 +28,6 @@
     "file_count": 1,
     "function_count": 2,
     "line_count": 85
-  }
+  },
+  "source_summary": "Detect drift in LinkedIn auto-post eligibility and cadence copy."
 }

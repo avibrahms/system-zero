@@ -1,19 +1,24 @@
 {
+  "absorb_workflow": {
+    "source": "sz absorb draft plus deterministic protocol adapter",
+    "status": "materialized_with_functional_hardening"
+  },
   "behaviors": [
-    "observe installed modules through the registry",
-    "publish a deterministic reconstruction snapshot",
-    "record reconstruction state in memory for downstream modules"
+    "parse markdown queue cards from shared content storage",
+    "ignore posted and rejected entries",
+    "compare active queue depth to the configured maximum"
   ],
   "capability": "ce.queue.gate",
   "event_type": "ce.queue.gate.snapshot",
   "interfaces": [
     "bus",
     "memory",
-    "discovery"
+    "discovery",
+    "storage"
   ],
   "module_id": "queue-gate-ce",
-  "public_purpose": "Queue depth gate for content creation tasks.",
-  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "public_purpose": "Counts active ready-queue entries and opens or closes a content-production gate.",
+  "reconstruction": "Protocol-native behavior was re-derived from the source candidate and hardened into an anonymized System Zero module.",
   "source_kind": "script",
   "source_label": "core/system/scripts/queue-gate.py",
   "source_metrics": {
@@ -23,5 +28,6 @@
     "file_count": 1,
     "function_count": 2,
     "line_count": 58
-  }
+  },
+  "source_summary": "Queue depth gate for content creation tasks."
 }

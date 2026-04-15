@@ -1,14 +1,18 @@
 # registry-validator-ce
 
-Registry Validator reconstructed as a protocol-native self-improvement organ.
+Validates the installed System Zero registry, manifests, capabilities, and config.
 
 ## Behavior
 
-On every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.registry.validator.snapshot`, and appends a record to the `ce.reconstruction` memory stream.
+- parse .sz/registry.json and .sz.yaml
+- verify every installed module has a manifest, entrypoint, and declared version
+- report unsatisfied capabilities and missing configured modules
+
+On every tick this module emits `ce.registry.validation.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.
 
 ## Source discipline
 
-The original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
+The source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
 
 ## Install
 

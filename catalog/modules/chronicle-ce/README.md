@@ -1,14 +1,18 @@
 # chronicle-ce
 
-Chronicle reconstructed as a protocol-native self-improvement organ.
+Records recent bus events into a hashed daily chronicle stream.
 
 ## Behavior
 
-On every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.chronicle.snapshot`, and appends a record to the `ce.reconstruction` memory stream.
+- read recent System Zero bus events
+- append normalized events to a daily module-private JSONL chronicle
+- maintain a deterministic hash-chain head for tamper evidence
+
+On every tick this module emits `ce.chronicle.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.
 
 ## Source discipline
 
-The original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
+The source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
 
 ## Install
 

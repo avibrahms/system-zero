@@ -5,7 +5,7 @@
       "id": "action-card-cleanup-ce",
       "version": "0.1.0",
       "category": "connection-engine",
-      "description": "Action Card Cleanup reconstructed as a protocol-native self-improvement organ.",
+      "description": "Archives completed action-card items from shared storage and removes them from the active card.",
       "personas": [
         "static",
         "dynamic"
@@ -21,13 +21,13 @@
         "ref": "main",
         "path": "modules/action-card-cleanup-ce"
       },
-      "readme": "# action-card-cleanup-ce\n\nAction Card Cleanup reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.action.card.cleanup.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install action-card-cleanup-ce\nsz doctor action-card-cleanup-ce\nsz tick --reason action-card-cleanup-ce-smoke\n```\n"
+      "readme": "# action-card-cleanup-ce\n\nArchives completed action-card items from shared storage and removes them from the active card.\n\n## Behavior\n\n- read shared action-card, completion-state, and archive JSON files\n- append completed active items to the permanent archive idempotently\n- remove archived items from the active card and clear completion state\n\nOn every tick this module emits `ce.action.card.cleanup.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install action-card-cleanup-ce\nsz doctor action-card-cleanup-ce\nsz tick --reason action-card-cleanup-ce-smoke\n```\n"
     },
     {
       "id": "agent-dashboard-ce",
       "version": "0.1.0",
       "category": "connection-engine",
-      "description": "Agent Dashboard reconstructed as a protocol-native self-improvement organ.",
+      "description": "Builds a dashboard health snapshot from generic session, action-card, and module state files.",
       "personas": [
         "static",
         "dynamic"
@@ -43,19 +43,19 @@
         "ref": "main",
         "path": "modules/agent-dashboard-ce"
       },
-      "readme": "# agent-dashboard-ce\n\nAgent Dashboard reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.agent.dashboard.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install agent-dashboard-ce\nsz doctor agent-dashboard-ce\nsz tick --reason agent-dashboard-ce-smoke\n```\n"
+      "readme": "# agent-dashboard-ce\n\nBuilds a dashboard health snapshot from generic session, action-card, and module state files.\n\n## Behavior\n\n- read shared dashboard/session JSON if present\n- summarize active tasks, sessions, and installed module health\n- write a module-private dashboard summary for UI adapters\n\nOn every tick this module emits `ce.agent.dashboard.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install agent-dashboard-ce\nsz doctor agent-dashboard-ce\nsz tick --reason agent-dashboard-ce-smoke\n```\n"
     },
     {
       "id": "check-linkedin-autopost-policy-ce",
       "version": "0.1.0",
       "category": "connection-engine",
-      "description": "Check Linkedin Autopost Policy reconstructed as a protocol-native self-improvement organ.",
+      "description": "Checks generic content auto-post policy files for stale eligibility and cadence language.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "ce.check.linkedin.autopost.policy"
+        "ce.content.autopost.policy"
       ],
       "requires": [],
       "setpoints": {},
@@ -65,13 +65,13 @@
         "ref": "main",
         "path": "modules/check-linkedin-autopost-policy-ce"
       },
-      "readme": "# check-linkedin-autopost-policy-ce\n\nCheck Linkedin Autopost Policy reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.check.linkedin.autopost.policy.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install check-linkedin-autopost-policy-ce\nsz doctor check-linkedin-autopost-policy-ce\nsz tick --reason check-linkedin-autopost-policy-ce-smoke\n```\n"
+      "readme": "# check-linkedin-autopost-policy-ce\n\nChecks generic content auto-post policy files for stale eligibility and cadence language.\n\n## Behavior\n\n- read shared content policy and posting markdown files\n- verify only approved content is eligible for automated posting\n- emit precise policy drift findings without touching account data\n\nOn every tick this module emits `ce.content.autopost.policy.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install check-linkedin-autopost-policy-ce\nsz doctor check-linkedin-autopost-policy-ce\nsz tick --reason check-linkedin-autopost-policy-ce-smoke\n```\n"
     },
     {
       "id": "chronicle-ce",
       "version": "0.1.0",
       "category": "connection-engine",
-      "description": "Chronicle reconstructed as a protocol-native self-improvement organ.",
+      "description": "Records recent bus events into a hashed daily chronicle stream.",
       "personas": [
         "static",
         "dynamic"
@@ -87,13 +87,13 @@
         "ref": "main",
         "path": "modules/chronicle-ce"
       },
-      "readme": "# chronicle-ce\n\nChronicle reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.chronicle.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install chronicle-ce\nsz doctor chronicle-ce\nsz tick --reason chronicle-ce-smoke\n```\n"
+      "readme": "# chronicle-ce\n\nRecords recent bus events into a hashed daily chronicle stream.\n\n## Behavior\n\n- read recent System Zero bus events\n- append normalized events to a daily module-private JSONL chronicle\n- maintain a deterministic hash-chain head for tamper evidence\n\nOn every tick this module emits `ce.chronicle.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install chronicle-ce\nsz doctor chronicle-ce\nsz tick --reason chronicle-ce-smoke\n```\n"
     },
     {
       "id": "context-assembler-ce",
       "version": "0.1.0",
       "category": "connection-engine",
-      "description": "Context Assembler reconstructed as a protocol-native self-improvement organ.",
+      "description": "Selects the highest-signal repository files for a task or focus query.",
       "personas": [
         "static",
         "dynamic"
@@ -102,14 +102,33 @@
         "ce.context.assembler"
       ],
       "requires": [],
-      "setpoints": {},
+      "setpoints": {
+        "max_tokens": {
+          "default": 2000,
+          "range": [
+            100,
+            20000
+          ],
+          "description": "Approximate context budget for selected files.",
+          "mode": "simple"
+        },
+        "top_n": {
+          "default": 10,
+          "range": [
+            1,
+            50
+          ],
+          "description": "Maximum number of files to select.",
+          "mode": "simple"
+        }
+      },
       "source": {
         "type": "git",
         "url": "https://github.com/avibrahms/system-zero.git",
         "ref": "main",
         "path": "modules/context-assembler-ce"
       },
-      "readme": "# context-assembler-ce\n\nContext Assembler reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.context.assembler.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install context-assembler-ce\nsz doctor context-assembler-ce\nsz tick --reason context-assembler-ce-smoke\n```\n"
+      "readme": "# context-assembler-ce\n\nSelects the highest-signal repository files for a task or focus query.\n\n## Behavior\n\n- derive a context query from setpoints, environment, or recent tick reasons\n- score repository files by keyword relevance and freshness\n- emit a token-bounded file list for downstream agents\n\nOn every tick this module emits `ce.context.assembler.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install context-assembler-ce\nsz doctor context-assembler-ce\nsz tick --reason context-assembler-ce-smoke\n```\n"
     },
     {
       "id": "dreaming",
@@ -154,13 +173,13 @@
       "id": "eidetic-ce",
       "version": "0.1.0",
       "category": "connection-engine",
-      "description": "Eidetic reconstructed as a protocol-native self-improvement organ.",
+      "description": "Indexes evidence-like repository documents into a compact memory map.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "ce.eidetic"
+        "ce.eidetic.index"
       ],
       "requires": [],
       "setpoints": {},
@@ -170,7 +189,7 @@
         "ref": "main",
         "path": "modules/eidetic-ce"
       },
-      "readme": "# eidetic-ce\n\nEidetic reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.eidetic.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install eidetic-ce\nsz doctor eidetic-ce\nsz tick --reason eidetic-ce-smoke\n```\n"
+      "readme": "# eidetic-ce\n\nIndexes evidence-like repository documents into a compact memory map.\n\n## Behavior\n\n- scan public markdown and document filenames for evidence concepts\n- group evidence surfaces by purpose and file type\n- write a searchable memory index without copying private document text\n\nOn every tick this module emits `ce.eidetic.index.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install eidetic-ce\nsz doctor eidetic-ce\nsz tick --reason eidetic-ce-smoke\n```\n"
     },
     {
       "id": "endocrine",
@@ -297,13 +316,13 @@
       "id": "mcp-server-launcher-ce",
       "version": "0.1.0",
       "category": "connection-engine",
-      "description": "Mcp Server Launcher reconstructed as a protocol-native self-improvement organ.",
+      "description": "Discovers MCP server definitions and produces a launch readiness plan.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "ce.mcp.server.launcher"
+        "ce.mcp.launch.plan"
       ],
       "requires": [],
       "setpoints": {},
@@ -313,7 +332,7 @@
         "ref": "main",
         "path": "modules/mcp-server-launcher-ce"
       },
-      "readme": "# mcp-server-launcher-ce\n\nMcp Server Launcher reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.mcp.server.launcher.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install mcp-server-launcher-ce\nsz doctor mcp-server-launcher-ce\nsz tick --reason mcp-server-launcher-ce-smoke\n```\n"
+      "readme": "# mcp-server-launcher-ce\n\nDiscovers MCP server definitions and produces a launch readiness plan.\n\n## Behavior\n\n- find MCP config files and server scripts in the repository\n- classify servers as launchable, missing command, or config-only\n- emit a deterministic launch plan instead of starting long-running processes\n\nOn every tick this module emits `ce.mcp.launch.plan.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install mcp-server-launcher-ce\nsz doctor mcp-server-launcher-ce\nsz tick --reason mcp-server-launcher-ce-smoke\n```\n"
     },
     {
       "id": "metabolism",
@@ -395,7 +414,7 @@
       "id": "queue-gate-ce",
       "version": "0.1.0",
       "category": "connection-engine",
-      "description": "Queue Gate reconstructed as a protocol-native self-improvement organ.",
+      "description": "Counts active ready-queue entries and opens or closes a content-production gate.",
       "personas": [
         "static",
         "dynamic"
@@ -404,26 +423,36 @@
         "ce.queue.gate"
       ],
       "requires": [],
-      "setpoints": {},
+      "setpoints": {
+        "max_depth": {
+          "default": 15,
+          "range": [
+            0,
+            500
+          ],
+          "description": "Maximum active queue entries before the gate closes.",
+          "mode": "simple"
+        }
+      },
       "source": {
         "type": "git",
         "url": "https://github.com/avibrahms/system-zero.git",
         "ref": "main",
         "path": "modules/queue-gate-ce"
       },
-      "readme": "# queue-gate-ce\n\nQueue Gate reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.queue.gate.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install queue-gate-ce\nsz doctor queue-gate-ce\nsz tick --reason queue-gate-ce-smoke\n```\n"
+      "readme": "# queue-gate-ce\n\nCounts active ready-queue entries and opens or closes a content-production gate.\n\n## Behavior\n\n- parse markdown queue cards from shared content storage\n- ignore posted and rejected entries\n- compare active queue depth to the configured maximum\n\nOn every tick this module emits `ce.queue.gate.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install queue-gate-ce\nsz doctor queue-gate-ce\nsz tick --reason queue-gate-ce-smoke\n```\n"
     },
     {
       "id": "registry-validator-ce",
       "version": "0.1.0",
       "category": "connection-engine",
-      "description": "Registry Validator reconstructed as a protocol-native self-improvement organ.",
+      "description": "Validates the installed System Zero registry, manifests, capabilities, and config.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "ce.registry.validator"
+        "ce.registry.validation"
       ],
       "requires": [],
       "setpoints": {},
@@ -433,19 +462,19 @@
         "ref": "main",
         "path": "modules/registry-validator-ce"
       },
-      "readme": "# registry-validator-ce\n\nRegistry Validator reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.registry.validator.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install registry-validator-ce\nsz doctor registry-validator-ce\nsz tick --reason registry-validator-ce-smoke\n```\n"
+      "readme": "# registry-validator-ce\n\nValidates the installed System Zero registry, manifests, capabilities, and config.\n\n## Behavior\n\n- parse .sz/registry.json and .sz.yaml\n- verify every installed module has a manifest, entrypoint, and declared version\n- report unsatisfied capabilities and missing configured modules\n\nOn every tick this module emits `ce.registry.validation.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install registry-validator-ce\nsz doctor registry-validator-ce\nsz tick --reason registry-validator-ce-smoke\n```\n"
     },
     {
       "id": "rollback-email-verification-ce",
       "version": "0.1.0",
       "category": "connection-engine",
-      "description": "Rollback Email Verification reconstructed as a protocol-native self-improvement organ.",
+      "description": "Removes generic email verification artifacts from shared System Zero storage.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "ce.rollback.email.verification"
+        "ce.email.verification.rollback"
       ],
       "requires": [],
       "setpoints": {},
@@ -455,19 +484,19 @@
         "ref": "main",
         "path": "modules/rollback-email-verification-ce"
       },
-      "readme": "# rollback-email-verification-ce\n\nRollback Email Verification reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.rollback.email.verification.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install rollback-email-verification-ce\nsz doctor rollback-email-verification-ce\nsz tick --reason rollback-email-verification-ce-smoke\n```\n"
+      "readme": "# rollback-email-verification-ce\n\nRemoves generic email verification artifacts from shared System Zero storage.\n\n## Behavior\n\n- delete verification outcome files created by draft checks\n- remove matching verifier entries from external output logs\n- remove matching intercepted email signal records idempotently\n\nOn every tick this module emits `ce.email.verification.rollback.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install rollback-email-verification-ce\nsz doctor rollback-email-verification-ce\nsz tick --reason rollback-email-verification-ce-smoke\n```\n"
     },
     {
       "id": "sentinel-ce",
       "version": "0.1.0",
       "category": "connection-engine",
-      "description": "Sentinel reconstructed as a protocol-native self-improvement organ.",
+      "description": "Scans repository files for common secret, config, and safety findings.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "ce.sentinel"
+        "ce.sentinel.scan"
       ],
       "requires": [],
       "setpoints": {},
@@ -477,13 +506,13 @@
         "ref": "main",
         "path": "modules/sentinel-ce"
       },
-      "readme": "# sentinel-ce\n\nSentinel reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.sentinel.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install sentinel-ce\nsz doctor sentinel-ce\nsz tick --reason sentinel-ce-smoke\n```\n"
+      "readme": "# sentinel-ce\n\nScans repository files for common secret, config, and safety findings.\n\n## Behavior\n\n- scan text files with bounded traversal\n- detect secret-shaped tokens without storing the token values\n- emit severity-tagged security and configuration findings\n\nOn every tick this module emits `ce.sentinel.scan.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install sentinel-ce\nsz doctor sentinel-ce\nsz tick --reason sentinel-ce-smoke\n```\n"
     },
     {
       "id": "session-bootstrap-ce",
       "version": "0.1.0",
       "category": "connection-engine",
-      "description": "Session Bootstrap reconstructed as a protocol-native self-improvement organ.",
+      "description": "Builds a deterministic session-start payload from repo profile, git state, and module health.",
       "personas": [
         "static",
         "dynamic"
@@ -499,13 +528,13 @@
         "ref": "main",
         "path": "modules/session-bootstrap-ce"
       },
-      "readme": "# session-bootstrap-ce\n\nSession Bootstrap reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.session.bootstrap.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install session-bootstrap-ce\nsz doctor session-bootstrap-ce\nsz tick --reason session-bootstrap-ce-smoke\n```\n"
+      "readme": "# session-bootstrap-ce\n\nBuilds a deterministic session-start payload from repo profile, git state, and module health.\n\n## Behavior\n\n- read repo profile and installed module registry\n- capture current branch and dirty-file counts when git is available\n- write a module-private session bootstrap payload\n\nOn every tick this module emits `ce.session.bootstrap.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install session-bootstrap-ce\nsz doctor session-bootstrap-ce\nsz tick --reason session-bootstrap-ce-smoke\n```\n"
     },
     {
       "id": "skill-library-ce",
       "version": "0.1.0",
       "category": "connection-engine-skills",
-      "description": "Sanitized recursive-question skill library reconstructed as a protocol module.",
+      "description": "Exposes the sanitized recursive-question skill catalog as a queryable module.",
       "personas": [
         "static",
         "dynamic"
@@ -521,13 +550,13 @@
         "ref": "main",
         "path": "modules/skill-library-ce"
       },
-      "readme": "# skill-library-ce\n\nSanitized recursive-question skill library reconstructed as a protocol module.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.skill.library.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install skill-library-ce\nsz doctor skill-library-ce\nsz tick --reason skill-library-ce-smoke\n```\n"
+      "readme": "# skill-library-ce\n\nExposes the sanitized recursive-question skill catalog as a queryable module.\n\n## Behavior\n\n- load sanitized skill contracts from source/skills.json\n- count skills and match them against the current query\n- publish a digest so downstream modules can detect library changes\n\nOn every tick this module emits `ce.skill.library.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install skill-library-ce\nsz doctor skill-library-ce\nsz tick --reason skill-library-ce-smoke\n```\n"
     },
     {
       "id": "spec-dependency-graph-ce",
       "version": "0.1.0",
       "category": "connection-engine",
-      "description": "Spec Dependency Graph reconstructed as a protocol-native self-improvement organ.",
+      "description": "Builds a dependency graph from phase and workflow specification documents.",
       "personas": [
         "static",
         "dynamic"
@@ -543,13 +572,13 @@
         "ref": "main",
         "path": "modules/spec-dependency-graph-ce"
       },
-      "readme": "# spec-dependency-graph-ce\n\nSpec Dependency Graph reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.spec.dependency.graph.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install spec-dependency-graph-ce\nsz doctor spec-dependency-graph-ce\nsz tick --reason spec-dependency-graph-ce-smoke\n```\n"
+      "readme": "# spec-dependency-graph-ce\n\nBuilds a dependency graph from phase and workflow specification documents.\n\n## Behavior\n\n- discover phase plan and workflow specification files\n- extract references between phases, specs, and protocol documents\n- detect broken references and cycles in the extracted graph\n\nOn every tick this module emits `ce.spec.dependency.graph.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install spec-dependency-graph-ce\nsz doctor spec-dependency-graph-ce\nsz tick --reason spec-dependency-graph-ce-smoke\n```\n"
     },
     {
       "id": "spec-lint-ce",
       "version": "0.1.0",
       "category": "connection-engine",
-      "description": "Spec Lint reconstructed as a protocol-native self-improvement organ.",
+      "description": "Lints System Zero plan and protocol specs for required sections and stale placeholders.",
       "personas": [
         "static",
         "dynamic"
@@ -565,13 +594,13 @@
         "ref": "main",
         "path": "modules/spec-lint-ce"
       },
-      "readme": "# spec-lint-ce\n\nSpec Lint reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.spec.lint.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install spec-lint-ce\nsz doctor spec-lint-ce\nsz tick --reason spec-lint-ce-smoke\n```\n"
+      "readme": "# spec-lint-ce\n\nLints System Zero plan and protocol specs for required sections and stale placeholders.\n\n## Behavior\n\n- read phase plans, protocol docs, and shared spec fixtures\n- check required headings, acceptance criteria, and unresolved placeholders\n- emit lint errors and warnings with file-level counts\n\nOn every tick this module emits `ce.spec.lint.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install spec-lint-ce\nsz doctor spec-lint-ce\nsz tick --reason spec-lint-ce-smoke\n```\n"
     },
     {
       "id": "start-preamble-ce",
       "version": "0.1.0",
       "category": "connection-engine",
-      "description": "Start Preamble reconstructed as a protocol-native self-improvement organ.",
+      "description": "Generates a compact start-preamble from current session and reference-stack state.",
       "personas": [
         "static",
         "dynamic"
@@ -587,7 +616,7 @@
         "ref": "main",
         "path": "modules/start-preamble-ce"
       },
-      "readme": "# start-preamble-ce\n\nStart Preamble reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.start.preamble.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install start-preamble-ce\nsz doctor start-preamble-ce\nsz tick --reason start-preamble-ce-smoke\n```\n"
+      "readme": "# start-preamble-ce\n\nGenerates a compact start-preamble from current session and reference-stack state.\n\n## Behavior\n\n- read repo profile goals and registry state\n- combine module health, dirty-file count, and recent events\n- write a concise preamble payload for the next operator session\n\nOn every tick this module emits `ce.start.preamble.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install start-preamble-ce\nsz doctor start-preamble-ce\nsz tick --reason start-preamble-ce-smoke\n```\n"
     },
     {
       "id": "subconscious",
@@ -634,13 +663,13 @@
       "id": "system-zero-ce",
       "version": "0.1.0",
       "category": "connection-engine",
-      "description": "System Zero reconstructed as a protocol-native self-improvement organ.",
+      "description": "Audits the local System Zero installation and reconstructed stack readiness.",
       "personas": [
         "static",
         "dynamic"
       ],
       "provides": [
-        "ce.system.zero"
+        "ce.system.zero.audit"
       ],
       "requires": [],
       "setpoints": {},
@@ -650,7 +679,7 @@
         "ref": "main",
         "path": "modules/system-zero-ce"
       },
-      "readme": "# system-zero-ce\n\nSystem Zero reconstructed as a protocol-native self-improvement organ.\n\n## Behavior\n\nOn every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.system.zero.snapshot`, and appends a record to the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install system-zero-ce\nsz doctor system-zero-ce\nsz tick --reason system-zero-ce-smoke\n```\n"
+      "readme": "# system-zero-ce\n\nAudits the local System Zero installation and reconstructed stack readiness.\n\n## Behavior\n\n- check .sz.yaml, .sz/registry.json, bus, memory, and installed modules\n- summarize protocol readiness without calling external services\n- emit concrete remediation hints for missing runtime pieces\n\nOn every tick this module emits `ce.system.zero.audit.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.\n\n## Source discipline\n\nThe source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.\n\n## Install\n\n```bash\nsz install system-zero-ce\nsz doctor system-zero-ce\nsz tick --reason system-zero-ce-smoke\n```\n"
     }
   ]
 }

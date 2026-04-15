@@ -1,19 +1,24 @@
 {
+  "absorb_workflow": {
+    "source": "sz absorb draft plus deterministic protocol adapter",
+    "status": "materialized_with_functional_hardening"
+  },
   "behaviors": [
-    "observe installed modules through the registry",
-    "publish a deterministic reconstruction snapshot",
-    "record reconstruction state in memory for downstream modules"
+    "read repo profile goals and registry state",
+    "combine module health, dirty-file count, and recent events",
+    "write a concise preamble payload for the next operator session"
   ],
   "capability": "ce.start.preamble",
   "event_type": "ce.start.preamble.snapshot",
   "interfaces": [
     "bus",
     "memory",
-    "discovery"
+    "discovery",
+    "storage"
   ],
   "module_id": "start-preamble-ce",
-  "public_purpose": "Compatibility wrapper for the canonical session bootstrap runtime.",
-  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "public_purpose": "Generates a compact start-preamble from current session and reference-stack state.",
+  "reconstruction": "Protocol-native behavior was re-derived from the source candidate and hardened into an anonymized System Zero module.",
   "source_kind": "script",
   "source_label": "core/system/scripts/start-preamble.py",
   "source_metrics": {
@@ -23,5 +28,6 @@
     "file_count": 1,
     "function_count": 0,
     "line_count": 8
-  }
+  },
+  "source_summary": "Compatibility wrapper for the canonical session bootstrap runtime."
 }

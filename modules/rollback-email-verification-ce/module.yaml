@@ -1,8 +1,8 @@
 id: rollback-email-verification-ce
 version: 0.1.0
 category: connection-engine
-description: Rollback Email Verification reconstructed as a protocol-native self-improvement
-  organ.
+description: Removes generic email verification artifacts from shared System Zero
+  storage.
 entry:
   type: python
   command: entry.py
@@ -10,14 +10,16 @@ entry:
 triggers:
 - 'on': tick
 provides:
-- name: ce.rollback.email.verification
-  address: events:ce.rollback.email.verification.snapshot
-  description: Publishes Rollback Email Verification reconstruction snapshots.
+- name: ce.email.verification.rollback
+  address: events:ce.email.verification.rollback.snapshot
+  description: Removes generic email verification artifacts from shared System Zero
+    storage.
 requires:
 - providers:
   - bus
   - memory
   - discovery
+  - storage
 setpoints: {}
 hooks:
   reconcile: reconcile.sh

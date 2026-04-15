@@ -1,19 +1,24 @@
 {
+  "absorb_workflow": {
+    "source": "sz absorb draft plus deterministic protocol adapter",
+    "status": "materialized_with_functional_hardening"
+  },
   "behaviors": [
-    "observe installed modules through the registry",
-    "publish a deterministic reconstruction snapshot",
-    "record reconstruction state in memory for downstream modules"
+    "scan text files with bounded traversal",
+    "detect secret-shaped tokens without storing the token values",
+    "emit severity-tagged security and configuration findings"
   ],
-  "capability": "ce.sentinel",
-  "event_type": "ce.sentinel.snapshot",
+  "capability": "ce.sentinel.scan",
+  "event_type": "ce.sentinel.scan.snapshot",
   "interfaces": [
     "bus",
     "memory",
-    "discovery"
+    "discovery",
+    "storage"
   ],
   "module_id": "sentinel-ce",
-  "public_purpose": "keywords: security, scanning, secrets, SAST, dependencies, vulnerabilities, model-agnostic",
-  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "public_purpose": "Scans repository files for common secret, config, and safety findings.",
+  "reconstruction": "Protocol-native behavior was re-derived from the source candidate and hardened into an anonymized System Zero module.",
   "source_kind": "module-dir",
   "source_label": "modules/sentinel",
   "source_metrics": {
@@ -27,5 +32,6 @@
     "file_count": 22,
     "function_count": 86,
     "line_count": 5213
-  }
+  },
+  "source_summary": "keywords: security, scanning, secrets, SAST, dependencies, vulnerabilities, model-agnostic"
 }

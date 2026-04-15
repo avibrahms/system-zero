@@ -1,7 +1,7 @@
 id: chronicle-ce
 version: 0.1.0
 category: connection-engine
-description: Chronicle reconstructed as a protocol-native self-improvement organ.
+description: Records recent bus events into a hashed daily chronicle stream.
 entry:
   type: python
   command: entry.py
@@ -11,12 +11,13 @@ triggers:
 provides:
 - name: ce.chronicle
   address: events:ce.chronicle.snapshot
-  description: Publishes Chronicle reconstruction snapshots.
+  description: Records recent bus events into a hashed daily chronicle stream.
 requires:
 - providers:
   - bus
   - memory
   - discovery
+  - storage
 setpoints: {}
 hooks:
   reconcile: reconcile.sh

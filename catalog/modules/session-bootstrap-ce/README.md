@@ -1,14 +1,18 @@
 # session-bootstrap-ce
 
-Session Bootstrap reconstructed as a protocol-native self-improvement organ.
+Builds a deterministic session-start payload from repo profile, git state, and module health.
 
 ## Behavior
 
-On every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.session.bootstrap.snapshot`, and appends a record to the `ce.reconstruction` memory stream.
+- read repo profile and installed module registry
+- capture current branch and dirty-file counts when git is available
+- write a module-private session bootstrap payload
+
+On every tick this module emits `ce.session.bootstrap.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.
 
 ## Source discipline
 
-The original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
+The source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
 
 ## Install
 

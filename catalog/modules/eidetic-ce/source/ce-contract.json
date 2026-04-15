@@ -1,31 +1,36 @@
 {
+  "absorb_workflow": {
+    "source": "sz absorb draft plus deterministic protocol adapter",
+    "status": "materialized_with_functional_hardening"
+  },
   "behaviors": [
-    "observe installed modules through the registry",
-    "publish a deterministic reconstruction snapshot",
-    "record reconstruction state in memory for downstream modules"
+    "scan public markdown and document filenames for evidence concepts",
+    "group evidence surfaces by purpose and file type",
+    "write a searchable memory index without copying private document text"
   ],
-  "capability": "ce.eidetic",
-  "event_type": "ce.eidetic.snapshot",
+  "capability": "ce.eidetic.index",
+  "event_type": "ce.eidetic.index.snapshot",
   "interfaces": [
     "bus",
     "memory",
-    "discovery"
+    "discovery",
+    "storage"
   ],
   "module_id": "eidetic-ce",
-  "public_purpose": "todoist_project: \"Eidetic\"",
-  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "public_purpose": "Indexes evidence-like repository documents into a compact memory map.",
+  "reconstruction": "Protocol-native behavior was re-derived from the source candidate and hardened into an anonymized System Zero module.",
   "source_kind": "module-dir",
   "source_label": "modules/eidetic",
   "source_metrics": {
     "extensions": {
       ".bak": 1,
-      ".docx": 1,
       ".html": 1,
       ".md": 33,
       ".yaml": 3
     },
-    "file_count": 39,
+    "file_count": 38,
     "function_count": 0,
-    "line_count": 6416
-  }
+    "line_count": 5695
+  },
+  "source_summary": "todoist_project: \"Eidetic\""
 }

@@ -1,8 +1,8 @@
 id: action-card-cleanup-ce
 version: 0.1.0
 category: connection-engine
-description: Action Card Cleanup reconstructed as a protocol-native self-improvement
-  organ.
+description: Archives completed action-card items from shared storage and removes
+  them from the active card.
 entry:
   type: python
   command: entry.py
@@ -12,12 +12,14 @@ triggers:
 provides:
 - name: ce.action.card.cleanup
   address: events:ce.action.card.cleanup.snapshot
-  description: Publishes Action Card Cleanup reconstruction snapshots.
+  description: Archives completed action-card items from shared storage and removes
+    them from the active card.
 requires:
 - providers:
   - bus
   - memory
   - discovery
+  - storage
 setpoints: {}
 hooks:
   reconcile: reconcile.sh

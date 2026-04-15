@@ -1,14 +1,18 @@
 # sentinel-ce
 
-Sentinel reconstructed as a protocol-native self-improvement organ.
+Scans repository files for common secret, config, and safety findings.
 
 ## Behavior
 
-On every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.sentinel.snapshot`, and appends a record to the `ce.reconstruction` memory stream.
+- scan text files with bounded traversal
+- detect secret-shaped tokens without storing the token values
+- emit severity-tagged security and configuration findings
+
+On every tick this module emits `ce.sentinel.scan.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.
 
 ## Source discipline
 
-The original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
+The source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
 
 ## Install
 

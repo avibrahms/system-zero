@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 python3 - <<'PY'
-import json, os, re, sys
+import json, os, re
 from pathlib import Path
 import yaml
 module = Path(os.environ["SZ_MODULE_DIR"])
@@ -13,6 +13,8 @@ if missing:
 contract = json.loads((module / "source" / "ce-contract.json").read_text())
 if contract.get("module_id") != manifest.get("id"):
     raise SystemExit("contract module_id does not match manifest id")
+if not contract.get("behaviors") or len(set(contract.get("behaviors", []))) < 2:
+    raise SystemExit("contract lacks module-specific behaviors")
 first_name = "av" + "i"
 upper_token = "AV" + "I"
 product_token = "viral" + "epic"

@@ -1,19 +1,24 @@
 {
+  "absorb_workflow": {
+    "source": "sz absorb draft plus deterministic protocol adapter",
+    "status": "materialized_with_functional_hardening"
+  },
   "behaviors": [
-    "observe installed modules through the registry",
-    "publish a deterministic reconstruction snapshot",
-    "record reconstruction state in memory for downstream modules"
+    "read shared action-card, completion-state, and archive JSON files",
+    "append completed active items to the permanent archive idempotently",
+    "remove archived items from the active card and clear completion state"
   ],
   "capability": "ce.action.card.cleanup",
   "event_type": "ce.action.card.cleanup.snapshot",
   "interfaces": [
     "bus",
     "memory",
-    "discovery"
+    "discovery",
+    "storage"
   ],
   "module_id": "action-card-cleanup-ce",
-  "public_purpose": "Action Card Cleanup \u2014 archives completed items and cleans the active card.",
-  "reconstruction": "Private source was reduced to a protocol-safe contract; raw operator paths and personal content are not shipped.",
+  "public_purpose": "Archives completed action-card items from shared storage and removes them from the active card.",
+  "reconstruction": "Protocol-native behavior was re-derived from the source candidate and hardened into an anonymized System Zero module.",
   "source_kind": "script",
   "source_label": "core/system/scripts/action-card-cleanup.py",
   "source_metrics": {
@@ -23,5 +28,6 @@
     "file_count": 1,
     "function_count": 3,
     "line_count": 105
-  }
+  },
+  "source_summary": "Action Card Cleanup \u2014 archives completed items and cleans the active card."
 }

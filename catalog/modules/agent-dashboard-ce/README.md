@@ -1,14 +1,18 @@
 # agent-dashboard-ce
 
-Agent Dashboard reconstructed as a protocol-native self-improvement organ.
+Builds a dashboard health snapshot from generic session, action-card, and module state files.
 
 ## Behavior
 
-On every tick this module reads its sanitized reconstruction contract, observes the current System Zero registry, emits `ce.agent.dashboard.snapshot`, and appends a record to the `ce.reconstruction` memory stream.
+- read shared dashboard/session JSON if present
+- summarize active tasks, sessions, and installed module health
+- write a module-private dashboard summary for UI adapters
+
+On every tick this module emits `ce.agent.dashboard.snapshot` with module-specific outcome fields and records the same outcome in the `ce.reconstruction` memory stream.
 
 ## Source discipline
 
-The original connection-engine source was reduced to anonymized behavior, metrics, and interface contracts. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
+The source candidate was reconstructed into protocol-native behavior. No private paths, operator identity, account data, product registry, or personal workflow content is shipped.
 
 ## Install
 

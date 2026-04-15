@@ -6,7 +6,7 @@
     "category": "keep",
     "processed_as": "agent-dashboard-ce",
     "reconstruction_status": "absorbed",
-    "phase16_note": "absorbed as an anonymized protocol-native module with source-derived behavior contract"
+    "phase16_note": "absorbed via protocol draft and hardened into a functional anonymized module"
   },
   {
     "kind": "module-dir",
@@ -31,7 +31,7 @@
     "category": "keep",
     "processed_as": "chronicle-ce",
     "reconstruction_status": "absorbed",
-    "phase16_note": "absorbed as an anonymized protocol-native module with source-derived behavior contract"
+    "phase16_note": "absorbed via protocol draft and hardened into a functional anonymized module"
   },
   {
     "kind": "module-dir",
@@ -40,7 +40,7 @@
     "category": "keep",
     "processed_as": "eidetic-ce",
     "reconstruction_status": "absorbed",
-    "phase16_note": "absorbed as an anonymized protocol-native module with source-derived behavior contract"
+    "phase16_note": "absorbed via protocol draft and hardened into a functional anonymized module"
   },
   {
     "kind": "module-dir",
@@ -97,7 +97,7 @@
     "category": "keep",
     "processed_as": "sentinel-ce",
     "reconstruction_status": "absorbed",
-    "phase16_note": "absorbed as an anonymized protocol-native module with source-derived behavior contract"
+    "phase16_note": "absorbed via protocol draft and hardened into a functional anonymized module"
   },
   {
     "kind": "module-dir",
@@ -105,7 +105,7 @@
     "path": "/Users/avi/Documents/Misc/connection-engine/modules/solo-venture",
     "category": "skip",
     "reconstruction_status": "skipped",
-    "phase16_note": "operator solo-business operating system; excluded from public reconstruction"
+    "phase16_note": "operator venture portfolio; excluded from public reconstruction"
   },
   {
     "kind": "module-dir",
@@ -114,7 +114,7 @@
     "category": "keep",
     "processed_as": "system-zero-ce",
     "reconstruction_status": "absorbed",
-    "phase16_note": "absorbed as an anonymized protocol-native module with source-derived behavior contract"
+    "phase16_note": "absorbed via protocol draft and hardened into a functional anonymized module"
   },
   {
     "kind": "module-dir",
@@ -131,7 +131,7 @@
     "category": "keep",
     "processed_as": "action-card-cleanup-ce",
     "reconstruction_status": "absorbed",
-    "phase16_note": "absorbed as an anonymized protocol-native module with source-derived behavior contract"
+    "phase16_note": "absorbed via protocol draft and hardened into a functional anonymized module"
   },
   {
     "kind": "script",
@@ -140,7 +140,7 @@
     "category": "keep",
     "processed_as": "check-linkedin-autopost-policy-ce",
     "reconstruction_status": "absorbed",
-    "phase16_note": "absorbed as an anonymized protocol-native module with source-derived behavior contract"
+    "phase16_note": "absorbed via protocol draft and hardened into a functional anonymized module"
   },
   {
     "kind": "script",
@@ -149,7 +149,7 @@
     "category": "keep",
     "processed_as": "context-assembler-ce",
     "reconstruction_status": "absorbed",
-    "phase16_note": "absorbed as an anonymized protocol-native module with source-derived behavior contract"
+    "phase16_note": "absorbed via protocol draft and hardened into a functional anonymized module"
   },
   {
     "kind": "script",
@@ -158,7 +158,7 @@
     "category": "keep",
     "processed_as": "mcp-server-launcher-ce",
     "reconstruction_status": "absorbed",
-    "phase16_note": "absorbed as an anonymized protocol-native module with source-derived behavior contract"
+    "phase16_note": "absorbed via protocol draft and hardened into a functional anonymized module"
   },
   {
     "kind": "script",
@@ -175,7 +175,7 @@
     "category": "keep",
     "processed_as": "queue-gate-ce",
     "reconstruction_status": "absorbed",
-    "phase16_note": "absorbed as an anonymized protocol-native module with source-derived behavior contract"
+    "phase16_note": "absorbed via protocol draft and hardened into a functional anonymized module"
   },
   {
     "kind": "script",
@@ -184,7 +184,7 @@
     "category": "keep",
     "processed_as": "registry-validator-ce",
     "reconstruction_status": "absorbed",
-    "phase16_note": "absorbed as an anonymized protocol-native module with source-derived behavior contract"
+    "phase16_note": "absorbed via protocol draft and hardened into a functional anonymized module"
   },
   {
     "kind": "script",
@@ -193,7 +193,7 @@
     "category": "keep",
     "processed_as": "rollback-email-verification-ce",
     "reconstruction_status": "absorbed",
-    "phase16_note": "absorbed as an anonymized protocol-native module with source-derived behavior contract"
+    "phase16_note": "absorbed via protocol draft and hardened into a functional anonymized module"
   },
   {
     "kind": "script",
@@ -202,7 +202,7 @@
     "category": "keep",
     "processed_as": "session-bootstrap-ce",
     "reconstruction_status": "absorbed",
-    "phase16_note": "absorbed as an anonymized protocol-native module with source-derived behavior contract"
+    "phase16_note": "absorbed via protocol draft and hardened into a functional anonymized module"
   },
   {
     "kind": "script",
@@ -211,7 +211,7 @@
     "category": "keep",
     "processed_as": "spec-dependency-graph-ce",
     "reconstruction_status": "absorbed",
-    "phase16_note": "absorbed as an anonymized protocol-native module with source-derived behavior contract"
+    "phase16_note": "absorbed via protocol draft and hardened into a functional anonymized module"
   },
   {
     "kind": "script",
@@ -220,7 +220,7 @@
     "category": "keep",
     "processed_as": "spec-lint-ce",
     "reconstruction_status": "absorbed",
-    "phase16_note": "absorbed as an anonymized protocol-native module with source-derived behavior contract"
+    "phase16_note": "absorbed via protocol draft and hardened into a functional anonymized module"
   },
   {
     "kind": "script",
@@ -229,7 +229,7 @@
     "category": "keep",
     "processed_as": "start-preamble-ce",
     "reconstruction_status": "absorbed",
-    "phase16_note": "absorbed as an anonymized protocol-native module with source-derived behavior contract"
+    "phase16_note": "absorbed via protocol draft and hardened into a functional anonymized module"
   },
   {
     "kind": "skill",
@@ -238,7 +238,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -247,7 +247,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -256,7 +256,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -265,7 +265,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -274,7 +274,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -283,7 +283,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -292,7 +292,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -301,7 +301,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -310,7 +310,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -319,7 +319,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -328,7 +328,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -337,7 +337,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -346,7 +346,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -355,7 +355,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -364,7 +364,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -373,7 +373,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -382,7 +382,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -391,7 +391,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -400,7 +400,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -409,7 +409,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -418,7 +418,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -427,7 +427,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -436,7 +436,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -445,7 +445,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -454,7 +454,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -463,7 +463,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -472,7 +472,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -481,7 +481,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -490,7 +490,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -499,7 +499,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -508,7 +508,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -517,7 +517,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -526,7 +526,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -535,7 +535,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -544,7 +544,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -553,7 +553,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -562,7 +562,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -571,7 +571,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -580,7 +580,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -589,7 +589,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -598,7 +598,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -607,7 +607,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -616,7 +616,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -625,7 +625,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -634,7 +634,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -643,7 +643,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -652,7 +652,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -661,7 +661,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -670,7 +670,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -679,7 +679,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -688,7 +688,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -697,7 +697,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -706,7 +706,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -715,7 +715,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -724,7 +724,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -733,7 +733,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -742,7 +742,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -751,7 +751,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -760,7 +760,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -769,7 +769,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -778,7 +778,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -787,7 +787,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -796,7 +796,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -805,7 +805,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -814,7 +814,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -823,7 +823,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -832,7 +832,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -841,7 +841,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -850,7 +850,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -859,7 +859,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -868,7 +868,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -877,7 +877,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -886,7 +886,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -895,7 +895,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -904,7 +904,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -913,7 +913,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -922,7 +922,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -931,7 +931,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -940,7 +940,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -949,7 +949,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -958,7 +958,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -967,7 +967,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -976,7 +976,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -985,7 +985,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -994,7 +994,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1003,7 +1003,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1012,7 +1012,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1021,7 +1021,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1030,7 +1030,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1039,7 +1039,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1048,7 +1048,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1057,7 +1057,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1066,7 +1066,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1075,7 +1075,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1084,7 +1084,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1093,7 +1093,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1102,7 +1102,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1111,7 +1111,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1120,7 +1120,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1129,7 +1129,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1138,7 +1138,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1147,7 +1147,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1156,7 +1156,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1165,7 +1165,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1174,7 +1174,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1183,7 +1183,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1192,7 +1192,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1201,7 +1201,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1210,7 +1210,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1219,7 +1219,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1228,7 +1228,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1237,7 +1237,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1246,7 +1246,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1255,7 +1255,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1264,7 +1264,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1273,7 +1273,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1282,7 +1282,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1291,7 +1291,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1300,7 +1300,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1309,7 +1309,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1318,7 +1318,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1327,7 +1327,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1336,7 +1336,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1345,7 +1345,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1354,7 +1354,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1363,7 +1363,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1372,7 +1372,7 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   },
   {
     "kind": "skill",
@@ -1381,6 +1381,6 @@
     "category": "rewrite",
     "processed_as": "skill-library-ce",
     "reconstruction_status": "rewritten",
-    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract; raw home-template prompt was not copied"
+    "phase16_note": "rewritten into skill-library-ce as a sanitized public skill contract"
   }
 ]

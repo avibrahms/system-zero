@@ -1,7 +1,8 @@
 id: start-preamble-ce
 version: 0.1.0
 category: connection-engine
-description: Start Preamble reconstructed as a protocol-native self-improvement organ.
+description: Generates a compact start-preamble from current session and reference-stack
+  state.
 entry:
   type: python
   command: entry.py
@@ -11,12 +12,14 @@ triggers:
 provides:
 - name: ce.start.preamble
   address: events:ce.start.preamble.snapshot
-  description: Publishes Start Preamble reconstruction snapshots.
+  description: Generates a compact start-preamble from current session and reference-stack
+    state.
 requires:
 - providers:
   - bus
   - memory
   - discovery
+  - storage
 setpoints: {}
 hooks:
   reconcile: reconcile.sh
