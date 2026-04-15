@@ -23,7 +23,35 @@ trap 'rm -f "$TGZ"' EXIT
 NPM_PREFIX="$TMP/npm"
 mkdir -p "$NPM_PREFIX"
 PIPX_HOME="$TMP/pipx3" PIPX_BIN_DIR="$TMP/bin3" PATH="$TMP/bin3:$PATH" SYSTEM_ZERO_WHEEL="$WHEEL" npm i -g --prefix "$NPM_PREFIX" "$TGZ"
-PATH="$TMP/bin3:$PATH" "$NPM_PREFIX/bin/sz" --version | grep -q "0.1.0" && record "channel: npm" pass "$TGZ" || record "channel: npm" fail ""
+NPM_CONFIG="$(npm root -g --prefix "$NPM_PREFIX")/system-zero/.system-zero-cli.json"
+CLI_REAL=$(python3 -c 'import os, sys; print(os.path.realpath(sys.argv[1]))' "$TMP/bin3/sz")
+jq -e --arg cli "$CLI_REAL" '.cliPath == $cli' "$NPM_CONFIG" >/dev/null && record "channel: npm cli path" pass "$NPM_CONFIG" || record "channel: npm cli path" fail "$NPM_CONFIG"
+if NPM_OUTPUT=$(PATH="$NPM_PREFIX/bin:$TMP/bin3:$PATH" python3 - "$NPM_PREFIX/bin/sz" <<'PY'
+import os
+import subprocess
+import sys
+
+try:
+    result = subprocess.run(
+        [sys.argv[1], "--version"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        timeout=10,
+        env=os.environ,
+    )
+except subprocess.TimeoutExpired:
+    print("npm wrapper timed out; possible recursive sz resolution")
+    sys.exit(124)
+
+print(result.stdout, end="")
+sys.exit(result.returncode)
+PY
+); then
+  echo "$NPM_OUTPUT" | grep -q "0.1.0" && record "channel: npm" pass "$TGZ" || record "channel: npm" fail "$NPM_OUTPUT"
+else
+  record "channel: npm" fail "$NPM_OUTPUT"
+fi
 
 echo "$results" | jq . > "$REPORT"
 echo "Channels report at $REPORT"

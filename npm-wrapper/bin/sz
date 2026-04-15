@@ -1,4 +1,63 @@
 #!/usr/bin/env node
 const { spawnSync } = require('child_process');
-const r = spawnSync('sz', process.argv.slice(2), { stdio: 'inherit' });
+const fs = require('fs');
+const path = require('path');
+
+function realPath(p) {
+  try {
+    return fs.realpathSync(p);
+  } catch (_) {
+    return p;
+  }
+}
+
+const wrapperPath = realPath(__filename);
+const wrapperDir = path.dirname(wrapperPath);
+const packageRoot = path.dirname(wrapperDir);
+const configPath = path.join(packageRoot, '.system-zero-cli.json');
+
+function isExecutable(p) {
+  try {
+    fs.accessSync(p, fs.constants.X_OK);
+    return fs.statSync(p).isFile();
+  } catch (_) {
+    return false;
+  }
+}
+
+function configuredCliPath() {
+  try {
+    const parsed = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+    if (parsed && typeof parsed.cliPath === 'string' && isExecutable(parsed.cliPath)) {
+      return parsed.cliPath;
+    }
+  } catch (_) {
+    return null;
+  }
+  return null;
+}
+
+function resolveFromPathSkippingSelf() {
+  const seen = new Set();
+  const pathValue = process.env.PATH || '';
+  for (const dir of pathValue.split(path.delimiter)) {
+    if (!dir) continue;
+    const candidate = path.join(dir, 'sz');
+    const candidateReal = realPath(candidate);
+    const candidateDir = path.dirname(candidateReal);
+    if (seen.has(candidateReal)) continue;
+    seen.add(candidateReal);
+    if (candidateReal === wrapperPath || candidateDir === wrapperDir) continue;
+    if (isExecutable(candidateReal)) return candidateReal;
+  }
+  return null;
+}
+
+const cliPath = configuredCliPath() || resolveFromPathSkippingSelf();
+if (!cliPath) {
+  console.error('system-zero Python CLI was not found. Re-run `npm i -g system-zero` or install with `pipx install system-zero==0.1.0`.');
+  process.exit(1);
+}
+
+const r = spawnSync(cliPath, process.argv.slice(2), { stdio: 'inherit' });
 process.exit(r.status === null ? 1 : r.status);
