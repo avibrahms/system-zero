@@ -54,6 +54,11 @@ OPTIONAL_KEYS = [
     "RESEND_API_KEY",
 ]
 
+HOSTINGER_TARGET_ZONES = [
+    "systemzero.dev",
+    "system0.dev",
+]
+
 NETWORK_TARGETS = {
     "github": "https://api.github.com",
     "stripe": "https://api.stripe.com",
@@ -410,6 +415,23 @@ def validate_hostinger_token_and_domain(env: dict[str, str]) -> tuple[bool, bool
     return ok, ok, endpoint if ok else ""
 
 
+def validate_hostinger_target_zones(
+    env: dict[str, str],
+    endpoint: str,
+) -> dict[str, dict[str, object]]:
+    zone_results: dict[str, dict[str, object]] = {}
+    for zone in HOSTINGER_TARGET_ZONES:
+        status, _ = curl_request(
+            f"{endpoint}/zones/{zone}",
+            headers=[f"Authorization: Bearer {env['HOSTINGER_API_TOKEN']}"],
+        )
+        zone_results[zone] = {
+            "validated": status == 200,
+            "evidence": f"GET {endpoint}/zones/{zone} -> HTTP {status}",
+        }
+    return zone_results
+
+
 def validate_supabase_service(env: dict[str, str]) -> tuple[bool, bool, str]:
     headers = {
         "apikey": env["SUPABASE_SERVICE_ROLE_KEY"],
@@ -522,6 +544,9 @@ def main() -> int:
     hostinger_token_ok, hostinger_domain_ok, hostinger_endpoint = validate_hostinger_token_and_domain(env)
     record("HOSTINGER_API_TOKEN", present=bool(env.get("HOSTINGER_API_TOKEN")), validated=hostinger_token_ok, method="remote-api", evidence=f"GET {hostinger_endpoint}/zones/{env['HOSTINGER_DOMAIN']} -> HTTP 200" if hostinger_token_ok else f"GET /zones/{env['HOSTINGER_DOMAIN']} failed")
     record("HOSTINGER_DOMAIN", present=bool(env.get("HOSTINGER_DOMAIN")), validated=hostinger_domain_ok, method="remote-api", evidence=f"exact zone lookup for {env['HOSTINGER_DOMAIN']} -> HTTP 200" if hostinger_domain_ok else f"exact zone lookup for {env['HOSTINGER_DOMAIN']} failed")
+    hostinger_target_zones = (
+        validate_hostinger_target_zones(env, hostinger_endpoint) if hostinger_endpoint else {}
+    )
 
     fly_ok, fly_evidence = validate_fly(env)
     record("FLYIO_API_TOKEN", present=bool(env.get("FLYIO_API_TOKEN")), validated=fly_ok, method="remote-api", evidence=fly_evidence)
@@ -571,6 +596,7 @@ def main() -> int:
         },
         "dns_strategy": "hostinger-only",
         "hostinger_endpoint": hostinger_endpoint,
+        "hostinger_target_zones": hostinger_target_zones,
         "credentials": credentials,
     }
 
