@@ -4,7 +4,7 @@
 
 Make System Zero publicly usable. Audit the current-branch checkpoint history, run the full test bench, publish the Python package to PyPI, publish the npm wrapper to npm, create the Homebrew tap, deploy the cloud apps to Fly.io, point DNS at them via Hostinger, cut a v0.1.0 GitHub release, post a launch announcement.
 
-This phase introduces no new code beyond minor configuration; it executes the publishing steps.
+This phase introduces no new product scope beyond minor configuration; it executes the publishing steps. If a required release-channel or packaged smoke check exposes a defect that earlier local phase checks could not exercise, fix it in a current-branch launch hardening checkpoint before publishing or republishing the release. Those fixes must stay limited to making the already-specified v0.1.0 behavior work through the public install channels.
 
 ## Inputs
 
@@ -46,7 +46,7 @@ bash tests/distribution/test_install_channels.sh
 
 Verify: every command exits 0.
 
-Recovery: do not patch over failures. `git revert` the offending checkpoint commit(s), fix the underlying phase, rerun.
+Recovery: do not patch over failures. `git revert` the offending checkpoint commit(s), fix the underlying phase, rerun. For failures that reproduce only after packaging, public install, or release-channel execution, apply the minimum launch hardening fix on the current branch, rerun the full bench, and republish the affected release artifacts.
 
 ### Step 15.3 — Create public GitHub repos
 
