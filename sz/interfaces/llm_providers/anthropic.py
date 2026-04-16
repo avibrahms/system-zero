@@ -7,6 +7,12 @@ from types import SimpleNamespace
 import urllib.request
 
 
+def probe() -> dict[str, object]:
+    if os.environ.get("ANTHROPIC_API_KEY"):
+        return {"available": True, "reason": "ANTHROPIC_API_KEY is set", "source": "api_key"}
+    return {"available": False, "reason": "ANTHROPIC_API_KEY is not set", "source": "api_key"}
+
+
 def call(prompt: str, *, model: str | None = None, max_tokens: int = 1024):
     body = {
         "model": model or os.environ.get("ANTHROPIC_MODEL", "claude-3-5-haiku-latest"),

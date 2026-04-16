@@ -17,9 +17,11 @@ from sz.core import absorb as engine
 @click.option("--id", "module_id", default=None)
 @click.option("--dry-run", is_flag=True)
 @click.option("--auto-rollback", is_flag=True)
-def cmd(source, feature, ref, module_id, dry_run, auto_rollback):
+@click.option("--no-smoke", is_flag=True, help="Skip the post-install tick smoke test.")
+@click.option("--force", is_flag=True, help="Replace an existing absorbed module with the same id.")
+def cmd(source, feature, ref, module_id, dry_run, auto_rollback, no_smoke, force):
     try:
-        result = engine.absorb(source, feature, ref=ref, module_id=module_id, dry_run=dry_run)
+        result = engine.absorb(source, feature, ref=ref, module_id=module_id, dry_run=dry_run, force=force)
     except Exception as e:
         click.echo(f"absorb failed: {e}", err=True)
         sys.exit(1)
@@ -42,4 +44,21 @@ def cmd(source, feature, ref, module_id, dry_run, auto_rollback):
             else:
                 click.echo("leaving absorbed module installed for inspection", err=True)
             sys.exit(2)
+        if not no_smoke:
+            smoke = subprocess.run(
+                util.sz_command("tick", "--reason", f"absorb-smoke:{result['installed']}"),
+                capture_output=True,
+                text=True,
+            )
+            if smoke.returncode != 0:
+                click.echo("smoke tick failed after absorb", err=True)
+                if smoke.stdout.strip():
+                    click.echo(smoke.stdout.strip(), err=True)
+                if smoke.stderr.strip():
+                    click.echo(smoke.stderr.strip(), err=True)
+                if auto_rollback:
+                    click.echo("rolling back absorbed module", err=True)
+                    subprocess.run(util.sz_command("uninstall", result["installed"], "--confirm"), check=False)
+                sys.exit(3)
+            result["smoke"] = "passed"
     click.echo(json.dumps(result, indent=2))

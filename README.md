@@ -55,7 +55,7 @@ Every module talks to the rest of the world through exactly these interfaces. No
 
 **`bus`** — Append-only JSONL pub/sub. Modules emit events, subscribe by pattern. This is the nervous system — when something happens in one module, others can react.
 
-**`llm`** — Vendor-agnostic LLM invocation. Anthropic, OpenAI, Groq, or a mock for offline testing. Modules never see the provider name. They just call `sz llm invoke` and get structured output back.
+**`llm`** — Vendor-agnostic LLM invocation. System Zero now auto-discovers subscription-backed local CLIs first (`codex`, then `claude`) before falling back to API-backed providers (`openai`, `anthropic`, `groq`) and finally `mock`. Modules never see the vendor name. They just call `sz llm invoke` and get structured output back.
 
 **`storage`** — Guaranteed filesystem paths. Each module gets its own private directory. Shared namespaces exist for modules that negotiate access through capabilities.
 
@@ -232,7 +232,7 @@ install.sh           Curl installer
 
 **Fail gracefully.** A module that crashes is marked `degraded` and skipped on subsequent ticks — other modules keep running. A module that fails to install leaves no trace. The bus tolerates corrupted entries by seeking past them.
 
-**No vendor lock-in.** LLM provider is configurable. Host adapter is swappable. The protocol works fully offline with the `mock` provider. The cloud tier is optional — everything works locally without it.
+**No vendor lock-in.** LLM provider is configurable. S0 can auto-discover local subscription-backed CLIs, use repo-level or user-level provider preferences, or fall back to API keys. The protocol still works fully offline with the `mock` provider. The cloud tier is optional — everything works locally without it.
 
 **Modules are citizens, not plugins.** A module has its own memory, its own storage, its own lifecycle hooks. It's not a callback registered with a framework. It's an independent agent that happens to follow a shared protocol.
 

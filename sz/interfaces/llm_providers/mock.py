@@ -8,9 +8,17 @@ from pathlib import Path
 from types import SimpleNamespace
 
 
+def probe() -> dict[str, object]:
+    return {"available": True, "reason": "offline fallback always available", "source": "offline"}
+
+
 def _slug(value: str) -> str:
     slug = re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-")
     return (slug or "absorbed-feature")[:40].strip("-") or "absorbed-feature"
+
+
+def _short(value: str, limit: int) -> str:
+    return value[:limit].rstrip() or value
 
 
 def _absorb_response(prompt: str) -> dict:
@@ -33,7 +41,7 @@ def _absorb_response(prompt: str) -> dict:
     source_basename = source_file.split("/")[-1]
     return {
         "module_id": module_id,
-        "description": f"Deterministic absorbed module for {feature}.",
+        "description": _short(f"Deterministic absorbed module for {feature}.", 200),
         "category": "absorbed",
         "entry": {"type": "python", "command": "entry.py", "args": []},
         "triggers": [{"on": "tick"}],

@@ -87,7 +87,7 @@ Reserved event types (S0 emits these; modules may subscribe but not emit):
 
 ### 2.3 `llm`
 
-Vendor-agnostic LLM invocation. S0 reads `~/.sz/config.yaml` (and env overrides) to pick a provider. Modules never see the vendor name.
+Vendor-agnostic LLM invocation. S0 resolves a provider in this order: env override, repo `.sz.yaml`, user `~/.sz/config.yaml`, then auto-discovery. Auto-discovery prefers subscription-backed local CLIs (`codex`, then `claude_code`) before API-backed providers (`openai`, `anthropic`, `groq`) and finally `mock`. Modules never see the vendor name.
 
 ```
 sz llm invoke --prompt-file <path> [--model <profile>] [--max-tokens N] [--schema <path>]
@@ -95,7 +95,7 @@ sz llm invoke --prompt-file <path> [--model <profile>] [--max-tokens N] [--schem
 
 When `--schema <path>` is passed, the runtime applies the Constrained LLM Call discipline: validates the response, retries up to 2 more times on schema mismatch, and logs to `llm.calls`. Without `--schema`, the response is returned raw and CLC is bypassed (only allowed for prototyping; not for in-protocol calls).
 
-Providers shipped with v0.1: `anthropic`, `groq`, `openai`, `mock` (offline test fallback). Provider plug-in interface allows third parties to add more.
+Providers shipped with v0.1: `codex`, `claude_code`, `openai`, `anthropic`, `groq`, `mock` (offline test fallback). Provider plug-in interface allows third parties to add more.
 
 ### 2.4 `storage`
 
@@ -239,7 +239,14 @@ modules:
     quiet_hours:
       - "22:00-07:00"
 providers:
-  llm: anthropic | groq | openai | mock | <plugin>
+  llm: auto | codex | claude_code | anthropic | groq | openai | mock | <plugin>
+  llm_priority:
+    - codex
+    - claude_code
+    - openai
+    - anthropic
+    - groq
+    - mock
   vector: <provider-id> | none
 cloud:
   tier: free | pro | team
@@ -420,10 +427,20 @@ Flow:
 1. Clone source repo into `~/.sz/cache/absorb/<sha>/`.
 2. Inventory the repo (deterministic).
 3. Constrained LLM Call with `sz/templates/absorb_prompt.md` and schema `spec/v0.1.0/llm-responses/absorb-draft.schema.json`. Up to 2 retries on schema mismatch.
-4. Validate the drafted manifest against `spec/v0.1.0/manifest.schema.json`.
-5. Materialize: copy the chosen source files into `.sz/cache/absorb/<sha>/.staging/<module-id>/`. Write `module.yaml`, `entry`, `reconcile.sh`.
-6. Install via the standard install path (validate + install hook + reconcile).
-7. Run `sz doctor <module-id>`. If failed, optionally `--auto-rollback`.
+4. Normalize the draft into an executable protocol adapter: preserve selected source files under `source/`, preserve a bounded runnable source tree under `source_repo/`, infer and normalize a `behavior_contract.actions[]` list, repair invalid setpoints/triggers/requires, force an adapter entrypoint, add `doctor.sh`, and gate foreign execution behind `execution_mode`.
+5. Validate the normalized manifest against `spec/v0.1.0/manifest.schema.json`.
+6. Materialize: copy the chosen source files and bounded source tree into `.sz/cache/absorb/<sha>/.staging/<module-id>/`. Write `module.yaml`, `entry.py`, `reconcile.sh`, `doctor.sh`, and `source_manifest.json`.
+7. Install via the standard install path (validate + install hook + reconcile).
+8. Run `sz doctor <module-id>`. If failed, optionally `--auto-rollback`.
+9. Run one smoke tick unless `--no-smoke` is passed. In `execution_mode=observe`, the tick must emit an `absorbed.<module>.snapshot` event and leave pending work in `waiting_for_execute`. In `execution_mode=execute`, the tick must run the selected declared behavior action in an isolated workspace, write command evidence under `.sz/shared/absorbed/<module>/results/`, and record `completed`, `failed`, `timeout`, or `blocked`.
+
+Absorbed behavior contract:
+
+- Every absorbed module has `source_repo/` and `source_manifest.json.behavior_contract`.
+- `behavior_contract.actions[]` is the bridge from external behavior to S0: each action has a name, command argv, cwd, timeout, and output globs.
+- `execution_mode=observe` is safe discovery mode. It never marks behavior as completed.
+- `execution_mode=execute` is behavior mode. It runs a declared action in `.sz/shared/absorbed/<module>/workspaces/<task-id>/`, not in the host repo root.
+- A module that only snapshots source without a behavior contract is not a complete absorption.
 
 Critical rule: the absorb LLM may NOT modify any files outside `.sz/<new-id>/` or `.sz.yaml`. It never patches other modules. Cross-module concerns are handled by the standard reconcile cycle.
 

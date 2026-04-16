@@ -29,6 +29,7 @@
       "type": "object", "additionalProperties": false,
       "properties": {
         "llm": { "type": "string" },
+        "llm_priority": { "type": "array", "items": { "type": "string" } },
         "vector": { "type": "string" }
       }
     },

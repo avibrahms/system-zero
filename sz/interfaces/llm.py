@@ -5,14 +5,14 @@ import hashlib
 import importlib
 import json
 import os
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
 
 from jsonschema import Draft202012Validator
 import yaml
 
-from sz.core import paths, util
+from sz.core import paths, repo_config, util
 from sz.interfaces import memory
 
 
@@ -24,6 +24,33 @@ class LLMResult:
     tokens_out: int
     model: str
     provider: str
+
+
+@dataclass
+class ProviderResolution:
+    provider: str
+    source: str
+    reason: str
+    priority: list[str]
+    candidates: list[dict[str, Any]]
+
+
+SUPPORTED_PROVIDERS = {
+    "codex",
+    "claude_code",
+    "openai",
+    "anthropic",
+    "groq",
+    "mock",
+}
+DEFAULT_PROVIDER_PRIORITY = [
+    "codex",
+    "claude_code",
+    "openai",
+    "anthropic",
+    "groq",
+    "mock",
+]
 
 
 class CLCFailure(Exception):
@@ -40,10 +67,18 @@ def _user_config() -> dict[str, Any]:
     return loaded if isinstance(loaded, dict) else {}
 
 
-def _configured_provider() -> str | None:
-    if os.environ.get("SZ_LLM_PROVIDER"):
-        return os.environ["SZ_LLM_PROVIDER"].strip().lower()
-    config = _user_config()
+def _repo_runtime_config(start: Path | None = None) -> dict[str, Any]:
+    try:
+        root = paths.repo_root(start)
+    except FileNotFoundError:
+        return {}
+    try:
+        return repo_config.read(root)
+    except Exception:
+        return {}
+
+
+def _provider_from_config(config: dict[str, Any]) -> str | None:
     nested = config.get("providers")
     if isinstance(nested, dict) and nested.get("llm"):
         return str(nested["llm"]).strip().lower()
@@ -52,21 +87,147 @@ def _configured_provider() -> str | None:
     return None
 
 
-def selected_provider() -> str:
-    configured = _configured_provider()
-    if configured in {"anthropic", "groq", "openai", "mock"}:
-        return configured
-    if os.environ.get("OPENAI_API_KEY"):
-        return "openai"
-    if os.environ.get("GROQ_API_KEY"):
-        return "groq"
-    if os.environ.get("ANTHROPIC_API_KEY"):
-        return "anthropic"
-    return "mock"
+def _priority_from_config(config: dict[str, Any]) -> list[str]:
+    nested = config.get("providers")
+    raw = None
+    if isinstance(nested, dict):
+        raw = nested.get("llm_priority")
+    if raw is None:
+        raw = config.get("llm_provider_priority")
+    if isinstance(raw, str):
+        raw = [part.strip().lower() for part in raw.split(",")]
+    if not isinstance(raw, list):
+        return []
+    ordered: list[str] = []
+    for item in raw:
+        name = str(item).strip().lower()
+        if name in SUPPORTED_PROVIDERS and name not in ordered:
+            ordered.append(name)
+    return ordered
+
+
+def _configured_provider(start: Path | None = None) -> tuple[str | None, str | None]:
+    if os.environ.get("SZ_LLM_PROVIDER"):
+        return os.environ["SZ_LLM_PROVIDER"].strip().lower(), "env"
+    repo_cfg = _repo_runtime_config(start)
+    configured = _provider_from_config(repo_cfg)
+    if configured:
+        return configured, "repo_config"
+    user_cfg = _user_config()
+    configured = _provider_from_config(user_cfg)
+    if configured:
+        return configured, "user_config"
+    return None, None
+
+
+def _configured_priority(start: Path | None = None) -> tuple[list[str], str | None]:
+    if os.environ.get("SZ_LLM_PROVIDER_PRIORITY"):
+        priority = [
+            part.strip().lower()
+            for part in os.environ["SZ_LLM_PROVIDER_PRIORITY"].split(",")
+            if part.strip()
+        ]
+        return [name for name in priority if name in SUPPORTED_PROVIDERS], "env"
+    repo_cfg = _repo_runtime_config(start)
+    priority = _priority_from_config(repo_cfg)
+    if priority:
+        return priority, "repo_config"
+    user_cfg = _user_config()
+    priority = _priority_from_config(user_cfg)
+    if priority:
+        return priority, "user_config"
+    return [], None
 
 
 def _provider_module(provider_name: str):
     return importlib.import_module(f"sz.interfaces.llm_providers.{provider_name}")
+
+
+def _probe_provider(provider_name: str) -> dict[str, Any]:
+    provider = _provider_module(provider_name)
+    if hasattr(provider, "probe"):
+        probed = provider.probe()
+        if isinstance(probed, dict):
+            return {
+                "provider": provider_name,
+                "available": bool(probed.get("available")),
+                "reason": str(probed.get("reason") or ""),
+                "source": str(probed.get("source") or ""),
+            }
+    return {
+        "provider": provider_name,
+        "available": True,
+        "reason": "provider has no explicit probe and is assumed available",
+        "source": "implicit",
+    }
+
+
+def resolve_provider(start: Path | None = None) -> ProviderResolution:
+    configured, configured_source = _configured_provider(start)
+    priority, priority_source = _configured_priority(start)
+    if not priority:
+        priority = list(DEFAULT_PROVIDER_PRIORITY)
+    else:
+        for provider_name in DEFAULT_PROVIDER_PRIORITY:
+            if provider_name not in priority:
+                priority.append(provider_name)
+
+    if configured and configured != "auto":
+        if configured not in SUPPORTED_PROVIDERS:
+            return ProviderResolution(
+                provider="mock",
+                source=configured_source or "configured",
+                reason=f"unsupported configured provider `{configured}`; falling back to mock",
+                priority=priority,
+                candidates=[],
+            )
+        candidate = _probe_provider(configured)
+        if candidate["available"]:
+            return ProviderResolution(
+                provider=configured,
+                source=configured_source or "configured",
+                reason=candidate["reason"] or "configured provider available",
+                priority=priority,
+                candidates=[candidate],
+            )
+        return ProviderResolution(
+            provider="mock",
+            source=configured_source or "configured",
+            reason=f"configured provider `{configured}` unavailable: {candidate['reason'] or 'probe failed'}; falling back to mock",
+            priority=priority,
+            candidates=[candidate],
+        )
+
+    candidates = [_probe_provider(provider_name) for provider_name in priority]
+    for candidate in candidates:
+        if candidate["available"]:
+            selection_source = configured_source or priority_source or "auto"
+            if candidate["provider"] == "mock":
+                reason = candidate["reason"] or "no paid or subscription-backed provider available"
+            else:
+                reason = candidate["reason"] or "first available provider in priority order"
+            return ProviderResolution(
+                provider=candidate["provider"],
+                source=selection_source,
+                reason=reason,
+                priority=priority,
+                candidates=candidates,
+            )
+    return ProviderResolution(
+        provider="mock",
+        source=configured_source or priority_source or "auto",
+        reason="no provider probe reported available; falling back to mock",
+        priority=priority,
+        candidates=candidates,
+    )
+
+
+def selected_provider(start: Path | None = None) -> str:
+    return resolve_provider(start).provider
+
+
+def provider_status(start: Path | None = None) -> dict[str, Any]:
+    return asdict(resolve_provider(start))
 
 
 def _call_provider(prompt: str, *, model: str | None, max_tokens: int) -> Any:

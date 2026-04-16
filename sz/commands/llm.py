@@ -132,5 +132,9 @@ def _invoke(
 
 
 @group.command(name="provider")
-def _provider() -> None:
+@click.option("--json-output", "json_output", is_flag=True, help="Emit full provider resolution details as JSON.")
+def _provider(json_output: bool) -> None:
+    if json_output:
+        click.echo(json.dumps(llm.provider_status(), ensure_ascii=False))
+        return
     click.echo(llm.selected_provider())
