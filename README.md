@@ -192,7 +192,7 @@ pipx install sz-cli
 pip install sz-cli
 
 # npm
-# The npm wrapper is prepared; publication is pending npm 2FA verification.
+npm install -g system-zero
 ```
 
 Then:
@@ -218,7 +218,7 @@ spec/v0.1.0/         JSON schemas for manifests, LLM responses, registry
 PROTOCOL_SPEC.md     Human-readable protocol source of truth
 modules/             Built-in and example modules
 catalog/             Public module catalog
-npm-wrapper/         Thin npm launcher package, pending npm publication
+npm-wrapper/         Thin npm launcher package
 install.sh           Curl installer
 ```
 

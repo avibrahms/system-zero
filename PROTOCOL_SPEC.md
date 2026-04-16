@@ -452,7 +452,7 @@ Modules MAY register additional CLCs for their own purposes; the same discipline
 S0 ships through five channels, each defined in the release plan:
 
 - pip: `sz-cli` on PyPI.
-- npm: `system-zero` on npm registry as a thin wrapper that downloads + invokes the Python CLI. The wrapper is prepared; publication is pending npm 2FA verification.
+- npm: `system-zero` on npm registry as a thin wrapper that downloads + invokes the Python CLI.
 - curl: `https://systemzero.dev/i` returns an `install.sh` that auto-detects pipx vs pip.
 - brew: a tap at `avibrahms/homebrew-tap` (post-launch).
 - Web: `systemzero.dev` "Install on this repo" produces a copy-pasteable command.
