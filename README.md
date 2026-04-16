@@ -3,7 +3,7 @@
 [![PyPI](https://img.shields.io/pypi/v/sz-cli?style=for-the-badge&label=PyPI)](https://pypi.org/project/sz-cli/)
 [![Python](https://img.shields.io/pypi/pyversions/sz-cli?style=for-the-badge)](https://pypi.org/project/sz-cli/)
 [![Website](https://img.shields.io/badge/website-systemzero.dev-0f766e?style=for-the-badge)](https://systemzero.dev)
-[![Protocol](https://img.shields.io/badge/protocol-S0%20v0.1.0-111827?style=for-the-badge)](spec/v0.1.0/)
+[![Protocol](https://img.shields.io/badge/protocol-S0%20v0.1.0-111827?style=for-the-badge)](PROTOCOL_SPEC.md)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue?style=for-the-badge)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/avibrahms/system-zero?style=for-the-badge)](https://github.com/avibrahms/system-zero/stargazers)
 
@@ -215,6 +215,7 @@ sz/                  CLI source (Python, Click + Rich)
   adapters/          Host adapters (generic, claude_code, cursor, etc.)
   templates/         Prompt templates for Constrained LLM Calls
 spec/v0.1.0/         JSON schemas for manifests, LLM responses, registry
+PROTOCOL_SPEC.md     Human-readable protocol source of truth
 modules/             Built-in and example modules
 catalog/             Public module catalog
 npm-wrapper/         Thin npm launcher package, pending npm publication
