@@ -7,7 +7,7 @@ absorb from degenerating into "run some foreign repo on tick".
 from __future__ import annotations
 from pathlib import Path
 from typing import Any
-import hashlib, json, re, shutil, subprocess
+import hashlib, json, os, re, shutil, subprocess
 import yaml
 from sz.core import paths, manifest as manifest_core, util
 from sz.interfaces import llm
@@ -15,6 +15,62 @@ from sz.interfaces import llm
 CACHE = paths.user_config_dir() / "cache" / "absorb"
 TEXT_SUFFIXES = {".md", ".py", ".js", ".ts", ".sh", ".yaml", ".yml", ".toml", ".json"}
 DEFAULT_REQUIRED_PROVIDERS = ["bus", "memory", "discovery"]
+LOW_SIGNAL_DIRS = {
+    "archive",
+    "archives",
+    "artifacts",
+    "coverage",
+    "data",
+    "fixtures",
+    "logs",
+    "media",
+    "recordings",
+    "sessions",
+    "snapshots",
+    "tmp",
+}
+LOW_SIGNAL_SUFFIXES = {
+    ".csv",
+    ".db",
+    ".gif",
+    ".gz",
+    ".jpeg",
+    ".jpg",
+    ".jsonl",
+    ".lock",
+    ".log",
+    ".mp3",
+    ".mp4",
+    ".parquet",
+    ".pdf",
+    ".pickle",
+    ".png",
+    ".sqlite",
+    ".svg",
+    ".tar",
+    ".tgz",
+    ".webm",
+    ".webp",
+    ".zip",
+}
+HIGH_SIGNAL_BASENAMES = {
+    "agent.py",
+    "app.py",
+    "cli.py",
+    "dockerfile",
+    "entry.py",
+    "install.sh",
+    "main.py",
+    "makefile",
+    "package.json",
+    "program.md",
+    "pyproject.toml",
+    "readme.md",
+    "requirements.txt",
+    "run.sh",
+    "server.py",
+    "setup.py",
+}
 SOURCE_TREE_SKIP_DIRS = {
     ".git",
     ".staging",
@@ -69,31 +125,118 @@ def acquire(source: str, ref: str | None) -> Path:
 
 
 def inventory(src: Path, max_total_kb: int = 50) -> dict:
-    layout = []
-    files = []
-    file_paths = []
-    seen = 0
-    budget = max_total_kb * 1024
-    for p in sorted(src.rglob("*")):
-        rel_parts = p.relative_to(src).parts
+    def should_skip(rel_path: Path, *, is_dir: bool) -> bool:
+        rel_parts = rel_path.parts
+        lowered = [part.lower() for part in rel_parts]
         if any(part in SOURCE_TREE_SKIP_DIRS for part in rel_parts):
+            return True
+        if any(part in LOW_SIGNAL_DIRS for part in lowered[1:]):
+            return True
+        name = rel_path.name.lower()
+        if name == ".ds_store" or name.endswith(".bak"):
+            return True
+        if not is_dir and rel_path.suffix.lower() in LOW_SIGNAL_SUFFIXES:
+            return True
+        return False
+
+    def priority(rel_path: Path, *, is_dir: bool) -> int:
+        parts = [part.lower() for part in rel_path.parts]
+        name = rel_path.name.lower()
+        depth = len(parts)
+        score = 0
+        if name in HIGH_SIGNAL_BASENAMES:
+            score += 200
+        if any(
+            token in name
+            for token in (
+                "readme",
+                "guide",
+                "install",
+                "setup",
+                "agent",
+                "app",
+                "main",
+                "entry",
+                "cli",
+                "server",
+                "worker",
+                "run",
+                "launch",
+                "test",
+                "spec",
+                "prompt",
+            )
+        ):
+            score += 60
+        if rel_path.suffix.lower() in TEXT_SUFFIXES:
+            score += 40
+        if is_dir:
+            score += 30 if depth <= 2 else 10
+        else:
+            score += 80 if depth <= 2 else 25
+        if parts and parts[0] in LOW_SIGNAL_DIRS:
+            score -= 40
+        if any(part in {"archive", "archives", "sessions", "media", "logs"} for part in parts):
+            score -= 150
+        return score
+
+    budget = int(os.environ.get("SZ_ABSORB_INVENTORY_MAX_KB", str(max_total_kb))) * 1024
+    max_layout_items = int(os.environ.get("SZ_ABSORB_LAYOUT_MAX_ITEMS", "180"))
+    max_text_file_bytes = int(os.environ.get("SZ_ABSORB_CONTENT_MAX_FILE_BYTES", "12000"))
+    max_file_snippets = int(os.environ.get("SZ_ABSORB_MAX_FILE_SNIPPETS", "8"))
+
+    layout_candidates: list[tuple[int, str]] = []
+    file_candidates: list[tuple[int, str, Path]] = []
+    file_paths: list[str] = []
+    for p in sorted(src.rglob("*")):
+        rel_path = p.relative_to(src)
+        if should_skip(rel_path, is_dir=p.is_dir()):
             continue
+        rel = rel_path.as_posix()
+        path_priority = priority(rel_path, is_dir=p.is_dir())
         if p.is_dir():
-            layout.append(str(p.relative_to(src)) + "/")
+            layout_candidates.append((path_priority, rel + "/"))
             continue
-        rel = str(p.relative_to(src))
-        layout.append(rel)
+        layout_candidates.append((path_priority, rel))
         file_paths.append(rel)
-        if seen >= budget:
+        if p.suffix.lower() in TEXT_SUFFIXES and p.stat().st_size <= max_text_file_bytes:
+            file_candidates.append((path_priority, rel, p))
+
+    top_level_layout = sorted(
+        {rel for _, rel in layout_candidates if len(Path(rel.rstrip("/")).parts) <= 1}
+    )
+    deeper_layout = sorted(
+        (
+            (path_priority, rel)
+            for path_priority, rel in layout_candidates
+            if len(Path(rel.rstrip("/")).parts) > 1
+        ),
+        key=lambda item: (-item[0], item[1]),
+    )
+    selected_layout = list(top_level_layout)
+    seen_layout = set(selected_layout)
+    for _, rel in deeper_layout:
+        if rel in seen_layout:
             continue
-        if p.suffix in {".md", ".py", ".js", ".ts", ".sh", ".yaml", ".yml", ".toml", ".json"} and p.stat().st_size <= 5_000:
-            content = p.read_text(errors="replace")
-            remaining = max(0, budget - seen)
-            if len(content) > remaining:
-                content = content[:remaining] + "\n...[truncated]\n"
-            files.append(f"\n--- {rel} ---\n{content}\n")
-            seen += len(content)
-    return {"layout": "\n".join(layout[:400]), "files": "".join(files), "paths": file_paths}
+        selected_layout.append(rel)
+        seen_layout.add(rel)
+        if len(selected_layout) >= max_layout_items:
+            break
+
+    files = []
+    seen = 0
+    snippets = 0
+    for _, rel, path in sorted(file_candidates, key=lambda item: (-item[0], item[1])):
+        if seen >= budget or snippets >= max_file_snippets:
+            break
+        content = path.read_text(errors="replace")
+        remaining = max(0, budget - seen)
+        if len(content) > remaining:
+            content = content[:remaining] + "\n...[truncated]\n"
+        files.append(f"\n--- {rel} ---\n{content}\n")
+        seen += len(content)
+        snippets += 1
+    return {"layout": "\n".join(selected_layout), "files": "".join(files), "paths": file_paths}
 
 
 def render_prompt(template_path: Path, source: str, ref: str | None, feature: str, inv: dict) -> str:
