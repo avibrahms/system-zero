@@ -1,0 +1,39 @@
+id: persistent-memory
+version: 0.1.0
+category: memory
+description: Persistent memory layer that survives restarts and preserves context across sessions.
+
+entry:
+  type: python
+  command: entry.py
+
+triggers:
+  - on: tick
+  - on: event
+    match: "sdd\\..*"
+
+requires:
+  - providers: [memory, bus]
+
+provides:
+  - name: memory.persistent
+    address: storage:persistent-memory.db
+    description: SQLite-based persistent observation store
+
+setpoints:
+  auto_capture:
+    default: true
+    range: [true, false]
+    description: Auto-save important events
+  retention_days:
+    default: 90
+    range: [30, 365]
+    description: Days to keep observations
+  max_results:
+    default: 20
+    range: [5, 100]
+    description: Max search results
+
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh

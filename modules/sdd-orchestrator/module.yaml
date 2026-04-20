@@ -1,0 +1,47 @@
+id: sdd-orchestrator
+version: 0.1.0
+category: orchestration
+description: Orchestrates AI agents using Spec-Driven Development workflow with token optimization.
+
+entry:
+  type: python
+  command: entry.py
+
+triggers:
+  - on: event
+    match: "sdd\\..*"
+  - on: schedule
+    match: "0 */2 * * *"
+
+requires:
+  - providers: [memory, bus, llm]
+
+provides:
+  - name: sdd.workflow
+    address: bus:sdd.events
+    description: SDD workflow orchestration
+  - name: sdd.context
+    address: memory:sdd.context
+    description: Shared SDD context
+
+setpoints:
+  token_budget:
+    default: 100000
+    range: [10000, 500000]
+    description: Max tokens per cycle
+  max_retries:
+    default: 2
+    range: [0, 5]
+    description: LLM retry attempts
+  cache_enabled:
+    default: true
+    range: [true, false]
+    description: Enable caching
+  auto_verify:
+    default: true
+    range: [true, false]
+    description: Auto-verify after apply
+
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh
