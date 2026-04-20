@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://systemzero.dev/spec/v0.1.0/modules/persistent-memory.schema.json",
+  "title": "Persistent Memory Module",
+  "type": "object",
+  "required": ["id", "version", "category", "description", "entry", "provides", "requires"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "const": "persistent-memory"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "category": {
+      "type": "string",
+      "const": "memory"
+    },
+    "description": {
+      "type": "string"
+    },
+    "entry": {
+      "type": "object",
+      "required": ["type", "command"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "python"
+        },
+        "command": {
+          "type": "string"
+        }
+      }
+    },
+    "triggers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "on": {
+            "type": "string",
+            "enum": ["tick", "event", "schedule"]
+          },
+          "match": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "provides": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "requires": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "optional": {
+            "type": "boolean"
+          },
+          "on_missing": {
+            "type": "string",
+            "enum": ["warn", "error", "skip"]
+          }
+        }
+      }
+    },
+    "setpoints": {
+      "type": "object"
+    },
+    "hooks": {
+      "type": "object",
+      "properties": {
+        "reconcile": {
+          "type": "string"
+        },
+        "doctor": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

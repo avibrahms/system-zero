@@ -1,0 +1,43 @@
+id: approval-gate
+version: 0.1.0
+category: security
+description: Requires human approval before executing changes in the repository.
+
+entry:
+  type: python
+  command: entry.py
+
+triggers:
+  - on: event
+    match: "change\\.proposed"
+
+requires:
+  - providers: [bus, storage]
+
+provides:
+  - name: approval.required
+    address: bus:approval.events
+    description: Approval request events
+  - name: approval.decision
+    address: storage:approval/decisions.jsonl
+    description: Decision log
+
+setpoints:
+  mode:
+    default: approve
+    description: Approval mode (manual, approve, auto-low, auto-all)
+  notify_before:
+    default: true
+    range: [true, false]
+    description: Notify before changes
+  auto_low_threshold:
+    default: low
+    description: Auto-apply threshold
+  max_pending:
+    default: 10
+    range: [1, 50]
+    description: Max pending proposals
+
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh

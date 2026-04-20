@@ -1,0 +1,44 @@
+id: claude-skills-sync
+version: 0.1.0
+category: skills
+description: Installs and manages AI agent skills in repository, bringing modern development patterns.
+
+entry:
+  type: python
+  command: entry.py
+
+triggers:
+  - on: tick
+  - on: event
+    match: "repo\\.initialized"
+
+requires:
+  - providers: [storage, bus]
+
+provides:
+  - name: skills.installed
+    address: storage:claude-skills/
+    description: Installed skills registry
+  - name: skills.registry
+    address: memory:skills.registry
+    description: Skills metadata
+
+setpoints:
+  skills_dir:
+    default: docs/skills
+    description: Directory for skills
+  auto_update:
+    default: false
+    range: [true, false]
+    description: Auto-update on schedule
+  update_schedule:
+    default: weekly
+    description: Update frequency
+  pin_versions:
+    default: true
+    range: [true, false]
+    description: Lock versions
+
+hooks:
+  reconcile: reconcile.sh
+  doctor: doctor.sh
