@@ -27,18 +27,31 @@ A skills sync module that:
 
 ## Skills Installed
 
-| Skill | Description | Value |
-|-------|-------------|-------|
-| react-19 | React 19 with compiler | No more useMemo/useCallback |
-| nextjs-15 | Next.js 15 App Router | Server Actions, partial prerendering |
-| prisma | Type-safe ORM | Full TypeScript integration |
-| playwright | E2E testing | Page Objects, selectors |
-| tailwind-4 | Modern CSS | cn(), no var() in className |
-| zustand-5 | State management | New simplified API |
-| supabase | Firebase alternative | BaaS with PostgreSQL |
-| sdd | Spec-Driven Development | opspec workflow |
-| engram | Persistent memory | Cross-session context |
-| +30 more | Various frameworks | Full stack coverage |
+| Category | Skills |
+|---------|--------|
+| **React** | react-19, react |
+| **Next.js** | nextjs-15, nextjs |
+| **Angular** | angular-core, angular-architecture, angular-forms, angular-performance |
+| **Mobile** | react-native |
+| **State** | zustand-5, zustand, redux-toolkit, jotai, recoil |
+| **CSS** | tailwind-4, tailwind, nativewind, styled-components, emotion |
+| **Testing** | playwright, vitest, pytest, jest, cypress, testing-library, mocha |
+| **DB/ORM** | prisma, supabase, django-drf, sqlalchemy, drizzle, mongoose |
+| **Backend** | express, fastapi, flask, django, nestjs |
+| **Go** | go-testing, golang |
+| **DevOps** | github-actions, docker, gcp, cron, kubernetes, terraform |
+| **AI/Vector** | pinecone, weaviate, openai-sdk, ai-sdk-5 |
+| **Agents** | sdd, mcp-builder, elixir-antipatterns, make, n8n |
+| **Desktop** | electron |
+| **Vue** | svelte, sveltekit, vue, nuxt |
+| **TypeScript** | typescript, zod-4, zod |
+| **Java** | java-21, spring-boot-3, hexagonal-architecture |
+| **Monitor** | sentry, prometheus, grafana, elk |
+| **Integrations** | webhooks, whatsapp, stripe, twilio, sendgrid, mailgun |
+| **Messaging** | rabbitmq, kafka |
+| **Runtime** | deno, bun, pnpm, bolt-new, bash-scripting |
+
+**Total: 80+ skills** covering full stack development
 
 ## API Commands
 
